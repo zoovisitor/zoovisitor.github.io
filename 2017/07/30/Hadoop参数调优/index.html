@@ -11,7 +11,7 @@
 <li>容量内存递增（yarn.scheduler.increment-allocation-mb）</li>
 <li>最大容量内存（yarn.scheduler.maximum-allocation-mb）</li>
 </ul>
-<h2 id="3-MapReduce调优"><a href="#3-MapReduce调优" class="headerlink" title="3 MapReduce调优"></a>3 MapReduce调优</h2><p>（1）增大作业的并行程度<br>    实质上是改变输入分片（input split）的大小，输入分片是一个逻辑概念，是一个Map Task的输入。再调优的过程中，尽量让输入分片与块大小一样，这样就能实现计算本地化，减少不必要的网络传输。<br>    计算公式为：max(mapred.min.split.size, min(mapred.max.split.size, dfs.block.size))<br>（2）给每个任务足够的资源（受限于YARN资源的配置）</p>
+<h2 id="3-MapReduce调优"><a href="#3-MapReduce调优" class="headerlink" title="3 MapReduce调优"></a>3 MapReduce调优</h2><p>（1）增大作业的并行程度<br>实质上是改变输入分片（input split）的大小，输入分片是一个逻辑概念，是一个MapTask的输入。再调优的过程中，尽量让输入分片与块大小一样，这样就能实现计算本地化，减少不必要的网络传输。计算公式为：<br>    max(mapred.min.split.size, min(mapred.max.split.size, dfs.block.size))<br>（2）给每个任务足够的资源（受限于YARN资源的配置）</p>
 <ul>
 <li>Map任务内存（mapreduce.map.memory.mb）</li>
 <li>Reduce任务内存（mapreduce.reduce.memory.mb）</li>
