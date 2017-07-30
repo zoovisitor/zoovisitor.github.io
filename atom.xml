@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-30T10:11:44.000Z</updated>
+  <updated>2017-07-30T10:14:02.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/07/30/Hadoop%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98/"/>
     <id>http://yoursite.com/2017/07/30/Hadoop参数调优/</id>
     <published>2017-07-30T09:56:44.000Z</published>
-    <updated>2017-07-30T10:11:44.000Z</updated>
+    <updated>2017-07-30T10:14:02.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-HDFS调优"><a href="#1-HDFS调优" class="headerlink" title="1 HDFS调优"></a>1 HDFS调优</h2><ul>
 <li>设置合理的块大小（dfs.block.size）</li>
@@ -35,13 +35,17 @@
 <li>容量内存递增（yarn.scheduler.increment-allocation-mb）</li>
 <li>最大容量内存（yarn.scheduler.maximum-allocation-mb）</li>
 </ul>
-<h2 id="3-MapReduce调优"><a href="#3-MapReduce调优" class="headerlink" title="3 MapReduce调优"></a>3 MapReduce调优</h2><p>（1）增大作业的并行程度<br>实质上是改变输入分片（input split）的大小，输入分片是一个逻辑概念，是一个MapTask的输入。再调优的过程中，尽量让输入分片与块大小一样，这样就能实现计算本地化，减少不必要的网络传输。计算公式为：<br>    max(mapred.min.split.size, min(mapred.max.split.size, dfs.block.size))<br>（2）给每个任务足够的资源（受限于YARN资源的配置）</p>
+<h2 id="3-MapReduce调优"><a href="#3-MapReduce调优" class="headerlink" title="3 MapReduce调优"></a>3 MapReduce调优</h2><p>（1）增大作业的并行程度<br>实质上是改变输入分片（input split）的大小，输入分片是一个逻辑概念，是一个MapTask的输入。再调优的过程中，尽量让输入分片与块大小一样，这样就能实现计算本地化，减少不必要的网络传输。计算公式为：<br>`max(mapred.min.split.size, min(mapred.max.split.size, dfs.block.size))</p>
+<p>（2）给每个任务足够的资源（受限于YARN资源的配置）</p>
 <ul>
 <li>Map任务内存（mapreduce.map.memory.mb）</li>
 <li>Reduce任务内存（mapreduce.reduce.memory.mb）</li>
 <li>Map任务最大堆栈（mapreduce.map.java.opts.max.heep）</li>
 <li>Reduce任务最大堆栈（mapreduce.reduce.java.opts.max.heep）</li>
-<li>ApplicationMaster内存（yarn.app.mapreduce.am.resource.mb）<br>（3）在满足前两个条件下，尽可能的给shuffle预留资源</li>
+<li>ApplicationMaster内存（yarn.app.mapreduce.am.resource.mb）</li>
+</ul>
+<p>（3）在满足前两个条件下，尽可能的给shuffle预留资源</p>
+<ul>
 <li>最大洗牌链接（mapreduce.shuffle.max.connections）</li>
 <li>I/O排序内存缓存MiB（mapreduce.task.io.sort.mb）</li>
 <li>I/O排序因子（mapreduce.task.io.sort.factor）</li>
