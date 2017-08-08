@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-01T16:08:53.000Z</updated>
+  <updated>2017-08-07T14:57:31.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/07/30/Hadoop%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88HDFS%EF%BC%89/"/>
     <id>http://yoursite.com/2017/07/30/Hadoop分布式文件系统（HDFS）/</id>
     <published>2017-07-30T13:35:03.000Z</published>
-    <updated>2017-08-01T16:08:53.000Z</updated>
+    <updated>2017-08-07T14:57:31.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-设计目的"><a href="#1-设计目的" class="headerlink" title="1 设计目的"></a>1 设计目的</h2><ul>
 <li>易于扩展的分布式文件系统</li>
@@ -59,7 +59,18 @@
 <li>客户端需要使用特定的机制来处理NameNode的失效问题</li>
 </ul>
 <p><strong> 注：故障转移控制器（早期基于ZooKepper实现）可以监视寄主NameNode是否失效（心跳机制），并在失效时进行故障切换。</strong></p>
-<h2 id="4-文件读取"><a href="#4-文件读取" class="headerlink" title="4 文件读取"></a>4 文件读取</h2><h2 id="5-文件写入"><a href="#5-文件写入" class="headerlink" title="5 文件写入"></a>5 文件写入</h2><h2 id="6-一致模型"><a href="#6-一致模型" class="headerlink" title="6 一致模型"></a>6 一致模型</h2><h2 id="7-HDFS不擅长的方面"><a href="#7-HDFS不擅长的方面" class="headerlink" title="7 HDFS不擅长的方面"></a>7 HDFS不擅长的方面</h2><ul>
+<h2 id="4-文件读取"><a href="#4-文件读取" class="headerlink" title="4 文件读取"></a>4 文件读取</h2><p>客户端通过调用FileSystem对象的open()方法来打开希望读取的文件，对于HDFS而言，这个对象是分布式文件系统的实例（步骤1），DistributedFileSystem 通过使用 RPC 来调用NameNode，已确定文件起始块的位置（步骤2），包括该数据块及它的副本的DataName的地址，并根据它们和客户端的距离进行排序。</p>
+<p><img src="/images/hadoop/客户端读取HDFS数据.png" width="600" alt="客户端读取HDFS数据流程图"></p>
+<p>DistributedFileSystem返回一个FSDataInputStream对象给客户端，客户端利用这个输入流调用read方法（步骤3），随即 FSDataInputStream连接距离 最近的DataNode，反复调用read方法，将数据从DataNode传输给客户端（步骤4），到达数据块的末尾时，关闭数据流与DataNode之间的连接，然后寻找下一个数据块的最佳DataNode（步骤5）。</p>
+<p>客户端从流中读取数据时，FSDataInputStream会根据需要询问NameNode来检索下一批数据块的DataNode的位置，一旦客户端读取完成，就调用close方法。</p>
+<p>在读取数据时，如果DFSInputStream在与DataNode通信时遇到错误，会尝试从这个块的另一个最邻近位置读取数据，并记录故障的DataNode，防止后续不断的访问故障的DataNode中的其他数据块。DFSInputStream会通过校验和确认从DataNode读取的数据是否完整，如果发现有损坏的块，就会在DFSInputStream从其他DataNode读取其他副本之前通知NameNode。</p>
+<p>上述的设计方法的有以下几个重点：</p>
+<ul>
+<li>NameNode告知客户端每个块中最佳的DataNode，并让客户端直接连接到该DataNode检索数据</li>
+<li>由于数据流分散在集群中的所有DataNode，所以这种设计能使HDFS可扩展到大量的并发客户端</li>
+<li>NameNode只需响应块位置的请求，无需响应数据请求，避免由于客户端的增长而使NameNode成为瓶颈</li>
+</ul>
+<h2 id="5-文件写入"><a href="#5-文件写入" class="headerlink" title="5 文件写入"></a>5 文件写入</h2><h2 id="6-一致模型"><a href="#6-一致模型" class="headerlink" title="6 一致模型"></a>6 一致模型</h2><h2 id="7-HDFS不擅长的方面"><a href="#7-HDFS不擅长的方面" class="headerlink" title="7 HDFS不擅长的方面"></a>7 HDFS不擅长的方面</h2><ul>
 <li>低延迟和高吞吐率的数据访问，比如毫秒级</li>
 <li>小文件存取，占用大量的NameNode内存，寻道时间超过读取时间</li>
 <li>并发写入，文件随机读写，一个文件只能有一个writer，且仅支持append</li>
