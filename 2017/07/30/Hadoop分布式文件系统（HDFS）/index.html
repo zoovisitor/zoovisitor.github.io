@@ -46,7 +46,13 @@
 <li>由于数据流分散在集群中的所有DataNode，所以这种设计能使HDFS可扩展到大量的并发客户端</li>
 <li>NameNode只需响应块位置的请求，无需响应数据请求，避免由于客户端的增长而使NameNode成为瓶颈</li>
 </ul>
-<h2 id="5-文件写入"><a href="#5-文件写入" class="headerlink" title="5 文件写入"></a>5 文件写入</h2><h2 id="6-一致模型"><a href="#6-一致模型" class="headerlink" title="6 一致模型"></a>6 一致模型</h2><h2 id="7-HDFS不擅长的方面"><a href="#7-HDFS不擅长的方面" class="headerlink" title="7 HDFS不擅长的方面"></a>7 HDFS不擅长的方面</h2><ul>
+<h2 id="5-文件写入"><a href="#5-文件写入" class="headerlink" title="5 文件写入"></a>5 文件写入</h2><p>客户端通过DistributedFileSystem对NameNode创建一个RPC调用，在命名空间中创建一个文件，对象调用create函数来创建文件（步骤1），DistributedFileSystem对NameNode创建一个RPC调用，在命名空间中创建一个还没有数据块的文件（步骤2），NameNode执行不同的检测以确定文件不存在，且客户端有新建文件的权限。如果检验通过，则会向客户端返回一个FSDataOutputStream对象，该对象封装了一个DFSOutputStream对象，负责处理NameNode与DataNode之间的通信。</p>
+<p><img src="/images/hadoop/客户端写入数据到HDFS.png" width="600" alt="客户端写入数据到HDFS流程图"></p>
+<p>在客户单写入数据时(步骤3)，DFSOutputStream对象将数据分为一个个的数据包，构成数据队列。DataStreamer处理数据队列，它根据DataNode的队列要求NameNode分配合适的数据块来存放复本，假设系统设置的副本数为3，DataStreamer将数据包流式的传输给第1个DataNode，该DataNode存储数据包并将它发送到管道中的第2个DataNode，同样的第2个DataNode存储数据并它发送到管道中的第3个DataNode（步骤4）。</p>
+<p>DFSOutputStream也维护一个数据包队列来等待DataNode的收到确认回执，称为“确认队列”。收到队列中所有DataNode确认信息后，该数据包才会从确认队列中删除（步骤5）。</p>
+<p>如果在数据写入期间DataNode发生故障，则执行以下操作：<br>（1）首先关闭管道，确定把队列中的数据包都添加会数据队列的最前端，以确保故障节点的下游的DataNode不会漏掉任何一个数据包；<br>（2）为存储在另一正常DataNode的当前数据块制定一个新的标识，并将该标识传给NameNode，以便故障节点DataNode在恢复后可以删除存储的部分数据块；<br>（3）从管线中删除故障数据节点并且把余下的数据块写入管线中的两个正常的DataNode；<br>（4）namenode注意到块复本量不足时，会在另一个节点上创建一个新的复本，后续的数据块继续正常接收处理。</p>
+<p>客户端完成数据的写入后，就会对数据流调用close方法（步骤6）。在向NameNode节点发送完消息之前，此方法会将余下的所有数据包包放入DataNode管线并等待确认（步骤7）。NameNode节点已经知道文件由哪些块组成（通过Data streamer 询问块分配），所以它只需在返回成功前等待块进行最小量的复制即可。</p>
+<h2 id="6-HDFS不擅长的方面"><a href="#6-HDFS不擅长的方面" class="headerlink" title="6 HDFS不擅长的方面"></a>6 HDFS不擅长的方面</h2><ul>
 <li>低延迟和高吞吐率的数据访问，比如毫秒级</li>
 <li>小文件存取，占用大量的NameNode内存，寻道时间超过读取时间</li>
 <li>并发写入，文件随机读写，一个文件只能有一个writer，且仅支持append</li>
