@@ -123,9 +123,9 @@
     <link href="http://yoursite.com/2017/07/30/Hadoop%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98/"/>
     <id>http://yoursite.com/2017/07/30/Hadoop参数调优/</id>
     <published>2017-07-30T09:56:44.000Z</published>
-    <updated>2017-08-10T15:56:05.000Z</updated>
+    <updated>2017-08-10T15:59:18.000Z</updated>
     
-    <content type="html"><![CDATA[<p> Hadoop为用户作业提供了多种可配置的参数，以允许用户根据作业特点调整这些参数值使作业运行效率达到最优。</p>
+    <content type="html"><![CDATA[<p>在对Hadoop调优时，这是一个庞大的任务，这里进行分解来看，按Hadoop的组成模块来分，比如：我们可以安装HDFS、MapReduce、YARN等模块去优化对应的模块。若是在细分，我们可以优化其各个组件的相关配置文件，其每个模块都有对应的XML文件，在系统启动时，会通过Configure加载到系统当中，而对应的XML文件当中，配置的参数和属性比较多，有些参数是根据业务本身去优化，如：心跳间隔、缓冲区大小、JVM子进程最大内存、小文件的合并数、归并map输出数据占比等等。</p>
 <h2 id="1-HDFS调优"><a href="#1-HDFS调优" class="headerlink" title="1 HDFS调优"></a>1 HDFS调优</h2><ul>
 <li>设置合理的块大小（dfs.block.size）</li>
 <li>将中间结果目录设置为分布在多个磁盘以提升写入速度 （mapred.local.dir）</li>
@@ -161,8 +161,7 @@
     
     <summary type="html">
     
-      &lt;p&gt; Hadoop为用户作业提供了多种可配置的参数，以允许用户根据作业特点调整这些参数值使作业运行效率达到最优。&lt;/p&gt;
-&lt;h2 id=&quot;1-HDFS调优&quot;&gt;&lt;a href=&quot;#1-HDFS调优&quot; class=&quot;headerlink&quot; title=&quot;1 HDFS调优&quot;&gt;&lt;/a&gt;
+      &lt;p&gt;在对Hadoop调优时，这是一个庞大的任务，这里进行分解来看，按Hadoop的组成模块来分，比如：我们可以安装HDFS、MapReduce、YARN等模块去优化对应的模块。若是在细分，我们可以优化其各个组件的相关配置文件，其每个模块都有对应的XML文件，在系统启动时，会通过
     
     </summary>
     
