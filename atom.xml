@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-09T16:51:27.000Z</updated>
+  <updated>2017-08-10T15:26:01.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/07/30/Hadoop%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88HDFS%EF%BC%89/"/>
     <id>http://yoursite.com/2017/07/30/Hadoop分布式文件系统（HDFS）/</id>
     <published>2017-07-30T13:35:03.000Z</published>
-    <updated>2017-08-09T16:51:27.000Z</updated>
+    <updated>2017-08-10T15:26:01.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-设计目的"><a href="#1-设计目的" class="headerlink" title="1 设计目的"></a>1 设计目的</h2><ul>
 <li>易于扩展的分布式文件系统</li>
@@ -76,6 +76,9 @@
 <p>DFSOutputStream也维护一个数据包队列来等待DataNode的收到确认回执，称为“确认队列”。收到队列中所有DataNode确认信息后，该数据包才会从确认队列中删除（步骤5）。</p>
 <p>如果在数据写入期间DataNode发生故障，则执行以下操作：<br>（1）首先关闭管道，确定把队列中的数据包都添加会数据队列的最前端，以确保故障节点的下游的DataNode不会漏掉任何一个数据包；<br>（2）为存储在另一正常DataNode的当前数据块制定一个新的标识，并将该标识传给NameNode，以便故障节点DataNode在恢复后可以删除存储的部分数据块；<br>（3）从管线中删除故障数据节点并且把余下的数据块写入管线中的两个正常的DataNode；<br>（4）namenode注意到块复本量不足时，会在另一个节点上创建一个新的复本，后续的数据块继续正常接收处理。</p>
 <p>客户端完成数据的写入后，就会对数据流调用close方法（步骤6）。在向NameNode节点发送完消息之前，此方法会将余下的所有数据包包放入DataNode管线并等待确认（步骤7）。NameNode节点已经知道文件由哪些块组成（通过Data streamer 询问块分配），所以它只需在返回成功前等待块进行最小量的复制即可。</p>
+<hr>
+<p>副本如何放：<br>Hadoop的默认布局策略在运行客户端的节点上放第1个复本（如果客户端运行在集群之外，就随机的选择一个节点，不过系统会避免挑选那些存储太满或太忙的节点），第2个复本放在一个与第一个不同且随机另外选择的机架的节点上。第3个复本与第2个复本放在同一个机架上，且随机选择另一个节点。</p>
+<hr>
 <h2 id="6-HDFS不擅长的方面"><a href="#6-HDFS不擅长的方面" class="headerlink" title="6 HDFS不擅长的方面"></a>6 HDFS不擅长的方面</h2><ul>
 <li>低延迟和高吞吐率的数据访问，比如毫秒级</li>
 <li>小文件存取，占用大量的NameNode内存，寻道时间超过读取时间</li>
