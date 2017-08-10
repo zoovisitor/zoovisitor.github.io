@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-10T15:30:27.000Z</updated>
+  <updated>2017-08-10T15:50:10.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,13 +16,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Hadoop数据完整性</title>
+    <link href="http://yoursite.com/2017/08/10/Hadoop%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7/"/>
+    <id>http://yoursite.com/2017/08/10/Hadoop数据完整性/</id>
+    <published>2017-08-10T15:44:47.000Z</published>
+    <updated>2017-08-10T15:50:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-HDFS的数据完整性"><a href="#1-HDFS的数据完整性" class="headerlink" title="1 HDFS的数据完整性"></a>1 HDFS的数据完整性</h2><h2 id="2-LocalFileSystem"><a href="#2-LocalFileSystem" class="headerlink" title="2 LocalFileSystem"></a>2 LocalFileSystem</h2><h2 id="3-ChecksumFileSystem"><a href="#3-ChecksumFileSystem" class="headerlink" title="3 ChecksumFileSystem"></a>3 ChecksumFileSystem</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-HDFS的数据完整性&quot;&gt;&lt;a href=&quot;#1-HDFS的数据完整性&quot; class=&quot;headerlink&quot; title=&quot;1 HDFS的数据完整性&quot;&gt;&lt;/a&gt;1 HDFS的数据完整性&lt;/h2&gt;&lt;h2 id=&quot;2-LocalFileSystem&quot;&gt;&lt;a hre
+    
+    </summary>
+    
+      <category term="Hadoop" scheme="http://yoursite.com/categories/Hadoop/"/>
+    
+    
+      <category term="Hadoop的I/O操作" scheme="http://yoursite.com/tags/Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hadoop分布式文件系统（HDFS）</title>
     <link href="http://yoursite.com/2017/07/30/Hadoop%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88HDFS%EF%BC%89/"/>
     <id>http://yoursite.com/2017/07/30/Hadoop分布式文件系统（HDFS）/</id>
     <published>2017-07-30T13:35:03.000Z</published>
-    <updated>2017-08-10T15:30:27.000Z</updated>
+    <updated>2017-08-10T15:52:17.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1-设计目的"><a href="#1-设计目的" class="headerlink" title="1 设计目的"></a>1 设计目的</h2><ul>
+    <content type="html"><![CDATA[<p>HDFS有着高容错性（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。HDFS放宽了（relax）POSIX的要求（requirements）这样可以实现流的形式访问（streaming access）文件系统中的数据。</p>
+<h2 id="1-设计目的"><a href="#1-设计目的" class="headerlink" title="1 设计目的"></a>1 设计目的</h2><ul>
 <li>易于扩展的分布式文件系统</li>
 <li>运行在大量普通廉价机器上，提供完备的容错机制</li>
 <li>为大量用户提供性能不错的文件存取服务</li>
@@ -86,9 +109,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;1-设计目的&quot;&gt;&lt;a href=&quot;#1-设计目的&quot; class=&quot;headerlink&quot; title=&quot;1 设计目的&quot;&gt;&lt;/a&gt;1 设计目的&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;易于扩展的分布式文件系统&lt;/li&gt;
-&lt;li&gt;运行在大量普通廉价机器上，提供完备的容错机制&lt;/li
+      &lt;p&gt;HDFS有着高容错性（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。HDFS放宽了（rel
     
     </summary>
     
@@ -102,7 +123,7 @@
     <link href="http://yoursite.com/2017/07/30/Hadoop%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98/"/>
     <id>http://yoursite.com/2017/07/30/Hadoop参数调优/</id>
     <published>2017-07-30T09:56:44.000Z</published>
-    <updated>2017-07-30T14:13:40.000Z</updated>
+    <updated>2017-08-10T15:52:58.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-HDFS调优"><a href="#1-HDFS调优" class="headerlink" title="1 HDFS调优"></a>1 HDFS调优</h2><ul>
 <li>设置合理的块大小（dfs.block.size）</li>
