@@ -123,9 +123,10 @@
     <link href="http://yoursite.com/2017/07/30/Hadoop%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98/"/>
     <id>http://yoursite.com/2017/07/30/Hadoop参数调优/</id>
     <published>2017-07-30T09:56:44.000Z</published>
-    <updated>2017-08-10T15:52:58.000Z</updated>
+    <updated>2017-08-10T15:56:05.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1-HDFS调优"><a href="#1-HDFS调优" class="headerlink" title="1 HDFS调优"></a>1 HDFS调优</h2><ul>
+    <content type="html"><![CDATA[<p> Hadoop为用户作业提供了多种可配置的参数，以允许用户根据作业特点调整这些参数值使作业运行效率达到最优。</p>
+<h2 id="1-HDFS调优"><a href="#1-HDFS调优" class="headerlink" title="1 HDFS调优"></a>1 HDFS调优</h2><ul>
 <li>设置合理的块大小（dfs.block.size）</li>
 <li>将中间结果目录设置为分布在多个磁盘以提升写入速度 （mapred.local.dir）</li>
 <li>设置DataNode处理RPC的线程数，大集群可以适当加大 （dfs.datanode.handler.count）</li>
@@ -160,9 +161,8 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;1-HDFS调优&quot;&gt;&lt;a href=&quot;#1-HDFS调优&quot; class=&quot;headerlink&quot; title=&quot;1 HDFS调优&quot;&gt;&lt;/a&gt;1 HDFS调优&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;设置合理的块大小（dfs.block.size）&lt;/li&gt;
-&lt;li&gt;将中间结果目
+      &lt;p&gt; Hadoop为用户作业提供了多种可配置的参数，以允许用户根据作业特点调整这些参数值使作业运行效率达到最优。&lt;/p&gt;
+&lt;h2 id=&quot;1-HDFS调优&quot;&gt;&lt;a href=&quot;#1-HDFS调优&quot; class=&quot;headerlink&quot; title=&quot;1 HDFS调优&quot;&gt;&lt;/a&gt;
     
     </summary>
     
