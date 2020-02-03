@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-10T15:50:10.000Z</updated>
+  <updated>2017-08-13T15:58:50.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,24 +16,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hadoop数据完整性</title>
+    <title>Hadoop的I/O操作</title>
     <link href="http://yoursite.com/2017/08/10/Hadoop%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7/"/>
     <id>http://yoursite.com/2017/08/10/Hadoop数据完整性/</id>
     <published>2017-08-10T15:44:47.000Z</published>
-    <updated>2017-08-10T15:50:10.000Z</updated>
+    <updated>2017-08-13T15:58:50.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1-HDFS的数据完整性"><a href="#1-HDFS的数据完整性" class="headerlink" title="1 HDFS的数据完整性"></a>1 HDFS的数据完整性</h2><h2 id="2-LocalFileSystem"><a href="#2-LocalFileSystem" class="headerlink" title="2 LocalFileSystem"></a>2 LocalFileSystem</h2><h2 id="3-ChecksumFileSystem"><a href="#3-ChecksumFileSystem" class="headerlink" title="3 ChecksumFileSystem"></a>3 ChecksumFileSystem</h2>]]></content>
+    <content type="html"><![CDATA[<p>Hadoop自带一套原子操作用于数据I/O。其中一些技术，如数据完整性保持和压缩，对于处理多达数个TB的数据时，特别值得关注。另外一些hadoop工具或API，所形成的构建模块可用于开发分布式系统，比如序列化操作和on-disk数据结构。</p>
+<p>本文的主要讲述数据完整性、Hadoop压缩、Hadoop序列化和文件序列化。</p>
+<h2 id="1-数据完整性"><a href="#1-数据完整性" class="headerlink" title="1 数据完整性"></a>1 数据完整性</h2><p>检测数据是否损坏的常见措施是在数据第一次进入系统时计算校验和，并在数据通过一个不可靠的通道进行传输后再次计算计算校验和，如果计算所得的新校验和与原来的校验和不一致，则认为数据已损坏。常见的错误检测码是CRC-32（循环冗余校验），任何大小的数据输入均计算得到一个32位的整数校验和。</p>
+<ul>
+<li><p>客户端写数据：正在写数据的客户端将数据及其校验和发送到由一系列datanode组成的管线，管线中最后一个datanode负责验证校验和。如果检测到错误，客户端会收到一个ChecksumException异常（datanode负责在收到数据后存储该数据并验证校验和，它在收到客户端的数据或者复制其他datanode的数据时执行这个操作）。</p>
+</li>
+<li><p>客户端从datanode读数据：验证校验和，将它们与datanode中存储的校验和进行比较。每个datanode中持久保存有一个用于验证校验和的校验日志，它知道每个数据块的最后一次验证时间，客户端成功验证一个数据块后，会告诉datanode，由此更新日志。</p>
+</li>
+<li><p>每个datanode也会在后台中运行一个DataBlockScanner，从而定期验证存储在这个datanode上的所有数据块。</p>
+</li>
+<li><p>若datanode读取数据时发现数据损坏，首先向namenode报告，再抛出ChecksumException异常，namenode将这个数据块标记为损坏，之后它安排这个数据块的一个复本复制到另一个datanode，如此一来，数据的复本因子回到期望水平，已损坏的复本会被删除。</p>
+</li>
+</ul>
+<h2 id="2-压缩"><a href="#2-压缩" class="headerlink" title="2 压缩"></a>2 压缩</h2>]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;1-HDFS的数据完整性&quot;&gt;&lt;a href=&quot;#1-HDFS的数据完整性&quot; class=&quot;headerlink&quot; title=&quot;1 HDFS的数据完整性&quot;&gt;&lt;/a&gt;1 HDFS的数据完整性&lt;/h2&gt;&lt;h2 id=&quot;2-LocalFileSystem&quot;&gt;&lt;a hre
+      &lt;p&gt;Hadoop自带一套原子操作用于数据I/O。其中一些技术，如数据完整性保持和压缩，对于处理多达数个TB的数据时，特别值得关注。另外一些hadoop工具或API，所形成的构建模块可用于开发分布式系统，比如序列化操作和on-disk数据结构。&lt;/p&gt;
+&lt;p&gt;本文的主要讲述数据完
     
     </summary>
     
       <category term="Hadoop" scheme="http://yoursite.com/categories/Hadoop/"/>
     
-    
-      <category term="Hadoop的I/O操作" scheme="http://yoursite.com/tags/Hadoop%E7%9A%84I-O%E6%93%8D%E4%BD%9C/"/>
     
   </entry>
   
