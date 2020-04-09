@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-03T09:21:35.000Z</updated>
+  <updated>2020-03-25T02:55:16.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,13 +16,185 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>3、大数据处理常见问题梳理</title>
-    <link href="http://yoursite.com/2020/02/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%A2%B3%E7%90%86/"/>
-    <id>http://yoursite.com/2020/02/03/大数据处理常见问题梳理/</id>
+    <title>知识体系-其他常用知识梳理</title>
+    <link href="http://yoursite.com/2020/02/03/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
+    <id>http://yoursite.com/2020/02/03/知识体系-其他常用知识梳理/</id>
     <published>2020-02-03T09:09:48.000Z</published>
-    <updated>2020-02-03T09:21:35.000Z</updated>
+    <updated>2020-03-25T02:55:16.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="常用linux命令"><a href="#常用linux命令" class="headerlink" title="常用linux命令"></a>常用linux命令</h3><h4 id="文件查找-find"><a href="#文件查找-find" class="headerlink" title="文件查找 find"></a>文件查找 find</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">find [PATH] [option] [action]</div><div class="line"></div><div class="line"><span class="meta">#</span> 与时间有关的参数：</div><div class="line">-mtime n : n为数字，意思为在n天之前的“一天内”被更改过的文件；</div><div class="line">-mtime +n : 列出在n天之前（不含n天本身）被更改过的文件名；</div><div class="line">-mtime -n : 列出在n天之内（含n天本身）被更改过的文件名；</div><div class="line">-newer file : 列出比file还要新的文件名</div><div class="line"><span class="meta">#</span> 例如：</div><div class="line">find /root -mtime 0 # 在当前目录下查找今天之内有改动的文件</div><div class="line"></div><div class="line"><span class="meta">#</span> 与用户或用户组名有关的参数：</div><div class="line">-user name : 列出文件所有者为name的文件</div><div class="line">-group name : 列出文件所属用户组为name的文件</div><div class="line">-uid n : 列出文件所有者为用户ID为n的文件</div><div class="line">-gid n : 列出文件所属用户组为用户组ID为n的文件</div><div class="line"><span class="meta">#</span> 例如：</div><div class="line">find /home/hadoop -user hadoop # 在目录/home/hadoop中找出所有者为hadoop的文件</div><div class="line"></div><div class="line"><span class="meta">#</span> 与文件权限及名称有关的参数：</div><div class="line">-name filename ：找出文件名为filename的文件</div><div class="line">-size [+-]SIZE ：找出比SIZE还要大（+）或小（-）的文件</div><div class="line">-tpye TYPE ：查找文件的类型为TYPE的文件，TYPE的值主要有：一般文件（f)、设备文件（b、c）、</div><div class="line">             目录（d）、连接文件（l）、socket（s）、FIFO管道文件（p）；</div><div class="line">-perm mode ：查找文件权限刚好等于mode的文件，mode用数字表示，如0755；</div><div class="line">-perm -mode ：查找文件权限必须要全部包括mode权限的文件，mode用数字表示</div><div class="line">-perm +mode ：查找文件权限包含任一mode的权限的文件，mode用数字表示</div><div class="line"><span class="meta">#</span> 例如：</div><div class="line">find / -name passwd # 查找文件名为passwd的文件</div><div class="line">find . -perm 0755 # 查找当前目录中文件权限的0755的文件</div><div class="line">find . -size +12k # 查找当前目录中大于12KB的文件，注意c表示byte</div></pre></td></tr></table></figure>
+<h4 id="文件复制-cp"><a href="#文件复制-cp" class="headerlink" title="文件复制 cp"></a>文件复制 cp</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-a ：将文件的特性一起复制</div><div class="line">-p ：连同文件的属性一起复制，而非使用默认方式，与-a相似，常用于备份</div><div class="line">-i ：若目标文件已经存在时，在覆盖时会先询问操作的进行</div><div class="line">-r ：递归持续复制，用于目录的复制行为</div><div class="line">-u ：目标文件与源文件有差异时才会复制</div></pre></td></tr></table></figure>
+<h4 id="文件删除-rm"><a href="#文件删除-rm" class="headerlink" title="文件删除 rm"></a>文件删除 rm</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-f ：就是force的意思，忽略不存在的文件，不会出现警告消息</div><div class="line">-i ：互动模式，在删除前会询问用户是否操作</div><div class="line">-r ：递归删除，最常用于目录删除，它是一个非常危险的参数</div></pre></td></tr></table></figure>
+<h4 id="文件移动-mv"><a href="#文件移动-mv" class="headerlink" title="文件移动 mv"></a>文件移动 mv</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-f ：force强制的意思，如果目标文件已经存在，不会询问而直接覆盖</div><div class="line">-i ：若目标文件已经存在，就会询问是否覆盖</div><div class="line">-u ：若目标文件已经存在，且比目标文件新，才会更新</div></pre></td></tr></table></figure>
+<h4 id="压缩解压-tar"><a href="#压缩解压-tar" class="headerlink" title="压缩解压 tar"></a>压缩解压 tar</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-c ：新建打包文件</div><div class="line">-t ：查看打包文件的内容含有哪些文件名</div><div class="line">-x ：解打包或解压缩的功能，可以搭配-C（大写）指定解压的目录，注意-c,-t,-x不能同时出现在同一条命令中</div><div class="line">-j ：通过bzip2的支持进行压缩/解压缩</div><div class="line">-z ：通过gzip的支持进行压缩/解压缩</div><div class="line">-v ：在压缩/解压缩过程中，将正在处理的文件名显示出来</div><div class="line">-f filename ：filename为要处理的文件</div><div class="line">-C dir ：指定压缩/解压缩的目录dir</div></pre></td></tr></table></figure>
+<h4 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h4><p>1、ps 命令显示运行的进程，还会显示进程的一些信息如pid, cpu和内存使用情况等：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-A ：所有的进程均显示出来</div><div class="line">-a ：不与terminal有关的所有进程</div><div class="line">-u ：有效用户的相关进程</div><div class="line">-x ：一般与a参数一起使用，可列出较完整的信息</div><div class="line">-l ：较长，较详细地将PID的信息列出</div></pre></td></tr></table></figure></p>
+<p>2、kill 命令用于终止进程，参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">kill -signal PID</div><div class="line">1：SIGHUP，启动被终止的进程</div><div class="line">2：SIGINT，相当于输入ctrl+c，中断一个程序的进行</div><div class="line">9：SIGKILL，强制中断一个进程的进行</div><div class="line">15：SIGTERM，以正常的结束进程方式来终止进程</div><div class="line">17：SIGSTOP，相当于输入ctrl+z，暂停一个进程的进行</div><div class="line"></div><div class="line"># 例如 kill -9 3298</div></pre></td></tr></table></figure></p>
+<p>3、crontab命令是启动linux定时任务的服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">service cron start # 启动cronjob</div><div class="line">service cron stop # 停止cronjob</div><div class="line">service cron restart #  重启cronjob</div><div class="line">crontab -e # 编辑cronjob任务</div></pre></td></tr></table></figure></p>
+<p>4、free 命令用于显示Linux系统中空闲的、已用的物理内存及swap内存,及被内核使用的buffer：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-b 　以Byte为单位显示内存使用情况。 </div><div class="line">-k 　以KB为单位显示内存使用情况。 </div><div class="line">-m 　以MB为单位显示内存使用情况。</div><div class="line">-g   以GB为单位显示内存使用情况。 </div><div class="line">-o 　不显示缓冲区调节列。 </div><div class="line">-s&lt;间隔秒数&gt; 　持续观察内存使用状况。 </div><div class="line">-t 　显示内存总和列。 </div><div class="line">-V 　显示版本信息。</div></pre></td></tr></table></figure></p>
+<p>5、top 命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-b 批处理</div><div class="line">-c 显示完整的治命令</div><div class="line">-I 忽略失效过程</div><div class="line">-s 保密模式</div><div class="line">-S 累积模式</div><div class="line">-i&lt;时间&gt; 设置间隔时间</div><div class="line">-u&lt;用户名&gt; 指定用户名</div><div class="line">-p&lt;进程号&gt; 指定进程</div><div class="line">-n&lt;次数&gt; 循环显示的次数</div></pre></td></tr></table></figure></p>
+<h4 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h4><p>1、chmod命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">chmod [-R] xyz 文件或目录</div><div class="line">-R：进行递归的持续更改，即连同子目录下的所有文件都会更改</div><div class="line">#同时，chmod还可以使用u（user）、g（group）、o（other）、a（all）和+（加入）、-（删除）、=（设置）跟rwx搭配来对文件的权限进行更改，编号是各种权限的数字代码，示例：</div><div class="line">chmod 0755 file # 把file的文件权限改变为-rxwr-xr-x</div><div class="line">chmod g+w file # 向file的文件权限中加入用户组可写权限</div></pre></td></tr></table></figure></p>
+<p>2、chown命令改变文件所有者：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">chown [para]... [owner][:[group]] file...</div><div class="line">-c 显示更改的部分的信息</div><div class="line">-f 忽略错误信息</div><div class="line">-h 修复符号链接</div><div class="line">-R 处理指定目录以及其子目录下的所有文件</div><div class="line">-v 显示详细的处理信息</div><div class="line">-deference 作用于符号链接的指向，而不是链接文件本身</div></pre></td></tr></table></figure></p>
+<p>3、chgrp命令，改变文件所属组：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">-c 当发生改变时输出调试信息</div><div class="line">-f 不显示错误信息</div><div class="line">-R 处理指定目录以及其子目录下的所有文件</div><div class="line">-v 运行时显示详细的处理信息</div><div class="line">--dereference 作用于符号链接的指向，而不是符号链接本身</div><div class="line">--no-dereference 作用于符号链接本身</div></pre></td></tr></table></figure></p>
+<p>4、useradd 命令建立用户账号：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">useradd [-mMnr][-c &lt;备注&gt;][-d &lt;登入目录&gt;][-e &lt;有效期限&gt;][-f &lt;缓冲天数&gt;][-g &lt;群组&gt;][-G &lt;群组&gt;][-s ][-u ][用户帐号] </div><div class="line"></div><div class="line">-c #&lt;备注&gt; 　加上备注文字。备注文字会保存在passwd的备注栏位中。　</div><div class="line">-d #&lt;登入目录&gt; 　指定用户登入时的启始目录。</div><div class="line">-D #　变更预设值．</div><div class="line">-e # &lt;有效期限&gt; 　指定帐号的有效期限。</div><div class="line">-f # &lt;缓冲天数&gt; 　指定在密码过期后多少天即关闭该帐号。</div><div class="line">-g # &lt;群组&gt; 　指定用户所属的群组。</div><div class="line">-G # &lt;群组&gt; 　指定用户所属的附加群组。</div><div class="line">-m # 自动建立用户的登入目录。</div><div class="line">-M # 不要自动建立用户的登入目录。</div><div class="line">-n # 取消建立以用户名称为名的群组．</div><div class="line">-r # 建立系统帐号。</div><div class="line">-s # 指定用户登入后所使用的shell。</div><div class="line">-u # 指定用户ID。</div></pre></td></tr></table></figure></p>
+<h4 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h4><p>1、vi/vim 是使用vi编辑器的命令<br>2、 less　命令用法比起 more 更加的有弹性。在 more 的时候，我们并没有办法向前面翻， 只能往后面看，但若使用了 less 时，就可以使用 [pageup] [pagedown] 等按键的功能来往前往后翻看文件，更容易用来查看一个文件的内容！除此之外，在 less 里头可以拥有更多的搜索功能，不止可以向下搜，也可以向上搜。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">less [参数]  文件 </div><div class="line">-b &lt;缓冲区大小&gt; 设置缓冲区的大小</div><div class="line">-e 当文件显示结束后，自动离开</div><div class="line">-f 强迫打开特殊文件，例如外围设备代号、目录和二进制文件</div><div class="line">-g 只标志最后搜索的关键词</div><div class="line">-i 忽略搜索时的大小写</div><div class="line">-m 显示类似more命令的百分比</div><div class="line">-N 显示每行的行号</div><div class="line">-o &lt;文件名&gt; 将less 输出的内容在指定文件中保存起来</div><div class="line">-Q 不使用警告音</div><div class="line">-s 显示连续空行为一行</div><div class="line">-S 行过长时间将超出部分舍弃</div><div class="line">-x &lt;数字&gt; 将“tab”键显示为规定的数字空格</div><div class="line">/字符串：向下搜索“字符串”的功能</div><div class="line">?字符串：向上搜索“字符串”的功能</div><div class="line">n：重复前一个搜索（与 / 或 ? 有关）</div><div class="line">N：反向重复前一个搜索（与 / 或 ? 有关）</div><div class="line">b 向后翻一页</div><div class="line">d 向后翻半页</div><div class="line">h 显示帮助界面</div><div class="line">Q 退出less 命令</div><div class="line">u 向前滚动半页</div><div class="line">y 向前滚动一行</div><div class="line">空格键 滚动一行</div><div class="line">回车键 滚动一页</div><div class="line">[pagedown]： 向下翻动一页</div><div class="line">[pageup]： 向上翻动一页</div></pre></td></tr></table></figure></p>
+<p>3、whereis 命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。和find相比，whereis查找的速度非常快，这是因为linux系统会将 系统内的所有文件都记录在一个数据库文件中，当使用whereis和locate时，会从数据库中查找数据，而不是像find命令那样，通过遍历硬盘来查找，效率自然会很高。 但是该数据库文件并不是实时更新，默认情况下时一星期更新一次，因此，我们在用whereis和locate 查找文件时，有时会找到已经被删除的数据，或者刚刚建立文件，却无法查找到，原因就是因为数据库文件没有被更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">whereis [-bmsu] [BMS 目录名 -f ] 文件名</div><div class="line">　-b 定位可执行文件。</div><div class="line">　-m   定位帮助文件。</div><div class="line">　-s   定位源代码文件。</div><div class="line">　-u   搜索默认路径下除可执行文件、源代码文件、帮助文件以外的其它文件。</div><div class="line">　-B   指定搜索可执行文件的路径。</div><div class="line">　-M   指定搜索帮助文件的路径。</div><div class="line">　-S   指定搜索源代码文件的路径。</div></pre></td></tr></table></figure></p>
+<p>4、grep命令，该命令常用于分析一行的信息，若当中有我们所需要的信息，就将该行显示出来，该命令通常与管道命令一起使用，用于对一些命令的输出进行筛选加工等等，比如可以加在ps, tail, cat后面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">grep [options]</div><div class="line">-c：只输出匹配行的计数。</div><div class="line">-i：不区分大小写。</div><div class="line">-h：查询多文件时不显示文件名。</div><div class="line">-l：查询多文件时只输出包含匹配字符的文件名。</div><div class="line">-n：显示匹配行及 行号。</div><div class="line">-s：不显示不存在或无匹配文本的错误信息。</div><div class="line">-v：显示不包含匹配文本的所有行。</div><div class="line">--color=auto ：可以将找到的关键词部分加上颜色的显示。</div></pre></td></tr></table></figure></p>
+<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><h3 id="MySQL数据库的四类索引"><a href="#MySQL数据库的四类索引" class="headerlink" title="MySQL数据库的四类索引"></a>MySQL数据库的四类索引</h3><ul>
+<li>index：普通索引,数据可以重复，没有任何限制。</li>
+<li>unique：唯一索引,要求索引列的值必须唯一，但允许有空值；如果是组合索引，那么列值的组合必须唯一。</li>
+<li>primary key：主键索引,是一种特殊的唯一索引，一个表只能有一个主键，不允许有空值，一般是在创建表的同时创建主键索引。</li>
+<li>组合索引：在多个字段上创建的索引，只有在查询条件中使用了创建索引时的第一个字段，索引才会被使用。</li>
+<li>fulltext：全文索引,是对于大表的文本域：char，varchar，text列才能创建全文索引，主要用于查找文本中的关键字，并不是直接与索引中的值进行比较。fulltext更像是一个搜索引擎，配合match against操作使用，而不是一般的where语句加like。</li>
+</ul>
+<h3 id="索引生效条件"><a href="#索引生效条件" class="headerlink" title="索引生效条件"></a>索引生效条件</h3><p>假设index（a,b,c）</p>
+<ul>
+<li>最左前缀匹配：模糊查询时，使用%匹配时：’a%‘会使用索引，’%a‘不会使用索引</li>
+<li>条件中有or，索引不会生效</li>
+<li>a and c，a生效，c不生效</li>
+<li>b and c，都不生效</li>
+<li>a and b &gt; 5 and c,a和b生效，c不生效</li>
+</ul>
+<h3 id="数据库三范式"><a href="#数据库三范式" class="headerlink" title="数据库三范式"></a>数据库三范式</h3><ul>
+<li>第一范式：1NF是对属性的原子性约束，要求字段具有原子性，不可再分解；(只要是关系型数据库都满足1NF)</li>
+<li>第二范式：2NF是在满足第一范式的前提下，非主键字段不能出现部分依赖主键；解决：消除复合主键就可避免出现部分以来，可增加单列关键字。</li>
+<li>第三范式：3NF是在满足第二范式的前提下，非主键字段不能出现传递依赖，比如某个字段a依赖于主键，而一些字段依赖字段a，这就是传递依赖。解决：将一个实体信息的数据放在一个表内实现</li>
+</ul>
+<h3 id="存储引擎-MyISAM-和-InnoDB区别"><a href="#存储引擎-MyISAM-和-InnoDB区别" class="headerlink" title="存储引擎 MyISAM 和 InnoDB区别"></a>存储引擎 MyISAM 和 InnoDB区别</h3><p>1、索引管理<br>MyISM和InnoDB索引都是由B+树实现的，但在索引管理数据方式上却有所不同。</p>
+<p>InnoDB是聚集索引，数据文件是和（主键）索引绑在一起的，即索引 + 数据 = 整个表数据文件，通过主键索引到整个记录，必须要有主键，通过主键索引效率很高。但是辅助索引需要两次查询，因为辅助索引是以建索引的字段为关键字索引到主键，所以需要两次，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大。<br>主键索引：以主键索引到整条记录<br><img src="/images/mysql/InnoDB-索引1.png" width="600"><br>辅助索引：以另一字段索引到主键<br><img src="/images/mysql/InnoDB-索引2.png" width="600"></p>
+<p>MyISAM是非聚集索引，也是使用B+Tree作为索引结构，索引和数据文件是分离的，索引保存的是数据文件的指针。主键索引和辅助索引是独立的。也就是说：InnoDB的B+树主键索引的叶子节点就是数据文件，辅助索引的叶子节点是主键的值；而MyISAM的B+树主键索引和辅助索引的叶子节点都是数据文件的地址指针。<br> 主键索引：以关键字索引到记录的地址<br><img src="/images/mysql/MyISAM-索引1.png" width="600"></p>
+<p>辅助索引：以某字段索引到记录地址<br><img src="/images/mysql/InnoDB-索引2.png" width="600"></p>
+<p>从索引实现方面我们也可以看出来InnoDB表数据文件本身就是索引文件，他们是一个整体，而对于MyISAM来说数据文件和索引文件则是分开的。</p>
+<p>知道了索引实现后，就很容易明白：</p>
+<ul>
+<li>为什么不建议使用过长的字段作为主键，因为所有辅助索引都引用主索引，过长的主索引会令辅助索引变得过大。</li>
+<li>用非单调的字段作为主键在InnoDB中不是个好主意，因为InnoDB数据文件本身是一颗B+Tree，非单调的主键会造成在插入新记录时数据文件为了维持B+Tree的特性而频繁的分裂调整，十分低效，而使用自增字段作为主键则是一个很好的选择。</li>
+<li>myisam的主键索引的叶子节点只存放数据在物理磁盘上的指针，其他次索引也是一样的</li>
+<li>innodb的主键索引的叶子节点下面直接存放数据，其他次索引的叶子节点指向主键id</li>
+<li>如果Innodb有大数据列，比如 varchar(300)，这种比较多的话，那么排序的时候用主键id排序会比较慢，因为id主键下面放着所有数据列，而Myisam就不需要扫描数据列，要解决这个问题的话可以再建一个和主键id一起的联合索引</li>
+<li>MyISAM表索引在处理文本索引时更具优势，而INNODB表索引在其它类型上更具效率优势。比如全文索引一般在CHAR、VARCHAR或TEXT列上创建，MyISAM表支持而INNODB表不支持，常见主要针对文本进行索引。同时MySQL高并发需要事务场景时，只能使用INNODB表。</li>
+</ul>
+<p>2、锁方面<br>mysql支持三种锁定级别，行级、页级、表级;<br>MyISAM支持表级锁定，提供与 Oracle 类型一致的不加锁读取(non-locking read in SELECTs)<br>InnoDB支持行级锁，但值得注意的是InnoDB的行锁是加到索引上的，所以在某次查找时没有用上索引，InnoDB表同样会锁全表。</p>
+<p>3、事务方面<br>InnoDB具有事务，支持4个事务隔离级别，回滚，崩溃修复能力和多版本并发的事务安全，包括ACID。如果应用中需要执行大量的INSERT或UPDATE操作，则应该使用InnoDB，以事务为单位操作可以提高多用户并发操作的性能。<br>MyISAM管理非事务表。它提供高速存储和检索，以及全文搜索能力。如果应用中需要执行大量的SELECT查询，那么MyISAM是更好的选择</p>
+<p>4、并发<br>MyISAM读写互相阻塞：不仅会在写入的时候阻塞读取，MyISAM还会在读取的时候阻塞写入，但读本身并不会阻塞另外的读。<br>InnoDB 读写阻塞与事务隔离级别相关。</p>
+<p>4、其他<br>InnoDB不保存表的具体行数，执行select count(*) from table时需要全表扫描。而MyISAM用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快；</p>
+<p>综上所述：<br>因为MyISAM相对简单所以在效率上要优于InnoDB，如果系统读多，写少，对原子性要求低，那么MyISAM最好的选择，且MyISAM恢复速度快，可直接用备份覆盖恢复。<br>如果系统读少，写多的时候，尤其是并发写入高的时候。InnoDB就是首选了。两种类型都有自己优缺点，选择那个完全要看自己的实际类弄。</p>
+<h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><p>一个存储过程是一个可编程的函数，它在数据库中创建并保存。它可以有SQL语句和一些特殊的控制结构组成。当希望在不同的应用程序或平台上执行相同的函数，或者封装特定功能时，存储过程是非常有用的。数据库中的存储过程可以看做是对编程中面向对象方法的模拟。它允许控制数据的访问方式。</p>
+<ul>
+<li>存储过程增强了SQL语言的功能和灵活性。存储过程可以用流控制语句编写，有很强的灵活性，可以完成复杂的判断和较复杂的运算。</li>
+<li>存储过程允许标准组件是编程。存储过程被创建后，可以在程序中被多次调用，而不必重新编写该存储过程的SQL语句。而且数据库专业人员可以随时对存储过程进行修改，对应用程序源代码毫无影响。</li>
+<li>存储过程能实现较快的执行速度。如果某一操作包含大量的Transaction-SQL代码或分别被多次执行，那么存储过程要比批处理的执行速度快很多。因为存储过程是预编译的。在首次运行一个存储过程时查询，优化器对其进行分析优化，并且给出最终被存储在系统表中的执行计划。而批处理的Transaction-SQL语句在每次运行时都要进行编译和优化，速度相对要慢一些。</li>
+<li>存储过程能过减少网络流量。针对同一个数据库对象的操作（如查询、修改），如果这一操作所涉及的Transaction-SQL语句被组织程存储过程，那么当在客户计算机上调用该存储过程时，网络中传送的只是该调用语句，从而大大增加了网络流量并降低了网络负载。</li>
+<li>存储过程可被作为一种安全机制来充分利用。系统管理员通过执行某一存储过程的权限进行限制，能够实现对相应的数据的访问权限的限制，避免了非授权用户对数据的访问，保证了数据的安全</li>
+</ul>
+<h3 id="delete、drop、truncate区别"><a href="#delete、drop、truncate区别" class="headerlink" title="delete、drop、truncate区别"></a>delete、drop、truncate区别</h3><ul>
+<li>truncate 和 delete只删除数据，不删除表结构 ,drop删除表结构，并且释放所占的空间。</li>
+<li>删除数据的速度，drop&gt; truncate &gt; delete</li>
+<li>delete属于DML语言，需要事务管理，commit之后才能生效。drop和truncate属于DDL语言，操作立刻生效，不可回滚。<br>使用场合：</li>
+<li>当你不再需要该表时， 用 drop;</li>
+<li>当你仍要保留该表，但要删除所有记录时， 用 truncate</li>
+<li>当你要删除部分记录时（always with a where clause), 用 delete<br>注意： 对于有主外键关系的表，不能使用truncate而应该使用不带where子句的delete语句，由于truncate不记录在日志中，不能够激活触发器</li>
+</ul>
+<h3 id="脏读、幻读、不可重复读"><a href="#脏读、幻读、不可重复读" class="headerlink" title="脏读、幻读、不可重复读"></a>脏读、幻读、不可重复读</h3><ul>
+<li>脏读: 是指事务T1将某一值修改，然后事务T2读取该值，此后T1因为某种原因撤销对该值的修改，这就导致了T2所读取到的数据是无效的</li>
+<li>不可重复读 ：是指在数据库访问时，一个事务范围内的两次相同查询却返回了不同数据。在一个事务内多次读同一数据。在这个事务还没有结束时，另外一个事务也访问该同一数据。那么在第一个事务中的两次读数据之间，由于第二个事务的修改，第一个事务两次读到的的数据可能是不一样的。这样在一个事务内两次读到的数据是不一样的，因此称为是不可重复读。</li>
+<li>幻读: 是指当事务不是独立执行时发生的一种现象，比如第一个事务对一个表中的数据进行了修改，这种修改涉及到表中的全部数据行。同时，第二个事务也修改这个表中的数据，这种修改是向表中插入一行新数据。那么就会发生，操作第一个事务的用户发现表中还有没有修改的数据行，就好象发生了幻觉一样。<br>注：不可重复读重点在于update和delete，而幻读的重点在于insert。如何通过锁机制来解决他们产生的问题</li>
+</ul>
+<h2 id="网络知识"><a href="#网络知识" class="headerlink" title="网络知识"></a>网络知识</h2><h3 id="Http和Https的区别"><a href="#Http和Https的区别" class="headerlink" title="Http和Https的区别"></a>Http和Https的区别</h3><p>1、Http：超文本传输协议（Http，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。设计Http最初的目的是为了提供一种发布和接收HTML页面的方法。它可以使浏览器更加高效。Http协议是以明文方式发送信息的，如果黑客截取了Web浏览器和服务器之间的传输报文，就可以直接获得其中的信息。<br>2、Https：是以安全为目标的Http通道，是Http的安全版。Https的安全基础是SSL。SSL协议位于TCP/IP协议与各种应用层协议之间，为数据通讯提供安全支持。SSL协议可分为两层：SSL记录协议（SSL Record Protocol），它建立在可靠的传输协议（如TCP）之上，为高层协议提供数据封装、压缩、加密等基本功能的支持。SSL握手协议（SSL Handshake Protocol），它建立在SSL记录协议之上，用于在实际的数据传输开始前，通讯双方进行身份认证、协商加密算法、交换加密密钥等。</p>
+<h3 id="对称加密与非对称加密"><a href="#对称加密与非对称加密" class="headerlink" title="对称加密与非对称加密"></a>对称加密与非对称加密</h3><p>1、对称加密: 加密和解密的秘钥使用的是同一个<br>密钥较短，破译困难，除了数据加密标准（DES），另一个对称密钥加密系统是国际数据加密算法（IDEA），它比DES的加密性好，且对计算机性能要求也没有那么高.</p>
+<ul>
+<li>优点: 算法公开、计算量小、加密速度快、加密效率高</li>
+<li>缺点: 在数据传送前，发送方和接收方必须商定好秘钥，然后 使双方都能保存好秘钥。其次如果一方的秘钥被泄露，那么加密信息也就不安全了。另外，每对用户每次使用对称加密算法时，都需要使用其他人不知道的唯一秘钥，这会使得收、发双方所拥有的钥匙数量巨大，密钥管理成为双方的负担。</li>
+<li>常见的对称加密算法有: DES、3DES、Blowfish、IDEA、RC4、RC5、RC6 和 AES </li>
+</ul>
+<p>2、非对称加密: 与对称加密算法不同，非对称加密算法需要两个密钥：公开密钥（publickey）和私有密钥（privatekey）<br>非对称加密算法实现机密信息交换的基本过程是：甲方生成一对密钥并将其中的一把作为公用密钥向其它方公开；得到该公用密钥的乙方使用该密钥对机密信息进行加密后再发送给甲方；甲方再用自己保存的另一把专用密钥对加密后的信息进行解密。甲方只能用其专用密钥解密由其公用密钥加密后的任何信息。</p>
+<ul>
+<li>优点：安全</li>
+<li>缺点：速度较慢<br>常见的非对称加密算法有: RSA、ECC（移动设备用）、Diffie-Hellman、El Gamal、DSA（数字签名用）</li>
+</ul>
+<p>3、Hash算法<br>Hash算法特别的地方在于它是一种单向算法，用户可以通过hash算法对目标信息生成一段特定长度的唯一hash值，却不能通过这个hash值重新获得目标信息。因此Hash算法常用在不可还原的密码存储、信息完整性校验等。<br>常见的摘要算法有: MD2、MD4、MD5、HAVAL、SHA</p>
+<h3 id="三次握手与四次挥手"><a href="#三次握手与四次挥手" class="headerlink" title="三次握手与四次挥手"></a>三次握手与四次挥手</h3><p>1、三次握手</p>
+<ul>
+<li>第一次握手：建立连接时，客户端发送syn包（syn=x）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。</li>
+<li>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=x+1），同时自己也发送一个SYN包（syn=y），即SYN+ACK包，此时服务器进入SYN_RECV状态；</li>
+<li>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。</li>
+</ul>
+<p>2、四次挥手</p>
+<ul>
+<li>第一次挥手：客户端请求断开， Client发送一个FIN，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态。</li>
+<li>第二次挥手：服务器确认客户端的断开请求，Server收到FIN后，发送一个ACK给Client，确认序号为收到序号+1（与SYN相同，一个FIN占用一个序号），Server进入CLOSE_WAIT状态。</li>
+<li>第三次挥手：服务器请求断开，Server发送一个FIN，用来关闭Server到Client的数据传送，Server进入LAST_ACK状态。</li>
+<li>第四次挥手：客户端确认服务器的断开，Client收到FIN后，Client进入TIME_WAIT状态，接着发送一个ACK给Server，确认序号为收到序号+1，Server进入CLOSED状态，完成四次挥手。</li>
+</ul>
+<p>3、为什么连接的时候是三次握手，关闭的时候却是四次握手？<br>因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。</p>
+<p>4、为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？<br>虽然按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可以最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文。在Client发送出最后的ACK回复，但该ACK可能丢失。Server如果没有收到ACK，将不断重复发送FIN片段。所以Client不能立即关闭，它必须确认Server接收到了该ACK。Client会在发送出ACK之后进入到TIME_WAIT状态。Client会设置一个计时器，等待2MSL的时间。如果在该时间内再次收到FIN，那么Client会重发ACK并再次等待2MSL。所谓的2MSL是两倍的MSL(Maximum Segment Lifetime)。MSL指一个片段在网络中最大的存活时间，2MSL就是一个发送和一个回复所需的最大时间。如果直到2MSL，Client都没有再次收到FIN，那么Client推断ACK已经被成功接收，则结束TCP连接。</p>
+<p>5、为什么不能用两次握手进行连接？<br>3次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。<br>现在把三次握手改成仅需要两次握手，死锁是可能发生的。作为例子，考虑计算机S和C之间的通信，假定C给S发送一个连接请求分组，S收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S认为连接已经成功地建立了，可以开始发送数据分组。可是，C在S的应答分组在传输中被丢失的情况下，将不知道S 是否已准备好，不知道S建立什么样的序列号，C甚至怀疑S是否收到自己的连接请求分组。在这种情况下，C认为连接还未建立成功，将忽略S发来的任何数据分 组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
+<p>4、如果已经建立了连接，但是客户端突然出现故障了怎么办？<br>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75秒钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</p>
+<h3 id="Get与POST的区别"><a href="#Get与POST的区别" class="headerlink" title="Get与POST的区别"></a>Get与POST的区别</h3><p>它们的本质都是 TCP 链接，并无区别。但是由于 HTTP 的规定以及浏览器/服务器的限制，导致它们在应用过程中可能会有所不同。</p>
+<ul>
+<li>对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。</li>
+<li>GET在浏览器回退时是无害的，而POST会再次提交请求。</li>
+<li>GET产生的URL地址可以被Bookmark，而POST不可以。</li>
+<li>GET请求会被浏览器主动cache，而POST不会，除非手动设置。</li>
+<li>GET请求只能进行url编码，而POST支持多种编码方式。</li>
+<li>GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。</li>
+<li>GET请求在URL中传送的参数是有长度限制的，而POST么有。</li>
+<li>对参数的数据类型，GET只接受ASCII字符，而POST没有限制。</li>
+<li>GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。</li>
+<li>GET参数通过URL传递，POST放在Request body中。</li>
+</ul>
+<h3 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h3><ul>
+<li>A类地址的表示范围为：0.0.0.0~126.255.255.255，默认网络掩码为：255.0.0.0；A类地址分配给规模特别大的网络使用。A类网络用第一组数字表示网络本身的地址，后面三组数字作为连接于网络上的主机的地址。分配给具有大量主机（直接个人用户）而局域网络个数较少的大型网络。例如IBM公司的网络。</li>
+<li>B类地址的表示范围为：128.0.0.0~191.255.255.255，默认网络掩码为：255.255.0.0；B类地址分配给一般的中型网络。B类网络用第一、二组数字表示网络的地址，后面两组数字代表网络上的主机地址。</li>
+<li>C类地址的表示范围为：192.0.0.0~223.255.255.255，默认网络掩码为：255.255.255.0；C类地址分配给小型网络，如一般的局域网和校园网，它可连接的主机数量是最少的，采用把所属的用户分为若干的网段进行管理。C类网络用前三组数字表示网络的地址，最后一组数字作为网络上的主机地址。</li>
+<li>实际上，还存在着D类地址和E类地址。但这两类地址用途比较特殊，在这里只是简单介绍一下：D类地址称为广播地址，供特殊协议向选定的节点发送信息时用。E类地址保留给将来使用。<h3 id="常见状态码及原因短语"><a href="#常见状态码及原因短语" class="headerlink" title="常见状态码及原因短语"></a>常见状态码及原因短语</h3>1、1×× ： 请求处理中，请求已被接受，正在处理</li>
+</ul>
+<p>2、2××：请求成功，请求被成功处理</p>
+<ul>
+<li>200 OK</li>
+</ul>
+<p>3、3×× ：重定向，要完成请求必须进行进一步处理</p>
+<ul>
+<li>301 ：永久性转移</li>
+<li>302 ：暂时性转移</li>
+<li>304 ：已缓存</li>
+</ul>
+<p>4、 4×× ：客户端错误，请求不合法</p>
+<ul>
+<li>400：Bad Request,请求有语法问题</li>
+<li>403：拒绝请求</li>
+<li>404：客户端所访问的页面不存在</li>
+</ul>
+<p>5、 5×× ：服务器端错误，服务器不能处理合法请求</p>
+<ul>
+<li>500 ：服务器内部错误</li>
+<li>503 ：服务不可用，稍等</li>
+</ul>
+<h3 id="TCP与UDP的区别"><a href="#TCP与UDP的区别" class="headerlink" title="TCP与UDP的区别"></a>TCP与UDP的区别</h3><p>TCP (Transmission Control Protocol)和UDP(User Datagram Protocol)协议属于传输层协议，它们之间的区别包括：</p>
+<ul>
+<li>TCP是面向连接的，UDP是无连接的；</li>
+<li>TCP是可靠的，UDP是不可靠的；</li>
+<li>TCP只支持点对点通信，UDP支持一对一、一对多、多对一、多对多的通信模式；</li>
+<li>TCP是面向字节流的，UDP是面向报文的；</li>
+<li>TCP有拥塞控制机制；UDP没有拥塞控制，适合媒体通信；</li>
+<li>TCP首部开销(20个字节)比UDP的首部开销(8个字节)要大。</li>
+</ul>
+<h2 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h2><h3 id="如何识别作弊用户（爬虫程序，-或者渠道伪造的假用户）"><a href="#如何识别作弊用户（爬虫程序，-或者渠道伪造的假用户）" class="headerlink" title="如何识别作弊用户（爬虫程序， 或者渠道伪造的假用户）"></a>如何识别作弊用户（爬虫程序， 或者渠道伪造的假用户）</h3><ul>
+<li>渠道特征：渠道、渠道次日留存率、渠道流量以及各种比率特征</li>
+<li>环境特征：设备（一般伪造假用户的工作坊以低端机为主）、系统（刷量工作坊一般系统更新较慢）、wifi使用情况、使用时间、来源地区、ip是否进过黑名单</li>
+<li>用户行为特征：访问时长、访问页面、使用间隔、次日留存、活跃时间、页面跳转行为（假用户的行为要么过于一致，要么过于随机）、页面使用行为（正常用户对图片的点击也是有分布的，假用户的行为容易过于随机）</li>
+<li>异常特征：设备号异常（频繁重置idfa）、ip异常（异地访问）、行为异常（突然大量点击广告、点赞）、数据包不完整等<h3 id="怎么做恶意刷单检测"><a href="#怎么做恶意刷单检测" class="headerlink" title="怎么做恶意刷单检测?"></a>怎么做恶意刷单检测?</h3></li>
+<li>商家特征：商家历史销量、信用、产品类别、发货快递公司等</li>
+<li>用户行为特征：用户信用、下单量、转化率、下单路径、浏览店铺行为、支付账号</li>
+<li>环境特征（主要是避免机器刷单）：地区、ip、手机型号等</li>
+<li>异常检测：ip地址经常变动、经常清空cookie信息、账号近期交易成功率上升等</li>
+<li>评论文本检测：刷单的评论文本可能套路较为一致，计算与已标注评论文本的相似度作为特征</li>
+<li>图片相似度检测：同理，刷单可能重复利用图片进行评论</li>
+</ul>
+]]></content>
     
     <summary type="html">
+    
+      &lt;h2 id=&quot;Linux&quot;&gt;&lt;a href=&quot;#Linux&quot; class=&quot;headerlink&quot; title=&quot;Linux&quot;&gt;&lt;/a&gt;Linux&lt;/h2&gt;&lt;h3 id=&quot;常用linux命令&quot;&gt;&lt;a href=&quot;#常用linux命令&quot; class=&quot;headerlink&quot; ti
     
     </summary>
     
@@ -32,13 +204,260 @@
   </entry>
   
   <entry>
-    <title>5、其他常用知识梳理</title>
-    <link href="http://yoursite.com/2020/02/03/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
-    <id>http://yoursite.com/2020/02/03/其他常用知识梳理/</id>
+    <title>知识体系-编程语言高频知识梳理</title>
+    <link href="http://yoursite.com/2020/02/03/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%AB%98%E9%A2%91%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
+    <id>http://yoursite.com/2020/02/03/知识体系-编程语言高频知识梳理/</id>
     <published>2020-02-03T09:09:48.000Z</published>
-    <updated>2020-02-03T09:21:48.000Z</updated>
+    <updated>2020-03-23T04:02:02.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="String类为什么是final的"><a href="#String类为什么是final的" class="headerlink" title="String类为什么是final的"></a>String类为什么是final的</h4><p>final可以修饰类，方法和变量，并且被修饰的类或方法，被final修饰的类不能被继承，即它不能拥有自己的子类，被final修饰的方法不能被重写， final修饰的变量，无论是类属性、对象属性、形参还是局部变量，都需要进行初始化操作。在了解final的用途后，final主要是为了”安全性“和”效率“的缘故。</p>
+<ul>
+<li>从内存角度来看，字符串常量池的要求：创建字符串时，如果该字符串已经存在于池中，则将返回现有字符串的引用，而不是创建新对象。多个String变量引用指向同一个内地地址。如果字符串是可变的，用一个引用更改字符串将导致其他引用的值错误。这是很危险的。</li>
+<li>缓存Hashcode，字符串的Hashcode在java中经常配合基于散列的集合一起正常运行，这样的散列集合包括HashSet、HashMap以及HashTable。不可变的特性保证了hashcode永远是相同的。不用每次使用hashcode就需要计算hashcode。这样更有效率。因为当向集合中插入对象时，是通过hashcode判别在集合中是否已经存在该对象了（不是通过equals方法逐个比较，效率低）。</li>
+<li>方便其它类使用， 其他类的设计基于string不可变，如set存储string，改变该string后set包含了重复值。</li>
+<li>安全性，String被广泛用作许多java类的参数，例如网络连接、打开文件等。如果对string的某一处改变一不小心就影响了该变量所有引用的表现，则连接或文件将被更改，这可能导致严重的安全威胁。不可变对象不能被写，所以不可变对象自然是线程安全的，因为不可变对象不能更改，它们可以在多个线程之间自由共享。</li>
+</ul>
+<h4 id="HashTable、HashMap的区别"><a href="#HashTable、HashMap的区别" class="headerlink" title="HashTable、HashMap的区别"></a>HashTable、HashMap的区别</h4><ul>
+<li>继承父类不同，Hashtable继承自Dictionary类，而HashMap继承自AbstractMap类；但二者都实现了Map接口</li>
+<li>线程的安全性，Hashtable 线程安全，因为它每个方法中都加入了Synchronize，在多线程并发的环境下，可以直接使用Hashtable，不需自己在加同步；HashMap线程不安全，因为HashMap底层是一个Entry数组，当发生hashmap冲突的时候，hashmap是采用链表的方式来解决的，在对应的数组位置存放链表的头结点。对链表而言，新加入的节点会从头结点加入</li>
+<li>是否有contains方法，HashTable有一个contains(Object value)方法，功能和containsValue方法(Object value)功能一样。HashMap把Hashtable的contains方法去掉了，改成containsValue和containsKey。</li>
+<li>可否允许有null值， Hashtable中，key和value都不允许出现null值。HashMap允许null值(key和value都可以)，因为在HashMap中null可以作为健，而它对应的值可以有多个null。</li>
+<li>遍历方式内部实现不同， HashTable使用Enumeration，HashMap使用Iterator。</li>
+<li>hash值不一样， HashTable直接使用对象的hashCode， HashMap要重新计算key值和hash值</li>
+<li>数组初始化和扩容不同， HashTable中hash数组默认大小是11，增加的方式是 arr*2+1。HashMap中hash数组的默认大小是16，而且一定是2的指数</li>
+</ul>
+<h4 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h4><p>底层采用分段的数组+链表实现，线程安全</p>
+<ul>
+<li>通过把整个Map分为N个Segment，可以提供相同的线程安全，但是效率提升N倍，默认提升16倍。(读操作不加锁，由于HashEntry的value变量是 volatile的，也能保证读取到最新的值。)</li>
+<li>Hashtable的synchronized是针对整张Hash表的，即每次锁住整张表让线程独占，ConcurrentHashMap允许多个修改操作并发进行，其关键在于使用了锁分离技术<br>有些方法需要跨段，比如size()和containsValue()，它们可能需要锁定整个表而而不仅仅是某个段，这需要按顺序锁定所有段，操作完毕后，又按顺序释放所有段的锁</li>
+<li>扩容：段内扩容（段内元素超过该段对应Entry数组长度的75%触发扩容，不会对整个Map进行扩容），插入前检测需不需要扩容，有效避免无效扩容</li>
+</ul>
+<h4 id="Vector和ArrayList的区别"><a href="#Vector和ArrayList的区别" class="headerlink" title="Vector和ArrayList的区别"></a>Vector和ArrayList的区别</h4><p>这两个类都实现了List接口（List接口继承了Collection接口），他们都是有序集合，即存储在这两个集合中的元素的位置都是有顺序的，相当于一种动态的数组，我们以后可以按位置索引号取出某个元素，并且其中的数据是允许重复的，这是与HashSet之类的集合的最大不同处，HashSet之类的集合不可以按索引号去检索其中的元素，也不允许有重复的元素。<br>ArrayList与Vector的区别主要包括两个方面：</p>
+<ul>
+<li>同步性，Vector是线程安全的，也就是说是它的方法之间是线程同步的，而ArrayList是线程序不安全的。</li>
+<li>数据增长，Vector默认增长为原来两倍，而ArrayList的增长策略在文档中没有明确规定（从源代码看到的是增长为原来的1.5倍）</li>
+</ul>
+<h4 id="String、StringBuilder、StringBuffer区别"><a href="#String、StringBuilder、StringBuffer区别" class="headerlink" title="String、StringBuilder、StringBuffer区别"></a>String、StringBuilder、StringBuffer区别</h4><ul>
+<li>String：适用于少量的字符串操作的情况</li>
+<li>StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情况</li>
+<li>StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况</li>
+</ul>
+<h3 id="JVM知识"><a href="#JVM知识" class="headerlink" title="JVM知识"></a>JVM知识</h3><h4 id="JVM的内存模型"><a href="#JVM的内存模型" class="headerlink" title="JVM的内存模型"></a>JVM的内存模型</h4><p>从这张图中很直观的看到，程序计数器，虚拟机栈，native栈是线程私有的，堆是线程共有的。<br><img src="/images/code/jvm-model.png" width="600" alt="JVM内存模型"></p>
+<ul>
+<li>堆（Heap），是java虚拟机所管理的内存中最大的一块内存区域，也是被各个线程共享的内存区域，该内存区域存放了对象实例及数组（但不是所有的对象实例都在堆中）</li>
+<li>方法区（Method Area），它用于存储虚拟机加载的类信息、常量、静态变量、是各个线程共享的内存区域。</li>
+<li>虚拟机栈(JVM Stack)，每个方法被执行的时候都会创建一个”栈帧”,用于存储局部变量表(包括参数)、操作栈、方法出口等信息。每个方法被调用到执行完的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。声明周期与线程相同，是线程私有的</li>
+<li>本地方法栈(Native Stack)，与虚拟机栈基本类似，区别在于虚拟机栈为虚拟机执行的java方法服务，而本地方法栈则是为Native方法服务。(栈的空间大小远远小于堆)</li>
+<li>程序计数器（PC Register），是最小的一块内存区域，它的作用是当前线程所执行的字节码的行号指示器，在虚拟机的模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、异常处理、线程恢复等基础功能都需要依赖计数器完成。</li>
+</ul>
+<h4 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法"></a>GC算法</h4><p>1、引用计数法<br>当一个对象A不再被引用时为垃圾对象，那就设置一个计数器，所以对于对象A，只要有任何一个对象引用了对象A，那么引用计数器就加一；而当这个引用失效了之后，引用计数器就减一。当一个对象的引用计数器的值为0的时候，那么这个对象就不可能再被使用了。但是引用计数法有一个很麻烦的问题，就是它无法处理垃圾对象的循环引用。由于这种算法存在上述缺陷，所以JVM其实并不使用它，而是使用另一种算法，是根搜索算法。这种算法是现代垃圾回收算法的思想基础。它的做法是：把一些对象设为根对象（也可以说是根结点），当任何一个根结点都不可达某一个对象的时候，这个对象就被认为是可以回收的。基于这种思想，上述引用计数法存在的问题就可以解决了，由于根对象无法到达那三个循环引用的对象，所以这三个对象都是视为可回收的垃圾。<br>那么什么对象可以作为根对象呢：</p>
+<ul>
+<li>Java虚拟机栈中引用的对象；</li>
+<li>方法区中的类静态成员引用的对象（static修饰的）；</li>
+<li>方法区中的常量引用的对象（主要是final修饰的）；</li>
+<li>本地方法栈中JNI（Java Native Interface）引用的对象</li>
+</ul>
+<p>2、标记-清除法<br>标记-清除法将垃圾回收分为两个阶段，即标记阶段和清除阶段。做法是，首先在标记阶段，遍历所有的根结点，将这些根结点的可达对象进行标记；而在清除阶段，遍历堆中的所有对象，对那些没有被标记的对象进行清除。<br>优缺点：</p>
+<ul>
+<li>首先是速度慢，因为标记-清除算法在标记阶段需要使用递归的方式从根结点出发，不断寻找可达的对象；而在清除阶段又需要遍历堆中的所有对象，查看其是否被标记，然后清除；并且其实在程序进行GC的时候，JVM中所有的Java程序都要进行暂停，俗称stop-the-world，后面会提到。</li>
+<li>其次是其最大的缺点，使用这种算法进行清理而得的堆内存的空闲空间一般是不连续的，我们知道对象实例在堆中是随机存储的，所以在清理之后，会产生许多的内存碎片，如果这个时候来了一个很大的对象实例，尽管显示内存还足够，但是已经存不下这个大对象了，内存碎片太多会导致当程序需要为较大对象分配内存时无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。再者，这种零散的碎片对于数组的分配也不是很方便。</li>
+</ul>
+<p>3、标记-压缩算法<br>标记-压缩算法是对标记-清除算法的一种改良，它们的工作原理差不多，也是分为两个阶段：标记阶段和压缩阶段。标记阶段和标记-清除算法一样；而在压缩阶段的时候，它不是将所有的未标记的对象清除，而是将所有的标记对象压缩熬堆内存的一段，然后清除边界以外的所有空间。</p>
+<p>优缺点：</p>
+<ul>
+<li>首先这种算法克服了标记-清除算法中会产生内存碎片的缺点，也解决了复制算法中内存减半使用的不足。</li>
+<li>而其缺点则是速度也不是很快，不仅要遍历标记所有可达结点，还要一个个整理可达存活对象的地址，所以导致其效率不是很高。</li>
+</ul>
+<p>4、复制算法<br>将堆内存分为两块大小完全相同的内存（不一定是全部堆内存空间），每一次只用一块（活跃空间），另一块（空闲空间）闲置不用。当其中的活跃空间使用完后，就将活跃空间中还存活的对象复制到空闲空间里去，按照地址整齐排好序。之后清除活跃空间中所有的对象。然后两者交换使用职位，现在空闲空间成为了活跃空间，活跃空间成为了空闲空间。</p>
+<p>优缺点：</p>
+<ul>
+<li>复制算法很明显的缺点就是浪费内存空间，因为将内存分为两块，一次只能使用一块，这也意味着分的块越大，浪费的内存越多。而且当对象的存活率很高的时候，不断的复制操作也会显得费时和不可忽视。</li>
+<li>但是也是拖了浪费内存的福，复制算法执行的速度较快，典型的空间换时间。</li>
+</ul>
+<h4 id="stop-the-world"><a href="#stop-the-world" class="headerlink" title="stop-the-world"></a>stop-the-world</h4><p>这个是在GC算法执行的时候产生的现象：在GC算法执行的时候，所有正在执行中的 Java程序都会被挂起（被暂停 ），只有native方法可以执行，但是也不能和JVM进行交互，这样一来似乎整个Java世界都停止了，这也就是为什么叫做stop-the-world。等到GC程序执行完毕后，Java程序才会重新恢复执行。<br>这个其实很好理解，因为GC程序是一个线程，Java程序也是一个线程，它们操作的堆内存是一片共享的区域，假设一种情况，Java程序A新建了一个对象object，new Object（）被存放在堆区，但是很不巧的是，堆区刚刚执行过复制算法，前一步存活的对象已经被转移到另一块空间了，而new Object（）就留在了原来的空间，无辜地被清除了。这显然是不可接受的，因为线程不安全。</p>
+<h4 id="JVM的新生代、老年代、MinorGC、MajorGC"><a href="#JVM的新生代、老年代、MinorGC、MajorGC" class="headerlink" title="JVM的新生代、老年代、MinorGC、MajorGC"></a>JVM的新生代、老年代、MinorGC、MajorGC</h4><p>JVM中的堆，一般分为三大部分：新生代、老年代、永久代：<br><img src="/images/code/jvm-gc.png" width="600" alt="JVM GC分布"><br>1、新生代：主要是用来存放新生的对象。一般占据堆的1/3空间。由于频繁创建对象，所以新生代会频繁触发MinorGC进行垃圾回收。<br>新生代又分为 Eden区、ServivorFrom、ServivorTo三个区：</p>
+<ul>
+<li>Eden区：Java新对象的出生地（如果新创建的对象占用内存很大，则直接分配到老年代）。当Eden区内存不够的时候就会触发MinorGC，对新生代区进行一次垃圾回收</li>
+<li>ServivorTo：保留了一次MinorGC过程中的幸存者</li>
+<li>ServivorFrom：上一次GC的幸存者，作为这一次GC的被扫描者</li>
+</ul>
+<p>2、老年代：主要存放应用程序中生命周期长的内存对象<br>老年代的对象比较稳定，所以MajorGC不会频繁执行。在进行MajorGC前一般都先进行了一次MinorGC，使得有新生代的对象晋身入老年代，导致空间不够用时才触发。当无法找到足够大的连续空间分配给新创建的较大对象时也会提前触发一次MajorGC进行垃圾回收腾出空间。</p>
+<p>3、永久代<br>指内存的永久保存区域，主要存放Class和Meta（元数据）的信息,Class在被加载的时候被放入永久区域. 它和和存放实例的区域不同,GC不会在主程序运行期对永久区域进行清理。所以这也导致了永久代的区域会随着加载的Class的增多而胀满，最终抛出OOM异常。<br>在Java8中，永久代已经被移除，被一个称为“元数据区”（元空间）的区域所取代， 元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间的大小仅受本地内存限制。类的元数据放入 native memory, 字符串池和类的静态变量放入java堆中. 这样可以加载多少类的元数据就不再由MaxPermSize控制, 而由系统的实际可用空间来控制.<br>采用元空间而不用永久代的几点原因：</p>
+<ul>
+<li>为了解决永久代的OOM问题，元数据和class对象存在永久代中，容易出现性能问题和内存溢出</li>
+<li>类及方法的信息等比较难确定其大小，因此对于永久代的大小指定比较困难，太小容易出现永久代溢出，太大则容易导致老年代溢出（因为堆空间有限，此消彼长）</li>
+<li>永久代会为 GC 带来不必要的复杂度，并且回收效率偏低</li>
+</ul>
+<h4 id="MinorGC与MajorGC"><a href="#MinorGC与MajorGC" class="headerlink" title="MinorGC与MajorGC"></a>MinorGC与MajorGC</h4><ul>
+<li>MinorGC的过程：MinorGC采用复制算法。首先，把Eden和ServivorFrom区域中存活的对象复制到ServicorTo区域（如果有对象的年龄以及达到了老年的标准，则赋值到老年代区），同时把这些对象的年龄+1（如果ServicorTo不够位置了就放到老年区）；然后，清空Eden和ServicorFrom中的对象；最后，ServicorTo和ServicorFrom互换，原ServicorTo成为下一次GC时的ServicorFrom区。</li>
+<li>MajorGC采用标记—清除算法：首先扫描一次所有老年代，标记出存活的对象，然后回收没有标记的对象。MajorGC的耗时比较长，因为要扫描再回收。MajorGC会产生内存碎片，为了减少内存损耗，我们一般需要进行合并或者标记出来方便下次直接分配。当老年代也满了装不下的时候，就会抛出OOM（Out of Memory）异常。</li>
+</ul>
+<h4 id="JVM每个区域的内存溢出"><a href="#JVM每个区域的内存溢出" class="headerlink" title="JVM每个区域的内存溢出"></a>JVM每个区域的内存溢出</h4><p>1、程序技术器，记录当前线程运行到了那一行代码,多线程来回切换时知道从哪里开始继续执行<br>唯一不会报错:OutOfMemoryError</p>
+<p>2、栈</p>
+<ul>
+<li>如果线程请求栈深度大于虚拟机所允许的深度,抛出StackOverflowError， 程序存在死循环或者深度递归调用</li>
+<li>无法申请到足够的内存抛出OutOfMemoryError</li>
+</ul>
+<p>3、本地方法栈<br>本地方法栈和线程栈作用相似,区别在于线程栈为虚拟机执行的java方法服务,而本地方法栈为虚拟机使用到的Native(本地)方法服务，报错StackOverflowError和OutOfMemoryError,和线程栈相同</p>
+<p>4、堆，堆上没有内存完成实例的分配就会报OutOfMemoryError</p>
+<p>5、方法区，当方法区无法满足内存分配需求时,会抛出OutOfMemoryError</p>
+<p>6、常量池，内存不足报OutOfMemoryError</p>
+<h4 id="jvm性能调优"><a href="#jvm性能调优" class="headerlink" title="jvm性能调优"></a>jvm性能调优</h4><p>对JVM内存的系统级的调优主要的目的是减少GC的频率和Full GC的次数。<br>Full GC会对整个堆进行整理，包括Young、Tenured和Perm。Full GC因为需要对整个堆进行回收，所以比较慢，因此应该尽可能减少Full GC的次数。<br>1、导致Full GC的原因</p>
+<ul>
+<li>年老代（Tenured）被写满，调优时尽量让对象在新生代GC时被回收、让对象在新生代多存活一段时间和不要创建过大的对象及数组避免直接在旧生代创建对象 。</li>
+<li>持久代Pemanet Generation空间不足，增大Perm Gen空间，避免太多静态对象 ， 控制好新生代和旧生代的比例</li>
+<li>System.gc()被显示调用，垃圾回收不要手动触发，尽量依靠JVM自身的机制<br>2、JVM性能调优方法和步骤</li>
+<li>使用各种JVM工具，查看当前日志，分析当前JVM参数设置，并且分析当前堆内存快照和gc日志，根据实际的各区域内存划分和GC执行时间，觉得是否进行优化。</li>
+<li>生成堆的dump文件，通过JMX的MBean生成当前的Heap信息，大小为一个3G（整个堆的大小）的hprof文件，如果没有启动JMX可以通过Java的jmap命令来生成该文件。</li>
+<li>分析dump文， 打开这个3G的堆信息文件，显然一般的Window系统没有这么大的内存，必须借助高配置的Linux，几种工具打开该文件：Visual VM、IBM HeapAnalyzer、JDK 自带的Hprof工具、Mat(Eclipse专门的静态内存分析工具)推荐使用</li>
+<li>分析结果，判断是否需要优化，如果各项参数设置合理，系统没有超时日志出现，GC频率不高，GC耗时不高，那么没有必要进行GC优化，如果GC时间超过1-3秒，或者频繁GC，则必须优化。</li>
+<li>调整GC类型和内存分配， 如果内存分配过大或过小，或者采用的GC收集器比较慢，则应该优先调整这些参数，并且先找1台或几台机器进行beta，然后比较优化过的机器和没有优化的机器的性能对比，并有针对性的做出最后选择。</li>
+<li>不断的分析和调整， 通过不断的试验和试错，分析并找到最合适的参数，如果找到了最合适的参数，则将这些参数应用到所有服务器。</li>
+</ul>
+<p>3、JVM调优参数参考</p>
+<ul>
+<li>针对JVM堆的设置，一般可以通过-Xms -Xmx限定其最小、最大值，为了防止垃圾收集器在最小、最大之间收缩堆而产生额外的时间，通常把最大、最小设置为相同的值;</li>
+<li>年轻代和年老代将根据默认的比例（1：2）分配堆内存， 可以通过调整二者之间的比率NewRadio来调整二者之间的大小，也可以针对回收代。比如年轻代，通过 -XX:newSize -XX:MaxNewSize来设置其绝对大小。同样，为了防止年轻代的堆收缩，我们通常会把-XX:newSize -XX:MaxNewSize设置为同样大小。</li>
+<li>年轻代和年老代设置多大才算合理，如何选择应该依赖应用程序对象生命周期的分布情况： 如果应用存在大量的临时对象，应该选择更大的年轻代；如果存在相对较多的持久对象，年老代应该适当增大。但很多应用都没有这样明显的特性。在抉择时应该根 据以下两点：（1）本着Full GC尽量少的原则，让年老代尽量缓存常用对象，JVM的默认比例1：2也是这个道理 。（2）通过观察应用一段时间，看其他在峰值时年老代会占多少内存，在不影响FullGC的前提下，根据实际情况加大年轻代，比如可以把比例控制在1：1。但应该给年老代至少预留1/3的增长空间。</li>
+<li>在配置较好的机器上（比如多核、大内存），可以为年老代选择并行收集算法： -XX:+UseParallelOldGC 。</li>
+<li>线程堆栈的设置：每个线程默认会开启1M的堆栈，用于存放栈帧、调用参数、局部变量等，对大多数应用而言这个默认值太了，一般256K就足用。</li>
+</ul>
+<h3 id="IO知识"><a href="#IO知识" class="headerlink" title="IO知识"></a>IO知识</h3><h4 id="String-编码UTF-8-和GBK的区别"><a href="#String-编码UTF-8-和GBK的区别" class="headerlink" title="String 编码UTF-8 和GBK的区别?"></a>String 编码UTF-8 和GBK的区别?</h4><p>GBK是在国家标准GB2312基础上扩容后兼容GB2312的标准（好像还不是国家标准）。GBK编码专门用来解决中文编码的，是双字节的。不论中英文都是双字节的。<br>UTF－8 编码是用以解决国际上字符的一种多字节编码，它对英文使用8位（即一个字节），中文使用24位（三个字节）来编码。对于英文字符较多的论坛则用UTF－8 节省空间。另外，如果是外国人访问你的GBK网页，需要下载中文语言包支持。访问UTF-8编码的网页则不出现这问题。可以直接访问。</p>
+<h4 id="什么时候使用字节流、什么时候使用字符流"><a href="#什么时候使用字节流、什么时候使用字符流" class="headerlink" title="什么时候使用字节流、什么时候使用字符流?"></a>什么时候使用字节流、什么时候使用字符流?</h4><p>InputStream 和OutputStream,两个是为字节流设计的,主要用来处理字节或二进制对象,<br>Reader和 Writer.两个是为字符流（一个字符占两个字节）设计的,主要用来处理字符或字符串.<br>字符流处理的单元为2个字节的Unicode字符，操作字符、字符数组或字符串，字节流处理单元为1个字节，操作字节和字节数组。所以字符流是由Java虚拟机将字节转化为2个字节的Unicode字符为单位的字符而成的，所以它对多国语言支持性比较好！如果是音频文件、图片、歌曲，就用字节流好点，如果是关系到中文（文本）的，用字符流好点。<br>主要区别是:</p>
+<ul>
+<li>字节流在操作时不会用到缓冲区（内存），是直接对文件本身进行操作的。而字符流在操作时使用了缓冲区，通过缓冲区再操作文件</li>
+<li>在硬盘上的所有文件都是以字节形式存在的（图片，声音，视频），而字符值在内存中才会形成</li>
+</ul>
+<h3 id="多线程知识"><a href="#多线程知识" class="headerlink" title="多线程知识"></a>多线程知识</h3><h4 id="常用的线程池模式以及不同线程池的使用场景"><a href="#常用的线程池模式以及不同线程池的使用场景" class="headerlink" title="常用的线程池模式以及不同线程池的使用场景"></a>常用的线程池模式以及不同线程池的使用场景</h4><p>1、为什么要用线程池<br>在线程的销毁时需要回收这些系统资源。频繁的创建和销毁线程会浪费大量的系统资源，增加并发编程的风险。另外，在服务器负载过大的时候，如何让新的线程等待或者友好的拒绝服务？这些丢失线程自身无法解决的。所以需要通过线程池协调多个线程，并实现类似主次线程隔离、定时执行、周期执行等任务。线程池的作用包括：</p>
+<ul>
+<li>利用线程池管理并复用线程、控制最大并发数等。</li>
+<li>实现任务线程队列缓存策略和拒绝机制。</li>
+<li>实现某些与时间相关的功能，如定时执行、周期执行等。</li>
+<li>隔离线程环境。比如，交易服务和搜索服务在同一台服务器上，分别开启两个线程池，交易线程的资源消耗明显要大；因此，通过配置独立的线程池，将较慢的交易服务与搜索服务隔开，避免个服务线程互相影响。</li>
+</ul>
+<p>2、线程池的创建<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建单核心的线程池</span></div><div class="line">ExecutorService executorService = Executors.newSingleThreadExecutor();</div><div class="line"><span class="comment">//创建固定核心数的线程池，这里核心数 = 2</span></div><div class="line">ExecutorService executorService = Executors.newFixedThreadPool(<span class="number">2</span>);</div><div class="line"><span class="comment">//创建一个按照计划规定执行的线程池，这里核心数 = 2</span></div><div class="line">ExecutorService executorService = Executors.newScheduledThreadPool(<span class="number">2</span>);</div><div class="line"><span class="comment">//创建一个自动增长的线程池</span></div><div class="line">ExecutorService executorService = Executors.newCachedThreadPool();</div><div class="line"><span class="comment">//创建一个具有抢占式操作的线程池</span></div><div class="line">ExecutorService executorService = Executors.newWorkStealingPool();</div><div class="line">我们只需要这样调用就可成功的创建适用于我们的线程池，不过从上面看不出上面东西来，我们要进入线程池创建的构造器，代码如下：</div><div class="line">```java</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></div><div class="line"><span class="function"><span class="params">                              <span class="keyword">int</span> maximumPoolSize,</span></span></div><div class="line"><span class="function"><span class="params">                              <span class="keyword">long</span> keepAliveTime,</span></span></div><div class="line"><span class="function"><span class="params">                              TimeUnit unit,</span></span></div><div class="line"><span class="function"><span class="params">                              BlockingQueue&lt;Runnable&gt; workQueue)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</div><div class="line">        Executors.defaultThreadFactory(), defaultHandler);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>corePoolSize : 表示线程池核心线程数，当初始化线程池时，会创建核心线程进入等待状态，即使它是空闲的，核心线程也不会被摧毁，从而降低了任务一来时要创建新线程的时间和性能开销。</li>
+<li>maximumPoolSize : 表示最大线程数，意味着核心线程数都被用完了，那只能重新创建新的线程来执行任务，但是前提是不能超过最大线程数量，否则该任务只能进入阻塞队列进行排队等候，直到有线程空闲了，才能继续执行任务。</li>
+<li>keepAliveTime : 表示线程存活时间，除了核心线程外，那些被新创建出来的线程可以存活多久。意味着，这些新的线程一但完成任务，而后面都是空闲状态时，就会在一定时间后被摧毁。</li>
+<li>unit : 存活时间单位，没什么好解释的，一看就懂。</li>
+<li>workQueue : 表示任务的阻塞队列，由于任务可能会有很多，而线程就那么几个，所以那么还未被执行的任务就进入队列中排队，队列我们知道是 FIFO 的，等到线程空闲了，就以这种方式取出任务。这个一般不需要我们去实现。</li>
+</ul>
+<p>3、线程池的比较<br>（1）newSingleThreadPool，为单核心线程池，最大线程也只有一个，这里的时间为 0 意味着无限的生命，就不会被摧毁了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0L</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()</div></pre></td></tr></table></figure></p>
+<p>（2）newFixedThreadPool，我们需要传入一个固定的核心线程数，并且核心线程数等于最大线程数，而且它们的线程数存活时间都是无限的<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads, <span class="number">0L</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()</div></pre></td></tr></table></figure></p>
+<p>（3）newCachedThreadPool，可以进行缓存的线程池，意味着它的线程数是最大的，无限的。但是核心线程数为0，这没关系。这里要考虑线程的摧毁，因为不能够无限的创建新的线程，所以在一定时间内要摧毁空闲的线程.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE, <span class="number">60L</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;()</div></pre></td></tr></table></figure></p>
+<p>（4）newScheduledThreadPool，这个表示的是有计划性的线程池，就是在给定的延迟之后运行，或周期性地执行。很好理解，大家应该用过 Timer 定时器类吧，这两个差不多的意思<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(corePoolSize, Integer.MAX_VALUE, DEFAULT_KEEPALIVE_MILLIS, TimeUnit.MILLISECONDS, <span class="keyword">new</span> DelayedWorkQueue&lt;Runnable&gt;()</div></pre></td></tr></table></figure></p>
+<p>（5）newWorkStealingPool，这个是 JDK1.8 版本加入的一种线程池，stealing 翻译为抢断、窃取的意思，它实现的一个线程池和上面4种都不一样，用的是 ForkJoinPool 类。 从代码来看，最明显的用意就是它是一个并行的线程池，参数中传入的是一个线程并发的数量，这里和之前就有很明显的区别，前面4种线程池都有核心线程数、最大线程数等等，而这就使用了一个并发线程数解决问题。从介绍中，还说明这个线程池不会保证任务的顺序执行，也就是 WorkStealing 的意思，抢占式的工作<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newWorkStealingPool</span><span class="params">(<span class="keyword">int</span> parallelism)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Java在创建线程后，直接调用start-方法和run-的区别"><a href="#Java在创建线程后，直接调用start-方法和run-的区别" class="headerlink" title="Java在创建线程后，直接调用start()方法和run()的区别"></a>Java在创建线程后，直接调用start()方法和run()的区别</h4><ul>
+<li>run()方法:在本线程内调用该Runnable对象的run()方法，可以重复多次调用；直接执行run（）方法不会启动多线程</li>
+<li>start()方法:启动一个线程，调用该Runnable对象的run()方法，不能多次启动一个线程；也就是说start（）方法做了两件事情：启动线程和执行run（）方法。</li>
+</ul>
+<h4 id="实现多线程有几种方式，多线程同步怎么做"><a href="#实现多线程有几种方式，多线程同步怎么做" class="headerlink" title="实现多线程有几种方式，多线程同步怎么做"></a>实现多线程有几种方式，多线程同步怎么做</h4><p>1、多线程的创建方法</p>
+<ul>
+<li>继承Thread类，重写Thread的run()方法，将线程运行的逻辑放在其中</li>
+<li>通过实现Runnable接口，实例化Thread类</li>
+<li>通过线程池实现<br>Thread类也实现了Runnable接口，应尽量使用实现Runnable的方式，因为实现Runnable接口的方式比继承Thread类方法多以下优势：</li>
+<li>适合多个相同程序代码的线程去处理同一资源；</li>
+<li>避免了Java单继承带来的局限性；</li>
+<li>增强了程序的健壮性，代码能被多个线程共享，代码与数据是独立的。</li>
+</ul>
+<p>2、多线程的同步方法<br>（1）ThreadLocal，保证不同线程拥有不同实例，相同线程一定拥有相同的实例，即为每一个使用该变量的线程提供一个该变量值的副本，每一个线程都可以独立改变自己的副本，而不是与其它线程的副本冲突。<br>优势：</p>
+<ul>
+<li>提供了线程安全的共享对象</li>
+<li>与其它同步机制的区别：同步机制是为了同步多个线程对相同资源的并发访问，是为了多个线程之间进行通信；而 ThreadLocal是隔离多个线程的数据共享，从根本上就不在多个线程之间共享资源，这样当然不需要多个线程进行同步了。</li>
+</ul>
+<p>（2）volatile 它的原理是每次要线程要访问volatile修饰的变量时都是从内存中读取，而不是从缓存当中读取，因此每个线程访问到的变量值都是一样的。这样就保证了同步。<br>优势：</p>
+<ul>
+<li>volatile不能保证原子操作导致的，因此volatile不能代替synchronized。此外volatile会组织编译器对代码优化，</li>
+<li>这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。</li>
+<li>要使 volatile 变量提供理想的线程安全，必须同时满足下面两个条件：对变量的写操作不依赖于当前值；该变量没有包含在具有其他变量的不变式中。</li>
+</ul>
+<p>（3）synchronized</p>
+<ul>
+<li>修饰一个类，其作用的范围是synchronized后面括号括起来的部分，作用的对象是这个类的所有对象，只要是这个类型的class不管有几个对象都会起作用</li>
+<li>修饰一个方法</li>
+<li>修饰代码块<br>在并发量比较小的情况下访问公共资源，使用synchronized是个不错的选择，但是在并发量比较高的情况下，其性能下降很严重</li>
+</ul>
+<p>（4） wait() 与 notify()</p>
+<ul>
+<li>wait()提供三种构造方法，但前两种最为常用，wait()是让线程一直处于等待状态，直到手动唤醒，而wait(long timeout)可以指定等待时间，之后会自动唤醒。</li>
+<li>notify()唤醒等待的线程，如果监视器种只有一个等待线程，使用notify()可以唤醒。但是如果有多条线程notify()是随机唤醒其中一条线程，与之对应的就是notifyAll()就是唤醒所有等待的线程<br>wait、notify注意事项：</li>
+<li>可以使用wait（）和notify（）方法在Java中实现线程间通信。不只是一个或两个线程，而是多个线程可以使用这些方法相互通信。</li>
+<li>在synchronized方法或synchronized块中调用wait（），notify（）和notifyAll（）方法，否则JVM将抛出IllegalMonitorStateException。</li>
+<li>从while（条件）循环调用wait和notify方法，而不是从if（）块调用，因为要重复检查条件，而不仅仅是一次。</li>
+<li>多使用notifyAll方法而不是notify</li>
+</ul>
+<h3 id="衍生知识"><a href="#衍生知识" class="headerlink" title="衍生知识"></a>衍生知识</h3><h4 id="Hash冲突怎么办？哪些解决散列冲突的方法？"><a href="#Hash冲突怎么办？哪些解决散列冲突的方法？" class="headerlink" title="Hash冲突怎么办？哪些解决散列冲突的方法？"></a>Hash冲突怎么办？哪些解决散列冲突的方法？</h4><p>1、开放定址法（再散列法）（线性探测再散列，二次探测再散列，伪随机探测再散列）<br>这种方法也称再散列法，其基本思想是：当关键字key的哈希地址p=H（key）出现冲突时，以p为基础，产生另一个哈希地址p1，如果p1仍然冲突，再以p为基础，产生另一个哈希地址p2，…，直到找出一个不冲突的哈希地址pi ，将相应元素存入其中。<br>优点：</p>
+<ul>
+<li>记录更容易进行序列化（serialize）操作（由于不存在指针）</li>
+<li>如果记录总数可以预知，可以创建完美哈希函数，此时处理数据的效率是非常高的。<br>缺点：</li>
+<li>扩容成本飙升。存储记录的数目不能超过桶数组的长度，如果超过就需要扩容，而扩容会导致某次操作的时间成本飙升，这在实时或者交互式应用中可能会是一个严重的缺陷</li>
+<li>加大计算成本。使用探测序列，有可能其计算的时间成本过高，导致哈希表的处理性能降低</li>
+<li>有空槽导致内存浪费。由于记录是存放在桶数组中的，而桶数组必然存在空槽，所以当记录本身尺寸（size）很大并且记录总数规模很大时，空槽占用的空间会导致明显的内存浪费</li>
+<li>删除记录时，比较麻烦。比如需要删除记录a，记录b是在a之后插入桶数组的，但是和记录a有冲突，是通过探测序列再次跳转找到的地址，所以如果直接删除a，a的位置变为空槽，而空槽是查询记录失败的终止条件，这样会导致记录b在a的位置重新插入数据前不可见，所以不能直接删除a，而是设置删除标记。这就需要额外的空间和操作。</li>
+</ul>
+<p>2、拉链法<br>将所有哈希地址为i的元素构成一个称为同义词链的单链表，并将单链表的头指针存在哈希表的第i个单元中，因而查找、插入和删除主要在同义词链中进行。链地址法适用于经常进行插入和删除的情况。<br>优点：</p>
+<ul>
+<li>对于记录总数频繁可变的情况，处理的比较好（也就是避免了动态调整的开销）</li>
+<li>由于记录存储在结点中，而结点是动态分配，不会造成内存的浪费，所以尤其适合那种记录本身尺寸（size）很大的情况，因为此时指针的开销可以忽略不计了</li>
+<li>删除记录时，比较方便，直接通过指针操作即可<br>缺点：</li>
+<li>存储的记录是随机分布在内存中的，这样在查询记录时，相比结构紧凑的数据类型（比如数组），哈希表的跳转访问会带来额外的时间开销</li>
+<li>由于使用指针，记录不容易进行序列化（serialize）操作</li>
+</ul>
+<p>3、再哈希法</p>
+<ul>
+<li>这种方法是同时构造多个不同的哈希函数，当哈希地址Hi=RH1（key）发生冲突时，再计算Hi=RH2（key）……，直到冲突不再产生。这种方法不易产生聚集，但增加了计算时间</li>
+</ul>
+<p>4、建立公共溢出区</p>
+<ul>
+<li>将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表。</li>
+</ul>
+<h4 id="一致性hash"><a href="#一致性hash" class="headerlink" title="一致性hash"></a>一致性hash</h4><p>在解决分布式系统中负载均衡的问题时候可以使用Hash算法让固定的一部分请求落到同一台服务器上，这样每台服务器固定处理一部分请求（并维护这些请求的信息），起到负载均衡的作用。<br>但是普通的余数hash（hash(比如用户id)%服务器机器数）算法伸缩性很差，当新增或者下线服务器机器时候，用户id与服务器的映射关系会大量失效。一致性hash则利用hash环对其进行了改进。<br>具体在计算一致性hash时采用如下步骤：</p>
+<ul>
+<li>首先求出memcached服务器（节点）的哈希值，并将其配置到0～232的圆（continuum）上</li>
+<li>然后采用同样的方法求出存储数据的键的哈希值，并映射到相同的圆上</li>
+<li>然后从数据映射到的位置开始顺时针查找，将数据保存到找到的第一个服务器上。如果超过232仍然找不到服务器，就会保存到第一台服务器上<br>1、一致性hash的特性</li>
+<li>单调性(Monotonicity)，单调性是指如果已经有一些请求通过哈希分派到了相应的服务器进行处理，又有新的服务器加入到系统中时候，应保证原有的请求可以被映射到原有的或者新的服务器中去，而不会被映射到原来的其它服务器上去</li>
+<li>分散性(Spread)：分布式环境中，客户端请求时候可能不知道所有服务器的存在，可能只知道其中一部分服务器，在客户端看来他看到的部分服务器会形成一个完整的hash环。如果多个客户端都把部分服务器作为一个完整hash环，那么可能会导致，同一个用户的请求被路由到不同的服务器进行处理。这种情况显然是应该避免的，因为它不能保证同一个用户的请求落到同一个服务器。所谓分散性是指上述情况发生的严重程度。好的哈希算法应尽量避免尽量降低分散性。 一致性hash具有很低的分散性</li>
+<li>平衡性(Balance)：平衡性是指哈希的结果能够尽可能分布到所有的缓冲中去，这样可以使得所有的缓冲空间都得到利用。很多哈希算法都能够满足这一条件。</li>
+</ul>
+<p>2、虚拟节点<br>当服务器节点比较少的时候会出现上节所说的一致性hash倾斜的问题，一个解决方法是多加机器，但是加机器是有成本的，那么就加虚拟节点。<br>一致性Hash算法引入了虚拟节点机制，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。具体做法可以在服务器IP或主机名的后面增加编号来实现。<br>例如可以为每台服务器计算三个虚拟节点，于是可以分别计算 “Node A#1”、“Node A#2”、“Node A#3”、“Node B#1”、“Node B#2”、“Node B#3”的哈希值，同时数据定位算法不变，只是多了一步虚拟节点到实际节点的映射，例如定位到“Node A#1”、“Node A#2”、“Node A#3”三个虚拟节点的数据均定位到Node A上。这样就解决了服务节点少时数据倾斜的问题。在实际应用中，通常将虚拟节点数设置为32甚至更大，因此即使很少的服务节点也能做到相对均匀的数据分布。</p>
+<h2 id="Scala"><a href="#Scala" class="headerlink" title="Scala"></a>Scala</h2><h3 id="基础知识-1"><a href="#基础知识-1" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="scala中的闭包"><a href="#scala中的闭包" class="headerlink" title="scala中的闭包"></a>scala中的闭包</h4><p>闭包是一个函数，返回值依赖于声明在函数外部的一个或多个变量。<br>闭包的实质就是代码与用到的非局部变量的混合，即：闭包 = 代码 + 用到的非局部变量</p>
+<h4 id="Scala-中柯里化是什么？有什么优点？"><a href="#Scala-中柯里化是什么？有什么优点？" class="headerlink" title="Scala 中柯里化是什么？有什么优点？"></a>Scala 中柯里化是什么？有什么优点？</h4><p>柯里化(Currying)指的是把原来接受多个参数的函数变换成接受一个参数的函数过程，并且返回接受余下的参数且返回结果为一个新函数的技术。<br>scala柯里化风格的使用可以简化主函数的复杂度，提高主函数的自闭性，提高功能上的可扩张性、灵活性。可以编写出更加抽象,功能化和高效的函数式代码。</p>
+<h4 id="case-class和class的区别"><a href="#case-class和class的区别" class="headerlink" title="case class和class的区别"></a>case class和class的区别</h4><p>case class: 其实就是一个普通的class。但是它又和普通的class略有区别：</p>
+<ul>
+<li>初始化的时候可以不用new，当然你也可以加上，普通类一定需要加new</li>
+<li>默认实现了equals 、toString和hashCode</li>
+<li>默认是可以序列化的，也就是实现了Serializable</li>
+<li>自动从scala.Product中继承一些函数， case class构造函数的参数是public级别的，我们可以直接访问</li>
+<li>支持模式匹配</li>
+</ul>
+<h4 id="说说Scala中隐式转换？及优缺点？"><a href="#说说Scala中隐式转换？及优缺点？" class="headerlink" title="说说Scala中隐式转换？及优缺点？"></a>说说Scala中隐式转换？及优缺点？</h4><p>Scala提供的隐式转换和隐式参数功能，是非常有特色的功能。是Java等编程语言所没有的功能。它可以允许你手动指定，将某种类型的对象转换成其他类型的对象或者是给一个类增加方法。通过这些功能，可以实现非常强大、特殊的功能。其中所有的隐式值和隐式方法必须放到object中。<br>缺点：</p>
+<ul>
+<li>implicit关键字只能用来修饰方法、变量（参数)。</li>
+<li>隐式转换的方法在当前范围内才有效。如果隐式转换不在当前范围内定义（比如定义在另一个类中或包含在某个对象中），那么必须通过import语句将其导入。<br>优点：</li>
+<li>隐式转换函数名可以是任意的,隐式转换与函数名有关,只与函数参数类型和返回值类型有关</li>
+<li>隐式函数可以有多个,就是隐式函数列表,但是必须保证当前环境下,只有一个隐式函数能被识别</li>
+</ul>
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="优化内容"><a href="#优化内容" class="headerlink" title="优化内容"></a>优化内容</h3><ul>
+<li>对查询进行优化，要尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引</li>
+<li>应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，最好不要给数据库留NULL，尽可能的使用 NOT NULL填充数据库.</li>
+<li>应尽量避免在 where 子句中使用 != 或 &lt;&gt; 操作符，否则将引擎放弃使用索引而进行全表扫描</li>
+<li>应尽量避免在 where 子句中使用 or 来连接条件，如果一个字段有索引，一个字段没有索引，将导致引擎放弃使用索引而进行全表扫描</li>
+<li>in 和 not in 也要慎用，否则会导致全表扫描，对于连续的数值，能用 between 就不要用 in 了， 很多时候用 exists 代替 in 是一个好的选择</li>
+<li>如果在 where 子句中使用参数，也会导致全表扫描。因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时；它必须在编译时进行选择。然 而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项, 可以改为强制查询使用索引：select id from t with(index(索引名)) where num = @num</li>
+<li>应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描</li>
+<li>应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描</li>
+<li>不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引</li>
+<li>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</li>
+<li>Update 语句，如果只更改1、2个字段，不要Update全部字段，否则频繁调用会引起明显的性能消耗，同时带来大量日志</li>
+<li>索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有 必要</li>
+</ul>
+]]></content>
     
     <summary type="html">
+    
+      &lt;h2 id=&quot;Java&quot;&gt;&lt;a href=&quot;#Java&quot; class=&quot;headerlink&quot; title=&quot;Java&quot;&gt;&lt;/a&gt;Java&lt;/h2&gt;&lt;h3 id=&quot;基础知识&quot;&gt;&lt;a href=&quot;#基础知识&quot; class=&quot;headerlink&quot; title=&quot;基础知识&quot;&gt;&lt;/a
     
     </summary>
     
@@ -48,13 +467,309 @@
   </entry>
   
   <entry>
-    <title>1、常见算法知识梳理</title>
-    <link href="http://yoursite.com/2020/02/03/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
-    <id>http://yoursite.com/2020/02/03/常见算法知识梳理/</id>
+    <title>大数据处理常见问题梳理</title>
+    <link href="http://yoursite.com/2020/02/03/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%A2%B3%E7%90%86/"/>
+    <id>http://yoursite.com/2020/02/03/知识体系-大数据处理常见问题梳理/</id>
     <published>2020-02-03T09:09:48.000Z</published>
-    <updated>2020-02-03T09:21:29.000Z</updated>
+    <updated>2020-03-25T09:08:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="实时处理"><a href="#实时处理" class="headerlink" title="实时处理"></a>实时处理</h2><h3 id="Strom常见问题"><a href="#Strom常见问题" class="headerlink" title="Strom常见问题"></a>Strom常见问题</h3><h4 id="Strom的架构模型"><a href="#Strom的架构模型" class="headerlink" title="Strom的架构模型"></a>Strom的架构模型</h4><ul>
+<li>Nimbus：负责资源分配和任务调度。新版本中的nimbus节点可以有多个，做主备</li>
+<li>Supervisor：负责接受nimbus分配的任务，启动和停止属于自己管理的worker进程。</li>
+<li>Worker：运行具体处理组件逻辑的进程。</li>
+<li>Task：worker中每一个spout/bolt的线程称为一个task. 在storm0.8之后，task不再与物理线程对应，同一个spout/bolt的task可能会共享一个物理线程，该线程称为executor。最新版本的Jstorm已经废除了task的概念。<br><img src="/images/bigdata/stromfw.png" width="600" alt="Strom架构模型"></li>
+</ul>
+<h4 id="Strom的编程模型"><a href="#Strom的编程模型" class="headerlink" title="Strom的编程模型"></a>Strom的编程模型</h4><ul>
+<li>Spout：用于持续不断的发送数据</li>
+<li>Tuple：数据都被封装进tuple容器，进行传输，Storm中发送数据的基本单元，Tuple不断的向后传输，像水滴一样</li>
+<li>Bolt：用于接受并处理数据</li>
+<li>Stream：从Spout中源源不断传递数据给Blot，以及上一个Blog传递数据给下一个Blot，所组成的数据通道叫做Stream，Stream默认的名称为default，可以为其指定id。</li>
+<li>并行度：可以使用多线程模型，充分利用CPU，可以有效应对高并发，高数据量的应用场景，还可以多台服务器，多节点，多线程运行任务</li>
+<li>有向无环图（Directed Acyclic Graph）：对于Storm实时计算逻辑的封装，即通过一系列由数据流相互关联的Spout、Blot所组成的拓扑结构</li>
+</ul>
+<h4 id="如何提高Strom并发度"><a href="#如何提高Strom并发度" class="headerlink" title="如何提高Strom并发度"></a>如何提高Strom并发度</h4><p>下面我们定义一个名为mytopology的拓扑，由一个Spout组件(BlueSpout)、两个Bolt组件(GreenBolt和YellowBolt)共三个组件构成，代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Config conf = <span class="keyword">new</span> Config();</div><div class="line">conf.setNumWorkers(<span class="number">2</span>); </div><div class="line">topologyBuilder.setSpout(<span class="string">"blue-spout"</span>, <span class="keyword">new</span> BlueSpout(), <span class="number">2</span>);  </div><div class="line">topologyBuilder.setBolt(<span class="string">"green-bolt"</span>, <span class="keyword">new</span> GreenBolt(), <span class="number">2</span>).setNumTasks(<span class="number">4</span>).shuffleGrouping(<span class="string">"blue-spout"</span>);</div><div class="line">topologyBuilder.setBolt(<span class="string">"yellow-bolt"</span>, <span class="keyword">new</span> YellowBolt(), <span class="number">6</span>).shuffleGrouping(<span class="string">"green-bolt"</span>);</div><div class="line">StormSubmitter.submitTopology(<span class="string">"mytopology"</span>, conf, topologyBuilder.createTopology());</div></pre></td></tr></table></figure></p>
+<p>该拓扑一共有两个Worker，2+2+6=10个Executor，2+4+6=12个任务。因此，每个工作进程可以分配到10/2=5个Executor，12/2=6个Task。默认情况下，一个Executor执行一个Task，但是如果指定了Executor的数目，则任务会平均分配到Executor中，因此，GreenBolt的实例”green-bolt”的一个Executor将会分配到4/2个Task。<br>mytopology的拓扑及其对应的资源分配如下图所示：<br><img src="/images/bigdata/topology.png" width="600" alt="拓扑资源分配图"></p>
+<p><strong> 注意：</strong></p>
+<ul>
+<li>并行度主要就是调整executor的数量，但是调整之后的executor的数量必须小于等于task的数量！如果 分配的executor的线程数比task数量多的话也只能分配和task数量相等的executor</li>
+<li>如果设置了多个task实例，但是并行度executor并没有很大提高！例如Spout只有两个线程(executor)去运行这些实例,是没有意义的，当然rebalance的时候用到！ </li>
+<li>rebalance不需要修改代码，就可以动态修改topology的并行度executor，这样的话就必须提前配置好多个(task)实例，在rebalance的时候主要是对之前设置多余的任务实例分配线程去执行。只有设置足够多的线程和实例才可以真正的提高并行度</li>
+<li>worker是进程，executor对应于线程，spout或bolt是一个个的task；同一个worker只会执行同一个topology相关的task，即：一个worder执行一个topology的一部分task，因为topology由多台物理机上的worder构成的！在同一个executor中可以执行多个同类型的task, 即在同一个executor中，要么全部是bolt类的task，要么全部是 spout类的task运行的时候，spout和bolt需要被包装成一个又一个task，task的存在只是为了topology扩展的灵活性，与并行度无关。</li>
+</ul>
+<p>总结一下：<br>worker&gt;executor&gt;task 要想提高storm的并行度可以从三个方面来改造worker(进程)&gt;executor(线程)&gt;task(实例)增加work进程，增加executor线程，增加task实例！**</p>
+<h4 id="Strom可靠性如何实现"><a href="#Strom可靠性如何实现" class="headerlink" title="Strom可靠性如何实现"></a>Strom可靠性如何实现</h4><p><img src="/images/bigdata/spout.png" width="600" alt="消息树"><br>spout端可靠性：</p>
+<ul>
+<li>在有保障数据的处理过程中，bolt每收到一个tuple，都需要向上游确认应答(ack)或报错。对主干tuple中的一个tuple，如果tuple树上的每个bolt进行了确认应答，spout会调用ack方法来标明这条信息已经完全处理了。如果树中的任何一个bolt处理tuple报错，或者处理超时，spout会调用fail方法。</li>
+<li>Storm的ISpout接口定义了三个可靠性相关的API：nextTuple，ack和fail。<br>前面讲过，Storm通过调用Spout的nextTuple()发送一个tuple。为实现可靠的消息处理，首先要给每个发出的tuple带上唯一的ID，并且将ID作为参数传递SpoutOutputCollector的emit()方法：    collector.emit(new Values(“value1”, “value2”), msgId);</li>
+<li>给tuple指定ID告诉Storm系统，无论执行成功还是失败，spout都要接收tuple树上所有节点返回的通知。如果处理成功，spout的ack()方法将会对编号是ID的消息应答确认，如果执行失败或者超时，会调用fail()方法。</li>
+<li>Fail方法即重发失败的tuple。</li>
+</ul>
+<p>bolt端可靠性，bolt要实现可靠的消息处理机制包含两个步骤：</p>
+<ul>
+<li>当发射衍生的tuple时，需要锚定读入的tuple，</li>
+<li>当处理消息成功或者失败时分别确认应答或者报错</li>
+</ul>
+<p>锚定一个tuple的意思是，建立读入tuple和衍生出的tuple之间的对应关系，这样下游的bolt就可以通过应答确认、报错或超时来加入到tuple树结构中。非锚定的tuple不会对数据流的可靠性起作用。如果一个非锚定的tuple在下游处理失败，原始的根tuple不会重新发送。</p>
+<h4 id="Strom的分发策略"><a href="#Strom的分发策略" class="headerlink" title="Strom的分发策略"></a>Strom的分发策略</h4><ul>
+<li>Shuffle Grouping，随机分发，随机派发Stream里面的tuple，保证每个bolt task接收到的tuple的数量大致相同</li>
+<li>Field Grouping，根据字段分发，例如根据OutputFieldsDeclarer中声明的一个field属性进行分发，field的对应的tuple的值相同，就会分发到同一bolt中去进行处理，filed不同可能就会被分发到不同的task</li>
+<li>All Grouping，广播模式分发，每一个tuple都会被分发到下一个阶段的所有的bolt中</li>
+<li>Global Grouping分发，将tuple分发到后续bolt中taskid最小的task中去执行，可以看做是高可用，其他的bolt作为备用，一旦taskid最小的task对应的bolt挂了，还有bolt可以使用，可以保证Storm集群的可用性</li>
+<li>None Grouping，类似于Shuffle Grouping，不同的是None Grouping采用的是轮训的形式，Shuffle采用的是随机分发有一点不同的是storm会把使用none grouping的这个bolt放到这个bolt的订阅者同一个线程里面去执行</li>
+<li>Direct Grouping，指向性分发，这种分发策略意味着消息（tuple）的发送者指定由消息接受者的哪个task来处理消息，只有被声明为Direct Stream的消息流可以声明这种分组方法，而且这种消息必须由emitDirect方法来发送。可以使用TopologyContext获取taskId，还有outputCollector.emit()方法也可以返回taskid</li>
+<li>Local or Shuffle Grouping，本地随机分组，如果目标bolt有一个或者多个task与源bolt的task在同进程中，则随机分发到同进程的task中，否则和Shuffle Grouping一样</li>
+<li>自定义分发 customGrouping</li>
+</ul>
+<h4 id="Trident框架"><a href="#Trident框架" class="headerlink" title="Trident框架"></a>Trident框架</h4><p>Trident是Storm中最为核心的概念，在做Strom开发的过程中，绝大部分情况下我们都会使用Trident，而不是使用传统的Spout、Bolt。Trident是Storm原语的高级封装，学会Trident之后，将会使得我们Storm开发变得非常简单。Trident对于Storm原语的抽象主要也就是针对这些基本概念的抽象。主要体现在：Trident Spout,Operation、State。</p>
+<ul>
+<li>Trident Spout是针对Storm原语中的Spout进行的抽象</li>
+<li>Operation是针对Bolt、Grouping等概念的抽象</li>
+<li>State是新提出的概念，实际上就是数据持久化的接口</li>
+</ul>
+<p>单词计数案例:<br>(1)StormTopology<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">TopologyBuilder builder = <span class="keyword">new</span> TopologyBuilder();</div><div class="line">builder.setSpout(<span class="string">"word-reader"</span> , <span class="keyword">new</span> WordReader(),<span class="number">4</span>);</div><div class="line">builder.setBolt(<span class="string">"word-normalizer"</span> , <span class="keyword">new</span> WordNormalizer(),<span class="number">3</span>).shuffleGrouping(<span class="string">"word-reader"</span> );</div><div class="line">builder.setBolt(<span class="string">"word-counter"</span> , <span class="keyword">new</span> WordCounter(),<span class="number">1</span>).fieldsGrouping(<span class="string">"word-normalizer"</span> , <span class="keyword">new</span> Fields(<span class="string">"word"</span>));</div><div class="line">StormTopology topology = builder .createTopology();</div></pre></td></tr></table></figure></p>
+<p>(2)TridentTopology<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">TridentTopology tridentTopology = <span class="keyword">new</span> TridentTopology();</div><div class="line">             tridentTopology.newStream(<span class="string">"word-reader-stream"</span> , <span class="keyword">new</span> WordReader()).parallelismHint(<span class="number">16</span>)</div><div class="line">            .each( <span class="keyword">new</span> Fields(<span class="string">"line"</span> ), <span class="keyword">new</span> NormalizeFunction(), <span class="keyword">new</span> Fields(<span class="string">"word"</span> ))</div><div class="line">            .groupBy( <span class="keyword">new</span> Fields(<span class="string">"word"</span> ))</div><div class="line">            .persistentAggregate( <span class="keyword">new</span> MemoryMapState.Factory(), <span class="keyword">new</span> Sum(), <span class="keyword">new</span> Fields(<span class="string">"sum"</span> ));</div><div class="line">StormTopology stormTopology = tridentTopology.build();</div></pre></td></tr></table></figure></p>
+<p>对比：</p>
+<ul>
+<li>在StormTopology中，我们都是通过TopologyBuilder的setSpout、setBolt的方式来创建Topology，然后通过Grouping策略指定Bolt的数据来源和分组策略。</li>
+<li>在TridentTopology中，我们使用TridentTopology来创建Topology，整个创建过程中，都是流式编程风格的。要注意的是，在Trident中，我们依然使用了WordReader这个Spout，但是并没有使用Bolt，而是使用了类似于each、persistentAggregate这样方法，来取代Bolt的功能。关于这些方法的作用再之后会详细介绍，目前只要知道Bolt的作用被一些方法取代了即可。</li>
+</ul>
+<h3 id="Flink常见问题"><a href="#Flink常见问题" class="headerlink" title="Flink常见问题"></a>Flink常见问题</h3><p>暂时停止梳理</p>
+<h2 id="离线处理"><a href="#离线处理" class="headerlink" title="离线处理"></a>离线处理</h2><h3 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h3><h4 id="MR的Shuffle详解"><a href="#MR的Shuffle详解" class="headerlink" title="MR的Shuffle详解"></a>MR的Shuffle详解</h4><p>shuffle的本意是洗牌、混洗的意思，把一组有规则的数据尽量打乱成无规则的数据。<br><img src="/images/bigdata/shuffle.jpg" width="600" alt="Shuffle官方流程图"><br>(1) Map端Shuffle</p>
+<ul>
+<li><p>分区Partition，在将map()函数处理后得到的（key,value）对写入到缓冲区之前，需要先进行分区操作，这样就能把map任务处理的结果发送给指定的reducer去执行，从而达到负载均衡，避免数据倾斜。</p>
+</li>
+<li><p>写入环形内存缓冲区，因为频繁的磁盘I/O操作会严重的降低效率，因此“中间结果”不会立马写入磁盘，而是优先存储到map节点的“环形内存缓冲区”，并做一些预排序以提高效率，当写入的数据量达到预先设置的阙值后便会执行一次I/O操作将数据写入到磁盘。每个map任务都会分配一个环形内存缓冲区，用于存储map任务输出的键值对（默认大小100MB，mapreduce.task.io.sort.mb调整）以及对应的partition，被缓冲的（key,value）对已经被序列化（为了写入磁盘）。</p>
+</li>
+<li><p>执行溢写出，一旦缓冲区内容达到阈值（mapreduce.map.io.sort.spill.percent,默认0.80，或者80%），就会会锁定这80%的内存，并在每个分区中对其中的键值对按键进行sort排序，具体是将数据按照partition和key两个关键字进行排序，排序结果为缓冲区内的数据按照partition为单位聚集在一起，同一个partition内的数据按照key有序。排序完成后会创建一个溢出写文件（临时文件），然后开启一个后台线程把这部分数据以一个临时文件的方式溢出写（spill）到本地磁盘中，剩余的20%的内存在此期间可以继续写入map输出的键值对。溢出写过程按轮询方式将缓冲区中的内容写到mapreduce.cluster.local.dir属性指定的目录中。</p>
+</li>
+<li><p>合并Combiner，如果指定了Combiner，可能在两个地方被调用：当为作业设置Combiner类后，缓存溢出线程将缓存存放到磁盘时，就会调用；缓存溢出的数量超过mapreduce.map.combine.minspills（默认3）时，在缓存溢出文件合并的时候会调用。</p>
+</li>
+<li><p>归并merge，当一个map task处理的数据很大，以至于超过缓冲区内存时，就会生成多个spill文件。此时就需要对同一个map任务产生的多个spill文件进行归并生成最终的一个已分区且已排序的大文件。配置属性mapreduce.task.io.sort.factor控制着一次最多能合并多少流，默认值是10。这个过程包括排序和合并（可选），归并得到的文件内键值对有可能拥有相同的key，这个过程如果client设置过Combiner，也会合并相同的key值的键值对（根据上面提到的combine的调用时机可知）。溢出写文件归并完毕后，Map将删除所有的临时溢出写文件，并告知NodeManager任务已完成，只要其中一个MapTask完成，ReduceTask就开始复制它的输出（Copy阶段分区输出文件通过http的方式提供给reducer）。</p>
+</li>
+<li><p>压缩，写磁盘时压缩map端的输出，因为这样会让写磁盘的速度更快，节约磁盘空间，并减少传给reducer的数据量。默认情况下，输出是不压缩的(将mapreduce.map.output.compress设置为true即可启动)。</p>
+</li>
+</ul>
+<p>(2) Reduce端shuffle</p>
+<ul>
+<li><p>复制copy，Reduce进程启动一些数据copy线程，通过HTTP方式请求MapTask所在的NodeManager以获取输出文件。NodeManager需要为分区文件运行reduce任务。并且reduce任务需要集群上若干个map任务的map输出作为其特殊的分区文件。而每个map任务的完成时间可能不同，因此只要有一个任务完成，reduce任务就开始复制其输出。reduce任务有少量复制线程，因此能够并行取得map输出。默认线程数为5，但这个默认值可以通过mapreduce.reduce.shuffle.parallelcopies属性进行设置。</p>
+</li>
+<li><p>归并merge， Copy过来的数据会先放入内存缓冲区中，如果内存缓冲区中能放得下这次数据的话就直接把数据写到内存中，即内存到内存merge。Reduce要向每个Map去拖取数据，在内存中每个Map对应一块数据，当内存缓存区中存储的Map数据占用空间达到一定程度的时候，开始启动内存中merge，把内存中的数据merge输出到磁盘上一个文件中，即内存到磁盘merge。与map端的溢写类似，在将buffer中多个map输出合并写入磁盘之前，如果设置了Combiner，则会化简压缩合并的map输出。Reduce的内存缓冲区可通过mapred.job.shuffle.input.buffer.percent配置，默认是JVM的heap size的70%。内存到磁盘merge的启动门限可以通过mapred.job.shuffle.merge.percent配置，默认是66%。</p>
+</li>
+<li><p>reduce，当一个reduce任务完成全部的复制和排序后，就会针对已根据键排好序的Key构造对应的Value迭代器。这时就要用到分组，默认的根据键分组，自定义的可是使用 job.setGroupingComparatorClass()方法设置分组函数类。对于默认分组来说，只要这个比较器比较的两个Key相同，它们就属于同一组，它们的 Value就会放在一个Value迭代器，而这个迭代器的Key使用属于同一个组的所有Key的第一个Key。 在reduce阶段，reduce()方法的输入是所有的Key和它的Value迭代器。此阶段的输出直接写到输出文件系统，一般为HDFS。如果采用HDFS，由于NodeManager也运行数据节点，所以第一个块副本将被写到本地磁盘。</p>
+</li>
+</ul>
+<h3 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h3><h4 id="窄依赖与宽依赖"><a href="#窄依赖与宽依赖" class="headerlink" title="窄依赖与宽依赖"></a>窄依赖与宽依赖</h4><p>窄依赖：指父RDD的每个分区只被子RDD的一个分区所使用，子RDD分区通常对应常数个父RDD分区（O(1)，与数据规模无关）<br>宽依赖：是指父RDD的每个分区都可能被多个子RDD分区所使用，子RDD分区通常对应所有的父RDD分区（O(n),与数据规模有关）<br>相比于依赖，窄依赖对优化很有利，主要基于以下两点：</p>
+<ul>
+<li>窄依赖允许在一个集群节点上以流水线的方式计算所有父分区，而宽依赖则需要首先计算好所有父分区数据，然后在节点之间进行Shuffle，这与MapReduce类似</li>
+<li>窄依赖能够更有效地进行失效节点的恢复，即只需要重新计算丢失分区的父分区，而且不同节点之间可以并行计算；而对于一个宽依赖的Lineage图，单个节点失效可能导致这个RDD的所有祖先丢失部分分区，因而需要整体重新计算</li>
+</ul>
+<h4 id="Spark-Shuffle详解"><a href="#Spark-Shuffle详解" class="headerlink" title="Spark Shuffle详解"></a>Spark Shuffle详解</h4><p>(1)普通机制的Sort Shuffle<br><img src="/images/bigdata/spark_sort_shuffle.jpeg" width="600" alt="普通机制的Sort Shuffle"><br>(2)bypass机制的Sort Shuffle<br>bypass运行机制的触发条件如下：</p>
+<ul>
+<li>shuffle map task数量小于spark.shuffle.sort.bypassMergeThreshold参数的值</li>
+<li>不是聚合类的shuffle算子（比如reduceByKey，reduceByKey在操作时能够在本地先进行merge操作，需要进行排序）<br><img src="/images/bigdata/spark_bypass_shuffle.jpeg" width="600" alt="普通机制的Sort Shuffle"></li>
+</ul>
+<h4 id="Spark-Schedule（任务调度）"><a href="#Spark-Schedule（任务调度）" class="headerlink" title="Spark Schedule（任务调度）"></a>Spark Schedule（任务调度）</h4><p><img src="/images/bigdata/spark_schedule.jpg" width="600" alt="Spark Schedule（任务调度）"></p>
+<h4 id="Spark-Stage划分"><a href="#Spark-Stage划分" class="headerlink" title="Spark Stage划分"></a>Spark Stage划分</h4><p>spark划分stage的整体思路是：从后往前推，遇到宽依赖就断开，划分为一个stage；遇到窄依赖就将这个RDD加入该stage中。</p>
+<ul>
+<li>在spark中，Task的类型分为2种：ShuffleMapTask和ResultTask；简单来说，DAG的最后一个阶段会为每个结果的partition生成一个ResultTask，即每个Stage里面的Task的数量是由该Stage中最后一个RDD的Partition的数量所决定的！</li>
+<li>而其余所有阶段都会生成ShuffleMapTask；之所以称之为ShuffleMapTask是因为它需要将自己的计算结果通过shuffle到下一个stage中。</li>
+</ul>
+<h4 id="PairRDD处理详解"><a href="#PairRDD处理详解" class="headerlink" title="PairRDD处理详解"></a>PairRDD处理详解</h4><p>1、combineByKey<br>一个用于合并Pair RDD中同key对应value的非常高效的实现，通过多个规约函数将value以one by one的方式进行处理合并<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span></span>[<span class="type">C</span>](createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>, mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>, mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span></span>[<span class="type">C</span>](createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>, mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>, mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>, numPartitions: <span class="type">Int</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span></span>[<span class="type">C</span>](createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>, mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>, mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>, partitioner: <span class="type">Partitioner</span>, mapSideCombine: <span class="type">Boolean</span> = <span class="literal">true</span>, serializerClass: <span class="type">String</span> = <span class="literal">null</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)]</div></pre></td></tr></table></figure></p>
+<p>其中第三个实现是最底层的实现，其他为简化版本。参数说明：</p>
+<ul>
+<li>createcombiner:  将V类型转换成C类型值</li>
+<li>mergeValue:  将一个V类型值与一个C类型值合并成C类型值</li>
+<li>mergeCombiners:  将两个C类型值合并为一个C类型值</li>
+<li>partitioner:  分区函数</li>
+<li>numPartitions：传入一个Int型的分区个数，实现以该值为HashParitioner参数的分区函数</li>
+<li>mapSideCombine:  布尔类型值，指定是否需要在Map端进行combine操作，默认为true</li>
+</ul>
+<p>运行原理：</p>
+<ul>
+<li>mapSideCombine为true：<br><strong> map端：将按key的不同，将createCombiner函数应用于某key在该partition内的第一条记录；在该partition中，对于同key的记录，应用mergeValue处理读入记录，并得到C类型的值，最终map端的每个分区得到一系列RDD[(K, C)]类型的对象（map端不同partition的输出可能具有相同的key）；
+</strong> reduce端：根据numPartitions或者partitioner进行shuffle，同一个key的所有map输出结果存放到同一个partition内，将同key的数据应用mergeCombiners，最终得到RDD[(K, C)]类型的输出结果</li>
+<li>mapSideCombine为false：map端什么都不做，直接进行shuffle，所有操作在reduce端执行</li>
+</ul>
+<p>注：在PairRDD的处理中 aggregateByKey, reduceByKey, foldByKey, groupByKey等都是基于combineByKey实现的</p>
+<p>示例：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#combineByKey实现求最值</div><div class="line"><span class="keyword">val</span> max = rdd.combineByKey((a:<span class="type">Int</span>) =&gt; a.max(<span class="number">0</span>), (a:<span class="type">Int</span>, b:<span class="type">Int</span>) =&gt; a.max(b), (a:<span class="type">Int</span>, b:<span class="type">Int</span>) =&gt; a.max(b))</div><div class="line"></div><div class="line">#combineByKey实现求平均值</div><div class="line"><span class="keyword">val</span> avg = rdd.combineByKey((_, <span class="number">1</span>), (c: (<span class="type">Int</span>, <span class="type">Int</span>), v) =&gt; ((v + c._1 * c._2)/(c._2 + <span class="number">1</span>), c._2 + <span class="number">1</span>), (m: (<span class="type">Int</span>, <span class="type">Int</span>), n: (<span class="type">Int</span>, <span class="type">Int</span>)) =&gt; ((m._1 * m._2 + n._1 * n._2)/(m._2 + n._2), m._2 + n._2))</div></pre></td></tr></table></figure></p>
+<p>2、aggregateByKey<br>使用给定的合并函数和初始值，规约每一个key的数据。该函数返回与输入RDD[(K, V)]不同的类型RDD[(K, U)]。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>](zeroValue: <span class="type">U</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) ⇒ <span class="type">U</span>, combOp: (<span class="type">U</span>, <span class="type">U</span>) ⇒ <span class="type">U</span>)(<span class="keyword">implicit</span> arg0: <span class="type">ClassTag</span>[<span class="type">U</span>]): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>](zeroValue: <span class="type">U</span>, numPartitions: <span class="type">Int</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) ⇒ <span class="type">U</span>, combOp: (<span class="type">U</span>, <span class="type">U</span>) ⇒ <span class="type">U</span>)(<span class="keyword">implicit</span> arg0: <span class="type">ClassTag</span>[<span class="type">U</span>]): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>](zeroValue: <span class="type">U</span>, partitioner: <span class="type">Partitioner</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) ⇒ <span class="type">U</span>, combOp: (<span class="type">U</span>, <span class="type">U</span>) ⇒ <span class="type">U</span>)(<span class="keyword">implicit</span> arg0: <span class="type">ClassTag</span>[<span class="type">U</span>]): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)]</div></pre></td></tr></table></figure></p>
+<p>由于返回类型不同，需要一个将类型V的值映射到类型U的方法seqOp，及合并两个U类型值的方法combOp。seqOp在一个partition内使用，而combOp则用于合并partition间的值。<br>aggregateByKey是基于combineByKey的mapSideCombine = true的实现，与combineByKey的不同在于：</p>
+<ul>
+<li>aggregateByKey采用柯里化（接受多个参数的函数变换成接受一个单一参数）定义方式， 及默认是mapSideCombine = true</li>
+<li>aggregateByKey带有一个初始化的累加器zeroValue，同createCombiner一样，该累加器仅应用于一个分区内不同key 的第一个元素<br>之后操作同combineByKey，seqOp操作对应combineByKey的mergeValue操作，combOp对应combineBykey的mergeCombiners操作，最终得到RDD[(K, U)]类型的输出。<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#combineByKey实现求最值</div><div class="line"><span class="keyword">val</span> maxAgg = rdd.aggregateByKey(<span class="number">0</span>)((a:<span class="type">Int</span>, b:<span class="type">Int</span>) =&gt; a.max(b), (a:<span class="type">Int</span>, b:<span class="type">Int</span>) =&gt; a.max(b))</div><div class="line"></div><div class="line">#combineByKey实现求平均值</div><div class="line"><span class="keyword">val</span> avg_agg = rdd.aggregateByKey((<span class="number">0</span>,<span class="number">0</span>))((c: (<span class="type">Int</span>, <span class="type">Int</span>), v) =&gt; ((v + c._1 * c._2)/(c._2 + <span class="number">1</span>), c._2 + <span class="number">1</span>), (m: (<span class="type">Int</span>, <span class="type">Int</span>), n: (<span class="type">Int</span>, <span class="type">Int</span>)) =&gt; ((m._1 * m._2 + n._1 * n._2)/(m._2 + n._2), m._2 + n._2))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>3、reduceByKey<br>使用联合规约方法合并相同key的数据，类似于实现combiner的MapReduce，func定义的操作会在本地map端的partition内执行后再将结果发送到reducer端，再次执行func定义的操作。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(func: (<span class="type">V</span>, <span class="type">V</span>) =&gt; <span class="type">V</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">V</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(func: (<span class="type">V</span>, <span class="type">V</span>) =&gt; <span class="type">V</span>, numPartitions: <span class="type">Int</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">V</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(partitioner: <span class="type">Partitioner</span>, func: (<span class="type">V</span>, <span class="type">V</span>) =&gt; <span class="type">V</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">V</span>)]</div></pre></td></tr></table></figure></p>
+<p>reduceByKey 与combineByKey，及aggregateByKey的不同在于：</p>
+<ul>
+<li>reduceByKey输出类型与输入类型相同，为RDD[(K, V)]</li>
+<li>reduceByKey由于操作过程不能设置临时变量，因此不能用于处理有状态数据，即不能自定义中间类型C<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#combineByKey实现求最值</div><div class="line"><span class="keyword">val</span> maxRBK = rdd.reduceByKey((m, n) =&gt; m.max(n))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>4、groupByKey<br>将RDD根据key进行分组，并生成一个迭代器<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">Iterable</span>[<span class="type">V</span>])]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(numPartitions: <span class="type">Int</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">Iterable</span>[<span class="type">V</span>])]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(partitioner: <span class="type">Partitioner</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">Iterable</span>[<span class="type">V</span>])]</div></pre></td></tr></table></figure></p>
+<p>使用groupByKey注意事项：</p>
+<ul>
+<li>每次groupByKey操作后，组内元素顺序不一定相同</li>
+<li>与aggregateByKey及reduceByKey区别：groupByKey操作基于mapSideCombine = false的combineByKey的实现，性能较差；如为对每一个key值进行规约处理，建议使用aggregateByKey或者reduceByKey操作<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> rdd = sc.parallelize(<span class="type">Array</span>((<span class="number">1</span>,<span class="number">12</span>),(<span class="number">2</span>,<span class="number">45</span>),(<span class="number">3</span>,<span class="number">67</span>),(<span class="number">2</span>,<span class="number">23</span>),(<span class="number">2</span>,<span class="number">89</span>),(<span class="number">1</span>,<span class="number">56</span>)),<span class="number">2</span>)</div><div class="line"><span class="keyword">val</span> gbk = rdd.groupByKey()</div><div class="line"></div><div class="line">#combineByKey实现求最值</div><div class="line"><span class="keyword">val</span> max = gbk.mapValues(_.max)</div><div class="line"></div><div class="line">#combineByKey实现求平均值</div><div class="line">gbk.mapValues(elem =&gt; elem.sum / elem.size)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>5、sortByKey<br>根据key实现RDD的排序<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sortByKey</span></span>(ascending: <span class="type">Boolean</span> = <span class="literal">true</span>, numPartitions: <span class="type">Int</span> = self.partitions.size): <span class="type">RDD</span>[<span class="type">P</span>]</div></pre></td></tr></table></figure></p>
+<p>参数说明：</p>
+<ul>
+<li>ascending：标记，指示使用升序排序，还是降序排序</li>
+<li>numPartitions：输出分区的个数</li>
+</ul>
+<p>使用sortByKey注意事项：</p>
+<ul>
+<li>相同key的记录，存放在同一个partition</li>
+<li>一个partition内不一定仅包含一个key对应的数据</li>
+<li>通常sortByKey后接mapPartitions，按传统Hadoop MapReduce的方式处理数据</li>
+<li>与基于CombineByKey的Pair RDD处理函数默认使用HashPartitioner不同，sortByKey使用RangePartitioner进行数据分区；对于基于key数据倾斜的问题（部分key对应数据量过大），能够实现良好的数据分区<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">/sbk: org.apache.spark.rdd.<span class="type">RDD</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = <span class="type">ShuffledRDD</span></div><div class="line"><span class="keyword">val</span> sbk = rdd.sortByKey()</div><div class="line"><span class="comment">//Array[(Int, Int)] = Array((1,12), (1,56), (2,45), (2,23), (2,89), (3,67))</span></div><div class="line">sbk collect</div><div class="line"> </div><div class="line"><span class="comment">//最值：((1,56), (2,89), (3,67))</span></div><div class="line"><span class="keyword">val</span> max = sbk.mapPartitions&#123;</div><div class="line">  lines =&gt;</div><div class="line">    <span class="keyword">val</span> out = scala.collection.mutable.<span class="type">ListBuffer</span>[(<span class="type">Int</span>, <span class="type">Int</span>)]()</div><div class="line">    <span class="keyword">var</span> key = <span class="number">-1</span></div><div class="line">    <span class="keyword">var</span> result = <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (line &lt;- lines) &#123;</div><div class="line">      <span class="keyword">if</span>(line._1 != key) &#123;</div><div class="line">        <span class="keyword">if</span> (key != <span class="number">-1</span>)</div><div class="line">          out += ((key, result))</div><div class="line">        key = line._1</div><div class="line">        result = line._2</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span></div><div class="line">        result = result.max(line._2)</div><div class="line">    &#125;</div><div class="line">    out += ((key, result))</div><div class="line">    </div><div class="line">    out.toList.toIterator</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//均值：((1,34), (2,52), (3,67))</span></div><div class="line"><span class="keyword">val</span> avg = sbk.mapPartitions&#123;</div><div class="line">  lines =&gt;</div><div class="line">    <span class="keyword">val</span> out = scala.collection.mutable.<span class="type">ListBuffer</span>[(<span class="type">Int</span>, <span class="type">Int</span>)]()</div><div class="line">    <span class="keyword">var</span> key = <span class="number">-1</span></div><div class="line">    <span class="keyword">var</span> result = (<span class="number">0</span>, <span class="number">0</span>)</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (line &lt;- lines) &#123;</div><div class="line">      <span class="keyword">if</span>(line._1 != key) &#123;</div><div class="line">        <span class="keyword">if</span> (key != <span class="number">-1</span>)</div><div class="line">          out += ((key, result._1))</div><div class="line">        key = line._1</div><div class="line">        result = (line._2, <span class="number">1</span>)</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span> &#123;</div><div class="line">        result = ((result._1 * result._2 + line._2) / (result._2 + <span class="number">1</span>), result._2 + <span class="number">1</span>)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    out += ((key, result._1))</div><div class="line"></div><div class="line">    out.toList.toIterator</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>6、Aggregate<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregate</span></span>[<span class="type">S</span>](zeroValue: =&gt;<span class="type">S</span>)(seqop: (<span class="type">S</span>, <span class="type">T</span>) =&gt; <span class="type">S</span>, combop: (<span class="type">S</span>, <span class="type">S</span>) =&gt; <span class="type">S</span>): <span class="type">S</span></div></pre></td></tr></table></figure></p>
+<p>其中seqOp是聚合各分区中的元素,将元素类型从T转变为S,操作的初始值是zeroValue<br>combop是将聚合各分区中元素的结果再次进行聚合，操作的初始值也是zeroValue</p>
+<p>7、AppendOnlyMap<br>AppendOnlyMap是spark自己实现的Map，只能添加数据，不能remove。该Map是使用开放定址法中的二次探测法，不用自带的HashMap，是为了是节省空间，提高性能。spark早期版本采用的是AppendOnlyMap来实现shuffle reduce阶段数据的聚合，当数据量不大时没什么问题，但当数据量很大时就会占用大量内存，最后可能OOM。所以从spark 0.9开始就引入了ExternalAppendOnlyMap来代替AppendOnlyMap。</p>
+<p>8、ExternalAppendOnlyMap<br>ExternalAppendOnlyMap也在内存维护了一个SizeTrackingAppendOnlyMap(继承于AppendOnlyMap),当该Map元素数超过一定值时就spill到磁盘。最后ExternalAppendOnlyMap其实是维护了一个内存Map:currentMap以及多个diskMap:spillMaps。</p>
+<h4 id="RDD弹性数据集"><a href="#RDD弹性数据集" class="headerlink" title="RDD弹性数据集"></a>RDD弹性数据集</h4><p>RDD（弹性分布式数据集），它是分区的，可并行计算的数据集，它是一个逻辑概念；spark主要是基于内存做运算操作,把数据加载到内存然后形成了RDD,但是如果内存资源不足的情况下，Spark会自动将RDD数据写入磁盘,这里就体现了弹性分布式数据集中的”弹性”.<br>RDD特点:</p>
+<ul>
+<li>分区，RDD逻辑上是分区的，每个分区的数据是抽象存在的，计算的时候会通过一个compute函数得到每个分区的数据。</li>
+<li>只读，RDD是只读的，要想改变RDD中的数据，只能在现有的RDD基础上创建新的RDD。算子分为转换算子和行动算子。</li>
+<li>依赖，RDDs通过操作算子进行转换，转换得到的新RDD包含了从其他RDDs衍生所必需的信息，RDDs之间维护着这种血缘关系，也称之为依赖。依赖分为窄依赖和宽依赖。</li>
+<li>缓存，如果在应用程序中多次使用同一个RDD，可以将该RDD缓存起来，该RDD只有在第一次计算的时候会根据血缘关系得到分区的数据，在后续其他地方用到该RDD的时候，会直接从缓存处取而不用再根据血缘关系计算。此时是将RDD的数据保存到内存中。</li>
+<li>CheckPoint，与缓存一样都是切断血缘关系的操作,但是会将RDD的数据保存到磁盘上。</li>
+<li>弹性，如开篇所述.</li>
+</ul>
+<h4 id="MR与Spark的区别"><a href="#MR与Spark的区别" class="headerlink" title="MR与Spark的区别"></a>MR与Spark的区别</h4><p>在同一个节点上，Hadoop MapReduce采用了多进程模型，而Spark采用了多线程模型。</p>
+<p>多进程模型便于细粒度控制每个任务占用的资源，但会消耗较多的启动时间，不适合运行低延迟类型的作业，这是MapReduce广为诟病的原因之一。而多线程则相反，该模型使得Spark很适合运行低延迟类型的作业。总之，Spark同节点上的任务以多线程的方式运行在一个JVM进程中，可带来以下好处：</p>
+<ul>
+<li>任务启动速度快，与之相反的是MapReduce Task进程的慢启动速度，通常需要1s左右；</li>
+<li>同节点上所有任务运行在一个进程中，有利于共享内存。这非常适合内存密集型任务，尤其对于那些需要加载大量词典的应用程序，可大大节省内存。</li>
+<li>同节点上所有任务可运行在一个JVM进程(Executor)中，且Executor所占资源可连续被多批任务使用，不会在运行部分任务后释放掉，这避免 了每个任务重复申请资源带来的时间开销，对于任务数目非常多的应用，可大大降低运行时间。与之对比的是MapReduce中的Task：每个Task单独 申请资源，用完后马上释放，不能被其他任务重用，尽管1.0支持JVM重用在一定程度上弥补了该问题，但2.0尚未支持该功能。</li>
+</ul>
+<p>尽管Spark的过线程模型带来了很多好处，但同样存在不足，主要有：</p>
+<ul>
+<li>由于同节点上所有任务运行在一个进程中，因此，会出现严重的资源争用，难以细粒度控制每个任务占用资源。与之相 反的是MapReduce，它允许用户单独为Map Task和Reduce Task设置不同的资源，进而细粒度控制任务占用资源量，有利于大作业的正常平稳运行。</li>
+</ul>
+<h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><h3 id="Hdfs"><a href="#Hdfs" class="headerlink" title="Hdfs"></a>Hdfs</h3><h4 id="HDFS的存储格式"><a href="#HDFS的存储格式" class="headerlink" title="HDFS的存储格式"></a>HDFS的存储格式</h4><h3 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h3><p>hbase的特点是：</p>
+<ul>
+<li>hbase是一个分布式的，基于列式存储的数据库，基于hadoop的hdfs存储，zookeeper进行管理</li>
+<li>hbase 适合存储半结构化或非结构化的数据，对于数据结构字段不够确定或者杂乱无章很难按照一个概念去抽取的数据</li>
+<li>hbase为null的数据不会被存储</li>
+<li>基于的表包含rowKey，时间戳和列族，新写入数据时，时间戳更新，同时可以查询到以前的版本</li>
+<li>hbase是主从结构，hmaster作为主节点，hregionServer作为从节点</li>
+</ul>
+<h4 id="Hbase和Hive有什么区别"><a href="#Hbase和Hive有什么区别" class="headerlink" title="Hbase和Hive有什么区别"></a>Hbase和Hive有什么区别</h4><p>共同点：</p>
+<ul>
+<li>hbase与hive都是架构在hadoop之上的。都是用hadoop作为底层存储</li>
+</ul>
+<p>区别：</p>
+<ul>
+<li>Hive是建立在Hadoop之上为了减少MapReducejobs编写工作的批处理系统，HBase是为了支持弥补Hadoop对实时操作的缺陷的项目</li>
+<li>想象你在操作RMDB数据库，如果是全表扫描，就用Hive+Hadoop,如果是索引访问，就用HBase+Hadoop</li>
+<li>Hive query就是MapReduce jobs可以从5分钟到数小时不止，HBase是非常高效的，肯定比Hive高效的多</li>
+<li>Hive本身不存储和计算数据，它完全依赖于HDFS和MapReduce，Hive中的表纯逻辑</li>
+<li>hive借用hadoop的MapReduce来完成一些hive中的命令的执行</li>
+<li>hbase是物理表，不是逻辑表，提供一个超大的内存hash表，搜索引擎通过它来存储索引，方便查询操作</li>
+<li>hbase是列存储</li>
+<li>hdfs作为底层存储，hdfs是存放文件的系统，而Hbase负责组织文件</li>
+<li>hive需要用到hdfs存储文件，需要用到MapReduce计算框架</li>
+</ul>
+<h4 id="scan和get的异同"><a href="#scan和get的异同" class="headerlink" title="scan和get的异同"></a>scan和get的异同</h4><ul>
+<li>按指定RowKey 获取唯一一条记录， get方法（org.apache.hadoop.hbase.client.Get）Get 的方法处理分两种 : 设置了 ClosestRowBefore 和没有设置的 rowlock .主要是用来保证行的事务性，即每个 get 是以一个 row 来标记的.一个 row 中可以有很多 family 和 column.</li>
+<li>按指定的条件获取一批记录， scan 方法(org.apache.Hadoop.hbase.client.Scan)实现条件查询功能使用的就是 scan 方式.1)scan 可以通过 setCaching（针对row） 与 setBatch(针对返回的列空值) 方法提高速度(以空间换时间)； 2)scan 可以通过 setStartRow 与 setEndRow 来限定范围([start， end]start 是闭区间， end 是开区间)。范围越小，性能越高。3)scan 可以通过 setFilter 方法添加过滤器，这也是分页、多条件查询的基础。</li>
+<li>全表扫描，即直接扫描整张表中所有行记录 </li>
+</ul>
+<h4 id="简述HBASE中compact用途是什么"><a href="#简述HBASE中compact用途是什么" class="headerlink" title="简述HBASE中compact用途是什么"></a>简述HBASE中compact用途是什么</h4><p>在 hbase中每当有memstore数据flush到磁盘之后，就形成一个storefile，当storeFile的数量达到一定程度后，就需要将storefile文件来进行compaction操作。<br>Compact 的作用：合并文件、清除过期，多余版本的数据、提高读写数据的效率</p>
+<h4 id="HBASE表的设计原则"><a href="#HBASE表的设计原则" class="headerlink" title="HBASE表的设计原则"></a>HBASE表的设计原则</h4><p>对HBase表的设计会直接影响hbase使用的效率和使用的便利性，主要是 列族的设计 和 行键的设计。<br>1、列族的设计</p>
+<ul>
+<li>在设计hbase表时候，列族不宜过多，越少越好，官方推荐hbase表的列族不宜超过3个。</li>
+<li>经常要在一起查询的数据最好放在一个列族中，尽量的减少跨列族的数据访问。</li>
+<li>如果有多个列族，多个列族中的数据应该设计的比较均匀。<br>2、行键的设计<br>hbase表中行键是唯一标识一个表的字段，所以行键设计的好不好将会直接影响未来对hbase的查询的性能和查询的便利性，所以hbase中的行键是需要进行设计的</li>
+<li>行键必须唯一：必须唯一才能唯一标识数据</li>
+<li>行键必须有意义：这样才能方便数据的查询</li>
+<li>行键最好是字符串类型：因为数值类型在不同的系统中处理的方式可能不同</li>
+<li>行键最好具有固定的长度：不同长度的数据可能会造成自然排序时排序的结果和预期不一致</li>
+<li>行键不宜过长：行键最多可以达到64KB,但是最好是在10~100字节之间，最好不要超过16字节，越短越好，最好是8字节的整数倍。<br>3、行键的最佳实践</li>
+<li>散列原则：行键的设计将会影响数据在hbase表中的排序方式，这会影响region切分后的结果，要注意，在设计行键时应该让经常要查询的数据分散在不同的region中，防止某一个或某几个regionserver成为热点。</li>
+<li>有序原则：行键的设计将会影响数据在hbase表中的排序方式，所以一种策略是将经常连续查询的条件作为行键最前面的数据，这样一来可以方便批量查询。</li>
+</ul>
+<h4 id="HBase二级索引的设计"><a href="#HBase二级索引的设计" class="headerlink" title="HBase二级索引的设计"></a>HBase二级索引的设计</h4><p>涉及到多个条件组合查询时，hbase就有点力不从心了，因为hbase支持的是三种方式，上面已经提到了，对于多条件组合查询来说，如果通过某个条件filter出来一部分数据，然后再一个个判断，这样比较影响性能。但又不能将这些条件都设计到rowkey中去，这时可以考虑到用二级索引。</p>
+<p>二级索引的本质就是建立各列值与行键之间的映射关系。</p>
+<p>二级索引的实现:设计两个列族，一个列族什么数据都不存，存放索引的key就对应这个列族，另一个列族就对应主数据，主数据的rowkey就是之前业务正常设计好的，现在通过二级索引来满足多条件组合查询。数据还是和之前不变，只是多用一些资源来存放索引的rowkey。先通过多条件找到二级索引的rowkey，然后再截取到最终查询主数据的rowkey，这样就可以实现多条件组合查询了。</p>
+<p>其实也可以将这些组合条件放入mysql，通过mysql找到查询主数据的rowkey，然后用这个rowkey去hbase中查询，得到最终结果。</p>
+<h4 id="HBase读写过程"><a href="#HBase读写过程" class="headerlink" title="HBase读写过程"></a>HBase读写过程</h4><p>1、写过程</p>
+<ul>
+<li>Client访问ZK，根据ROOT表获取meta表所在Region的位置信息，并将该位置信息写入Client Cache</li>
+<li>Client读取meta表，再根据meta表中查询得到的Namespace、表名和RowKey等相关信息，获取将要写入Region的位置信息</li>
+<li>Client向上一步HRegionServer发出写请求，HRegionServer先将操作和数据写入HLog</li>
+<li>当MemStore的数据量超过阈值时，将数据溢写磁盘，生成一个StoreFile文件，（预写日志，Write Ahead Log，WAL），再将数据写入MemStore，并保持有序。</li>
+<li>当MemStore的数据量超过阈值时，将数据溢写磁盘，生成一个StoreFile文件。当Store中StoreFile的数量超过阈值时，将若干小StoreFile合并（Compact）为一个大StoreFile。当Region中最大Store的大小超过阈值时，Region分裂（Split），等分成两个子Region。</li>
+</ul>
+<p>2、读过程</p>
+<ul>
+<li>获取将要读取Region的位置信息（同读的1、2步）。</li>
+<li>Client向HRegionServer发出读请求。</li>
+<li>HRegionServer先从MemStore读取数据，如未找到，再从StoreFile中读取</li>
+</ul>
+<h3 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h3><h4 id="排序函数"><a href="#排序函数" class="headerlink" title="排序函数"></a>排序函数</h4><ul>
+<li>sort by ：不是全局排序，其在数据进入reducer前完成排序</li>
+<li>order by ：会对输入做全局排序，因此只有一个reducer(多个reducer无法保证全局有序).只有一个reducer,会导致当输入规模较大时，需要较长的计算时间。</li>
+<li>cluster by ： 当distribute by 和sort by的字段相同时，等同于cluster by.可以看做特殊的distribute + sort</li>
+<li>distribute by ：按照指定的字段对数据进行划分输出到不同的reduce中</li>
+</ul>
+<p>####累计窗口函数<br><a href="https://blog.csdn.net/qq_22222499/article/details/92406370" target="_blank" rel="external">https://blog.csdn.net/qq_22222499/article/details/92406370</a></p>
+<p>####行列互转</p>
+<ul>
+<li>行专列：lateral view explode(split(column, ‘,’)) num</li>
+<li>列转行：concat_ws(‘,’,collect_set(column))，collect_list 不去重，collect_set 去重</li>
+</ul>
+<h4 id="排序方式"><a href="#排序方式" class="headerlink" title="排序方式"></a>排序方式</h4><ul>
+<li>row_number() 是没有重复值的排序(即使两天记录相等也是不重复的),可以利用它来实现分页</li>
+<li>dense_rank() 是连续排序,两个第二名仍然跟着第三名</li>
+<li>rank()       是跳跃排序的,两个第二名下来就是第四名</li>
+</ul>
+<h3 id="ES"><a href="#ES" class="headerlink" title="ES"></a>ES</h3><h3 id="Tair"><a href="#Tair" class="headerlink" title="Tair"></a>Tair</h3><h2 id="OLAP"><a href="#OLAP" class="headerlink" title="OLAP"></a>OLAP</h2><h3 id="Kylin"><a href="#Kylin" class="headerlink" title="Kylin"></a>Kylin</h3><h4 id="Kylin基本原理"><a href="#Kylin基本原理" class="headerlink" title="Kylin基本原理"></a>Kylin基本原理</h4><p>Kylin的核心思想是预计算。<br>理论基础是：以空间换时间。即多维分析可能用到的度量进行预计算，将计算好的结果保存成Cube并存储到HBase中，供查询时直接访问。<br>大致流程：将数据源(比如Hive)中的数据按照指定的维度和指标，由计算引擎Mapreduce离线计算出所有可能的查询结果(即Cube)存储到HBase中。HBase中每行记录的Rowkey由各维度的值拼接而成，度量会保存在column family中。为了减少存储代价，这里会对维度和度量进行编码。查询阶段，利用HBase列存储的特性就可以保证Kylin有良好的快速响应和高并发<br><img src="/images/bigdata/kylin.png" width="600" alt="Kylin原理"></p>
+<h4 id="Kylin维度优化指南"><a href="#Kylin维度优化指南" class="headerlink" title="Kylin维度优化指南"></a>Kylin维度优化指南</h4><p>因为如果不进行任何维度优化，直接将所有的维度放在一个聚集组里，Kylin就会计算所有的维度组合（cuboid）。比如，有12个维度，Kylin就会计算2的12次方即4096个cuboid，实际上查询可能用到的cuboid不到1000个，甚至更少。如果对维度不进行优化，会造成集群计算和存储资源的浪费，也会影响cube的build时间和查询性能，所以我们需要进行cube的维度优化。<br>目前Kylin可以使用的维度优化手段有以下几种：</p>
+<p>1、聚集组, 用来精确控制哪些cuboid需要计算。<br>适用场景：</p>
+<ul>
+<li>一般是经常会一起查询的维度放到一个聚集组。维度个数10个以上时，如果计算所有可能的维度组合，计算与存储量会很大。这时候就需要利用聚集组进行计算剪枝<br>注意事项： </li>
+<li>如果只需要计算base cuboid，可以把所有维度做成一个joint dimension</li>
+<li>不要把一个聚集组的所有维度做成强制维度</li>
+<li>聚集组不宜设置太多，比如超过10个</li>
+</ul>
+<p>2、强制维度, 所有cuboid必须包含的维度，不会计算不包含强制维度的cuboid。<br>适用场景：</p>
+<ul>
+<li>可以将确定在查询时一定会使用的维度设为强制维度。例如，时间维度<br>优化效果： </li>
+<li>一个维度设为强制维度，则cuboid个数直接减半。</li>
+</ul>
+<p>3、层次维度, 具有一定层次关系的维度。<br>适用场景：</p>
+<ul>
+<li>国家，省份，城市这类具有层次关系的维度，且查询时按照层次关系查询。<br>优化效果： </li>
+<li>将N个维度设置为层次维度，则这N个维度组合成的cuboid个数会从2的N次方减少到N+1。</li>
+</ul>
+<p>4、联合维度，将几个维度视为一个维度。<br>适用场景： </p>
+<ul>
+<li>可以将确定在查询时一定会同时使用的几个维度设为一个联合维度。 </li>
+<li>可以将基数很小的几个维度设为一个联合维度。 </li>
+<li>可以将查询时很少使用的几个维度设为一个联合维度。<br>优化效果： </li>
+<li>将N个维度设置为联合维度，则这N个维度组合成的cuboid个数会从2的N次方减少到1。</li>
+</ul>
+<p>5、Extended Column<br>在OLAP分析场景中，经常存在对某个id进行过滤，但查询结果要展示为name的情况，比如user_id和user_name。这类问题通常有三种解决方式：</p>
+<ul>
+<li>将ID和Name都设置为维度，查询语句类似select name, count(*) from table where id = 1 group by id, name。这种方式的问题是会导致维度增多，导致预计算结果膨胀；</li>
+<li>将ID和Name都设置为维度，并且将两者设置为一个联合维度。这种方式的好处是保持维度组合数不会增加，但限制了维度的其它优化，比如ID不能再被设置为强制维度或者层次维度；<br>*将ID设置为维度，Name设置为特殊的Measure(度量)，类型为extend edcolumn。这种方式既能保证过滤id且查询name的需求，同时也不影响id维度的进一步优化。</li>
+</ul>
+<p>备注：将name设置为维度的另一个问题是，Kylin默认会对所有维度进行字典编码，如果name的基数很高，或者值很大，”Build Dimension Dictionary”创建字典可能会失败</p>
+<p>##参考文件</p>
+<ul>
+<li>MapReduce的shuffle过程详解：<a href="https://blog.csdn.net/asn_forever/article/details/81233547" target="_blank" rel="external">https://blog.csdn.net/asn_forever/article/details/81233547</a></li>
+</ul>
+]]></content>
     
     <summary type="html">
+    
+      &lt;h2 id=&quot;实时处理&quot;&gt;&lt;a href=&quot;#实时处理&quot; class=&quot;headerlink&quot; title=&quot;实时处理&quot;&gt;&lt;/a&gt;实时处理&lt;/h2&gt;&lt;h3 id=&quot;Strom常见问题&quot;&gt;&lt;a href=&quot;#Strom常见问题&quot; class=&quot;headerlink&quot; title=
     
     </summary>
     
@@ -64,13 +779,192 @@
   </entry>
   
   <entry>
-    <title>4、编程语言高频知识梳理</title>
-    <link href="http://yoursite.com/2020/02/03/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%AB%98%E9%A2%91%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
-    <id>http://yoursite.com/2020/02/03/编程语言高频知识梳理/</id>
+    <title>知识体系-常见算法知识梳理</title>
+    <link href="http://yoursite.com/2020/02/03/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
+    <id>http://yoursite.com/2020/02/03/知识体系-常见算法知识梳理/</id>
     <published>2020-02-03T09:09:48.000Z</published>
-    <updated>2020-02-03T09:21:40.000Z</updated>
+    <updated>2020-02-13T03:20:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>以前看到这样一句话，语言只是工具，算法才是程序设计的灵魂。的确，算法在计算机科学中的地位真的很重要，在很多大公司的笔试面试中，算法掌握程度的考察都占据了很大一部分。不管是为了面试还是自身编程能力的提升，花时间去研究常见的算法还是很有必要的，下面是自己对于算法这部分的学习总结。</p>
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>基本思想：类似于水中冒泡，较大的数沉下去，较小的数慢慢冒起来，假设从小到大，即为较大的数慢慢往后排，较小的数慢慢往前排。即每一趟遍历，将一个最大的数移到序列末尾。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(arr == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> len = arr.length</div><div class="line">    <span class="keyword">if</span>(len &lt;= <span class="number">0</span>) &#123;</div><div class="line">    	<span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> i, j, t;</div><div class="line">    <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; len - <span class="number">1</span>; j++)</div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; len - j - <span class="number">1</span>; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(arr[i] &gt; arr[i+<span class="number">1</span>])&#123;</div><div class="line">                t = arr[i]; </div><div class="line">                arr[i] = arr[i+<span class="number">1</span>]; </div><div class="line">                arr[i+<span class="number">1</span>] = t;</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>基本思想：</p>
+<ul>
+<li>选择基准：在待排序列中，按照某种方式挑出一个元素，作为 “基准”（pivot）</li>
+<li>分割操作：以该基准在序列中的实际位置，把序列分成两个子序列。此时，在基准左边的元素都比该基准小，在基准右边的元素都比基准大</li>
+<li>递归地对两个序列进行快速排序，直到序列为空或者只有一个元素</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span>[] arrs, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(start&gt;=end)</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    <span class="keyword">int</span> mid = sort(arrs, start, end);</div><div class="line">    quickSort(arrs, start, mid-<span class="number">1</span>);</div><div class="line">    quickSort(arrs, mid+<span class="number">1</span>, end);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arrs, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> i = start, j = end;</div><div class="line">    <span class="keyword">int</span> tmp = arrs[i];</div><div class="line">    <span class="keyword">while</span>(i &lt; j) &#123;</div><div class="line">        <span class="keyword">while</span> (arrs[j] &gt;= tmp &amp;&amp; i &lt; j)</div><div class="line">            j--;</div><div class="line">        <span class="keyword">while</span> (arrs[i] &lt;= tmp &amp;&amp; i &lt; j)</div><div class="line">            i++;</div><div class="line">        swap(arrs[i], arrs[j]);</div><div class="line">    &#125;</div><div class="line">    swap(arrs[i], arrs[start]);</div><div class="line">    <span class="keyword">return</span> i;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arrs, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> tmp = arrs[i];</div><div class="line">    arrs[i] = arrs[j];</div><div class="line">    arrs[j] = tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>快速排序的优化思路：<br>对于分治算法，当每次划分时，算法若都能分成两个等长的子序列时，那么分治算法效率会达到最大。也就是说，基准的选择是很重要的。选择基准的方式决定了两个分割后两个子序列的长度，进而对整个算法的效率产生决定性影响。最理想的方法是，选择的基准恰好能把待排序序列分成两个等长的子序列</p>
+<ul>
+<li>使用左端、右端和中心位置上的三个元素的中值作为枢纽元</li>
+<li>对于很小和部分有序的数组，快排不如插排好。当待排序序列的长度分割到一定大小后，继续分割的效率比插入排序要差，此时可以使用插排而不是快排</li>
+<li>在一次分割结束后，可以把与基准Key相等的元素聚在一起，继续下次分割时，不用再对与key相等元素分割，可以减少不少冗余的划</li>
+</ul>
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>基本思想：分治法</p>
+<ul>
+<li>将n个元素从中间切开，分成两部分。（左边可能比右边多1个数）</li>
+<li>将步骤1分成的两部分，再分别进行递归分解，直到所有部分的元素个数都为1。</li>
+<li>从最底层开始逐步合并两个排好序的数列。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (array == <span class="keyword">null</span> || array.length == <span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    <span class="keyword">int</span>[] temp = <span class="keyword">new</span> <span class="keyword">int</span>[array.length];</div><div class="line">    mergeSort(array, <span class="number">0</span>, array.length - <span class="number">1</span>, temp);</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">// 归并</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span> array[], <span class="keyword">int</span> first, <span class="keyword">int</span> last, <span class="keyword">int</span> temp[])</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (first &lt; last) &#123;</div><div class="line">        <span class="keyword">int</span> mid = (first + last) / <span class="number">2</span>;</div><div class="line">         <span class="comment">// 递归归并左边元素</span></div><div class="line">        mergeSort(array, first, mid, temp);</div><div class="line">        <span class="comment">// 递归归并右边元素</span></div><div class="line">        mergeSort(array, mid + <span class="number">1</span>, last, temp);</div><div class="line">        <span class="comment">// 再将二个有序数列合并</span></div><div class="line">        mergeArray(array, first, mid, last, temp); </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 合并两个有序数列</span></div><div class="line"><span class="comment"> * array[first]~array[mid]为第一组</span></div><div class="line"><span class="comment"> * array[mid+1]~array[last]为第二组</span></div><div class="line"><span class="comment"> * temp[]为存放两组比较结果的临时数组</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeArray</span><span class="params">(<span class="keyword">int</span> array[], <span class="keyword">int</span> first, <span class="keyword">int</span> mid, <span class="keyword">int</span> last, <span class="keyword">int</span> temp[])</span> </span>&#123;</div><div class="line">    <span class="comment">// i为第一组的起点, j为第二组的起点</span></div><div class="line">    <span class="keyword">int</span> i = first, j = mid + <span class="number">1</span>; </div><div class="line">    <span class="comment">// m为第一组的终点, n为第二组的终点</span></div><div class="line">    <span class="keyword">int</span> m = mid, n = last; </div><div class="line">    <span class="comment">// k用于指向temp数组当前放到哪个位置</span></div><div class="line">    <span class="keyword">int</span> k = <span class="number">0</span>; </div><div class="line">    <span class="comment">// 将两个有序序列循环比较, 填入数组temp</span></div><div class="line">    <span class="keyword">while</span> (i &lt;= m &amp;&amp; j &lt;= n) &#123; </div><div class="line">        <span class="keyword">if</span> (array[i] &lt;= array[j])</div><div class="line">            temp[k++] = array[i++];</div><div class="line">        <span class="keyword">else</span></div><div class="line">            temp[k++] = array[j++];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 如果比较完毕, 第一组还有数剩下, 则全部填入temp</span></div><div class="line">    <span class="keyword">while</span> (i &lt;= m) &#123; </div><div class="line">        temp[k++] = array[i++];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 如果比较完毕, 第二组还有数剩下, 则全部填入temp</span></div><div class="line">    <span class="keyword">while</span> (j &lt;= n) &#123;</div><div class="line">        temp[k++] = array[j++];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 将排好序的数填回到array数组的对应位置</span></div><div class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; k; i++) &#123;</div><div class="line">        array[first + i] = temp[i];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>基本思想：通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doInsertSort</span><span class="params">(<span class="keyword">int</span>[] array)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(arr == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> len = arr.length</div><div class="line">    <span class="keyword">if</span>(len &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">1</span>; index &lt; len; index++)&#123;</div><div class="line">        <span class="comment">//用作比较的数据</span></div><div class="line">        <span class="keyword">int</span> temp = array[index];</div><div class="line">        <span class="keyword">int</span> leftindex = index - <span class="number">1</span>;</div><div class="line">        <span class="comment">//当比到最左边或者遇到比temp小的数据时，结束循环</span></div><div class="line">        <span class="keyword">while</span>(leftindex &gt;= <span class="number">0</span> &amp;&amp; array[leftindex] &gt; temp)&#123;</div><div class="line">            array[leftindex + <span class="number">1</span>] = array[leftindex];</div><div class="line">            leftindex--;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//把temp放到空位上</span></div><div class="line">        array[leftindex+<span class="number">1</span>] = temp;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>基本思想：堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。堆排序可以说是一种利用堆的概念来排序的选择排序。分为两种方法：</p>
+<ul>
+<li>大顶堆：每个节点的值都大于或等于其子节点的值，在堆排序算法中用于升序排列；</li>
+<li>小顶堆：每个节点的值都小于或等于其子节点的值，在堆排序算法中用于降序排列；</li>
+<li>堆排序的平均时间复杂度为 Ο(nlogn)。</li>
+</ul>
+<p>排序步骤：</p>
+<ul>
+<li>构建初始堆，将待排序列构成一个大顶堆(或者小顶堆)，升序大顶堆，降序小顶堆；</li>
+<li>将堆顶元素与堆尾元素交换，并断开(从待排序列中移除)堆尾元素；</li>
+<li>重新构建堆；</li>
+<li>重复2~3，直到待排序列中只剩下一个元素(堆顶元素)。</li>
+</ul>
+<p>堆排序图解：<br><img src="/images/algorithm/heapsort.png" width="600" alt="堆排序图解"></p>
+<p>代码实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</div><div class="line">    <span class="comment">//1.构建大顶堆</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = arr.length / <span class="number">2</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</div><div class="line">        <span class="comment">//从第一个非叶子结点从下至上，从右至左调整结构</span></div><div class="line">        adjustHeap(arr, i, arr.length);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//2.调整堆结构+交换堆顶元素与末尾元素</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = arr.length - <span class="number">1</span>; j &gt; <span class="number">0</span>; j--)&#123;</div><div class="line">        <span class="comment">//将堆顶元素与末尾元素进行交换</span></div><div class="line">        swap(arr, <span class="number">0</span>, j);</div><div class="line">        <span class="comment">//重新对堆进行调整</span></div><div class="line">        adjustHeap(arr, <span class="number">0</span>, j);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 调整大顶堆（仅是调整过程，建立在大顶堆已构建的基础上）</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> arr</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> i</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> length</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">adjustHeap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i, <span class="keyword">int</span> length)</span></span>&#123;</div><div class="line">    <span class="comment">//先取出当前元素i</span></div><div class="line">    <span class="keyword">int</span> temp = arr[i];</div><div class="line">    <span class="comment">//从i结点的左子结点开始，也就是2i+1处开始</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k= i * <span class="number">2</span> + <span class="number">1</span>; k &lt; length; k = k * <span class="number">2</span> + <span class="number">1</span>)&#123;</div><div class="line">        <span class="comment">//如果左子结点小于右子结点，k指向右子结点</span></div><div class="line">        <span class="keyword">if</span>(k + <span class="number">1</span> &lt; length &amp;&amp; arr[k] &lt; arr[k+<span class="number">1</span>])&#123;</div><div class="line">            k++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）</span></div><div class="line">        <span class="keyword">if</span>(arr[k] &gt; temp)&#123;</div><div class="line">            arr[i] = arr[k];</div><div class="line">            i = k;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//将temp值放到最终的位置</span></div><div class="line">    arr[i] = temp;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 交换元素</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> arr</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> a</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> b</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> temp = arr[a];</div><div class="line">    arr[a] = arr[b];</div><div class="line">    arr[b] = temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="查找算法"><a href="#查找算法" class="headerlink" title="查找算法"></a>查找算法</h2><h3 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h3><p>基本思想：顺序查找也称为线形查找，属于无序查找算法。从数据结构线形表的一端开始，顺序扫描，依次将扫描到的结点关键字与给定值k相比较，若相等则表示查找成功；若扫描结束仍没有找到关键字等于k的结点，表示查找失败。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> key)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(a == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> len = a.length</div><div class="line">    <span class="keyword">if</span>(len &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (a[i] == key)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>基本思想：二分法查找适用于大的数据，但前提条件是数据必须是有序的，他的原理是先和中间的比较，如果等于就直接返回，如果小于就在前半部分继续使用二分法进行查找，如果大于则在后半部分继续使用二分法进行查找。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> key)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> length = nums.length;</div><div class="line">    QuickSort.quickSort(nums, <span class="number">0</span>, length - <span class="number">1</span>);</div><div class="line">    <span class="keyword">int</span> begin = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> end = length - <span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="comment">//循环，直到end &lt; begin,返回-1</span></div><div class="line">    <span class="keyword">while</span>(begin &lt;= end)&#123;</div><div class="line">        <span class="keyword">int</span> mid = (begin + end) / <span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> now = nums[mid];</div><div class="line">        <span class="keyword">if</span>(now == key)&#123;</div><div class="line">            <span class="comment">//如果相同，返回index</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(now &lt; key)&#123;</div><div class="line">            <span class="comment">//如果mid&lt;key,那么begin=mid+1</span></div><div class="line">            begin = mid + <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(now &gt; key)&#123;</div><div class="line">            <span class="comment">//如果mid&gt;key,那么end=mid-1</span></div><div class="line">            end = mid - <span class="number">1</span>;</div><div class="line">        &#125;           </div><div class="line">    &#125;               </div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h3><h4 id="BM算法"><a href="#BM算法" class="headerlink" title="BM算法"></a>BM算法</h4><p>基本思想：有模式串中不存在的字符，那么肯定不匹配，往后多移动几位，提高效率。</p>
+<p>BM算法（Boyer-Moore算法）是由Robert S. Boyer和J Strother Moore于1997年发明的一种字符串匹配算法，该算法在实际实践中会比KMP算法效率高，因为BM算法即使在最坏情况下其时间复杂度也为O(N)，BM算法不仅算法效率高，而且构思非常巧妙，也很容易理解，匹配过程参照：<a href="https://blog.csdn.net/eternity1118_/article/details/52067627" target="_blank" rel="external">https://blog.csdn.net/eternity1118_/article/details/52067627</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BM</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 算法匹配</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">pattern</span><span class="params">(String pattern, String target)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> tLen = target.length();</div><div class="line">        <span class="keyword">int</span> pLen = pattern.length();</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (pLen &gt; tLen) &#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span>[] bad_table = build_bad_table(pattern);<span class="comment">// 1,3,5,6,2,</span></div><div class="line">        <span class="keyword">int</span>[] good_table = build_good_table(pattern);<span class="comment">// 1,8,5,10,11,12,13</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = pLen - <span class="number">1</span>, j; i &lt; tLen;) &#123;</div><div class="line">            System.out.println(<span class="string">"跳跃位置："</span> + i);</div><div class="line">            <span class="keyword">for</span> (j = pLen - <span class="number">1</span>; target.charAt(i) == pattern.charAt(j); i--, j--) &#123;</div><div class="line">                <span class="keyword">if</span> (j == <span class="number">0</span>) &#123;</div><div class="line">                    System.out.println(<span class="string">"匹配成功，位置："</span> + i);</div><div class="line">                    <span class="keyword">return</span> i;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            i += Math.max(good_table[pLen - j - <span class="number">1</span>], bad_table[target.charAt(i)]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 字符信息表</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] build_bad_table(String pattern) &#123;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> table_size = <span class="number">256</span>;</div><div class="line">        <span class="keyword">int</span>[] bad_table = <span class="keyword">new</span> <span class="keyword">int</span>[table_size];</div><div class="line">        <span class="keyword">int</span> pLen = pattern.length();</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bad_table.length; i++) &#123;</div><div class="line">            bad_table[i] = pLen;  <span class="comment">//默认初始化全部为匹配字符串长度</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pLen - <span class="number">1</span>; i++) &#123;</div><div class="line">            <span class="keyword">int</span> k = pattern.charAt(i);</div><div class="line">            bad_table[k] = pLen - <span class="number">1</span> - i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> bad_table;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 匹配偏移表。</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> pattern</span></div><div class="line"><span class="comment">     *            模式串</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] build_good_table(String pattern) &#123;</div><div class="line">        <span class="keyword">int</span> pLen = pattern.length();</div><div class="line">        <span class="keyword">int</span>[] good_table = <span class="keyword">new</span> <span class="keyword">int</span>[pLen];</div><div class="line">        <span class="keyword">int</span> lastPrefixPosition = pLen;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = pLen - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</div><div class="line">            <span class="keyword">if</span> (isPrefix(pattern, i + <span class="number">1</span>)) &#123;</div><div class="line">                lastPrefixPosition = i + <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            good_table[pLen - <span class="number">1</span> - i] = lastPrefixPosition - i + pLen - <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pLen - <span class="number">1</span>; ++i) &#123;</div><div class="line">            <span class="keyword">int</span> slen = suffixLength(pattern, i);</div><div class="line">            good_table[slen] = pLen - <span class="number">1</span> - i + slen;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> good_table;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 前缀匹配</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPrefix</span><span class="params">(String pattern, <span class="keyword">int</span> p)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> patternLength = pattern.length();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = p, j = <span class="number">0</span>; i &lt; patternLength; ++i, ++j) &#123;</div><div class="line">            <span class="keyword">if</span> (pattern.charAt(i) != pattern.charAt(j)) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 后缀匹配</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">suffixLength</span><span class="params">(String pattern, <span class="keyword">int</span> p)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> pLen = pattern.length();</div><div class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = p, j = pLen - <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; pattern.charAt(i) == pattern.charAt(j); i--, j--) &#123;</div><div class="line">            len += <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> len;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h4><p>KMP 算法是 D.E.Knuth、J,H,Morris 和 V.R.Pratt 三位神人共同提出的，称之为 Knuth-Morria-Pratt 算法，简称 KMP 算法。该算法相对于 Brute-Force（暴力）算法有比较大的改进，主要是消除了主串指针的回溯，从而使算法效率有了某种程度的提高。详情参照：<a href="https://blog.csdn.net/dark_cy/article/details/88698736" target="_blank" rel="external">https://blog.csdn.net/dark_cy/article/details/88698736</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KMP</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[][] dp;</div><div class="line">    <span class="keyword">private</span> String pat;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">KMP</span><span class="params">(String pat)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.pat = pat;</div><div class="line">        <span class="keyword">int</span> M = pat.length();</div><div class="line">        <span class="comment">// dp[状态][字符] = 下个状态</span></div><div class="line">        dp = <span class="keyword">new</span> <span class="keyword">int</span>[M][<span class="number">256</span>];</div><div class="line">        <span class="comment">// base case</span></div><div class="line">        dp[<span class="number">0</span>][pat.charAt(<span class="number">0</span>)] = <span class="number">1</span>;</div><div class="line">        <span class="comment">// 影子状态 X 初始为 0</span></div><div class="line">        <span class="keyword">int</span> X = <span class="number">0</span>;</div><div class="line">        <span class="comment">// 构建状态转移图（稍改的更紧凑了）</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; M; j++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> c = <span class="number">0</span>; c &lt; <span class="number">256</span>; c++) &#123;</div><div class="line">                dp[j][c] = dp[X][c];</div><div class="line">            dp[j][pat.charAt(j)] = j + <span class="number">1</span>;</div><div class="line">            <span class="comment">// 更新影子状态</span></div><div class="line">            X = dp[X][pat.charAt(j)];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(String txt)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> M = pat.length();</div><div class="line">        <span class="keyword">int</span> N = txt.length();</div><div class="line">        <span class="comment">// pat 的初始态为 0</span></div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            <span class="comment">// 计算 pat 的下一个状态</span></div><div class="line">            j = dp[j][txt.charAt(i)];</div><div class="line">            <span class="comment">// 到达终止态，返回结果</span></div><div class="line">            <span class="keyword">if</span> (j == M) <span class="keyword">return</span> i - M + <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 没到达终止态，匹配失败</span></div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问题的解。而子问题又可以拆分成更多的子问题，从而用类似递推迭代的方法解决要求的问题。<br>动态规划的解题核心主要分为两步：</p>
+<ul>
+<li>第一步：状态的定义</li>
+<li>第二步：状态转移方程的定义</li>
+</ul>
+<h3 id="优化问题"><a href="#优化问题" class="headerlink" title="优化问题"></a>优化问题</h3><p>一个背包的总容量为V,现在有N类物品,第i类物品的重量为weight[i],价值为value[i]<br>那么往该背包里装东西,怎样装才能使得最终包内物品的总价值最大。这里装物品主要由三种装法：</p>
+<ul>
+<li>0-1背包：每类物品最多只能装一次</li>
+<li>多重背包：每类物品都有个数限制，第i类物品最多可以装num[i]次</li>
+<li>完全背包：每类物品可以无限次装进包内</li>
+</ul>
+<p>1、0-1背包的解法<br>假设我们已经求出前i-1件物品装入容量j的背包的价值总和最大值为dp[i-1][j],固定容量j的值不变，则对第i件物品的装法讨论如下：<br>首先第i件物品的重量weight[i]必须小于等于容量j才行，即</p>
+<ul>
+<li>若weight[i]&gt;j,则第i件物品肯定不能装入容量为j的背包，此时dp[i][j]=dp[i-1][j]</li>
+<li>若weight[i]&lt;=j,则首先明确的是这件物品是可以装入容量为j的背包的，那么如果我们将该物品装入，则有 dp[i][j]=dp[i-1][j-weight[i]]+value[i]</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">zeroOnePack</span><span class="params">(<span class="keyword">int</span> V, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weight, <span class="keyword">int</span>[] value)</span></span>&#123;</div><div class="line">    <span class="comment">//初始化动态规划数组</span></div><div class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N + <span class="number">1</span>][V + <span class="number">1</span>];</div><div class="line">    <span class="comment">//为了便于理解,将dp[i][0]和dp[0][j]均置为0，从1开始计算</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N + <span class="number">1</span>; i++)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; V + <span class="number">1</span>; j++)&#123;</div><div class="line">            <span class="comment">//如果第i件物品的重量大于背包容量j,则不装入背包</span></div><div class="line">            <span class="comment">//由于weight和value数组下标都是从0开始,故注意第i个物品的重量为weight[i-1],价值为value[i-1]</span></div><div class="line">            <span class="keyword">if</span>(weight[i- <span class="number">1</span>] &gt; j)</div><div class="line">                dp[i][j] = dp[i-<span class="number">1</span>][j];</div><div class="line">            <span class="keyword">else</span></div><div class="line">                dp[i][j] = Math.max(dp[i-<span class="number">1</span>][j], dp[i-<span class="number">1</span>][j-weight[i-<span class="number">1</span>]] + value[i-<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> dp[N][V];  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2、多重背包的解法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">manyPack</span><span class="params">(<span class="keyword">int</span> V,<span class="keyword">int</span> N,<span class="keyword">int</span>[] weight,<span class="keyword">int</span>[] value,<span class="keyword">int</span>[] num)</span></span>&#123;</div><div class="line">    <span class="comment">//初始化动态规划数组</span></div><div class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>][V+<span class="number">1</span>];</div><div class="line">    <span class="comment">//为了便于理解,将dp[i][0]和dp[0][j]均置为0，从1开始计算</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;N+<span class="number">1</span>; i++)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;V+<span class="number">1</span>; j++)&#123;</div><div class="line">            <span class="comment">//如果第i件物品的重量大于背包容量j,则不装入背包</span></div><div class="line">            <span class="comment">//由于weight和value数组下标都是从0开始,故注意第i个物品的重量为weight[i-1],价值为value[i-1]</span></div><div class="line">            <span class="keyword">if</span>(weight[i-<span class="number">1</span>] &gt; j)</div><div class="line">                dp[i][j] = dp[i-<span class="number">1</span>][j];</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="comment">//考虑物品的件数限制</span></div><div class="line">                <span class="keyword">int</span> maxV = Math.min(num[i-<span class="number">1</span>], j / weight[i-<span class="number">1</span>]);</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k&lt;maxV+<span class="number">1</span>; k++)&#123;</div><div class="line">                    dp[i][j] = Math.max(dp[i-<span class="number">1</span>][j], dp[i-<span class="number">1</span>][j-k*weight[i-<span class="number">1</span>]] + k*value[i-<span class="number">1</span>]);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> dp[N][V];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3、完全背包的解法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 第二类背包：完全背包</span></div><div class="line"><span class="comment"> * 思路分析：</span></div><div class="line"><span class="comment"> * 0-1背包问题是在前一个子问题（i-1种物品）的基础上来解决当前问题（i种物品），</span></div><div class="line"><span class="comment"> * 向i-1种物品时的背包添加第i种物品；而完全背包问题是在解决当前问题（i种物品）</span></div><div class="line"><span class="comment"> * 向i种物品时的背包添加第i种物品。</span></div><div class="line"><span class="comment"> * 推公式计算时，f[i][y] = max&#123;f[i-1][y], (f[i][y-weight[i]]+value[i])&#125;，</span></div><div class="line"><span class="comment"> * 注意这里当考虑放入一个物品 i 时应当考虑还可能继续放入 i，</span></div><div class="line"><span class="comment"> * 因此这里是f[i][y-weight[i]]+value[i], 而不是f[i-1][y-weight[i]]+value[i]。</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span></span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">completePack</span><span class="params">(<span class="keyword">int</span> V, <span class="keyword">int</span> N, <span class="keyword">int</span>[] weight, <span class="keyword">int</span>[] value)</span></span>&#123;</div><div class="line">    <span class="comment">//初始化动态规划数组</span></div><div class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">1</span>][V+<span class="number">1</span>];</div><div class="line">    <span class="comment">//为了便于理解,将dp[i][0]和dp[0][j]均置为0，从1开始计算</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;N+<span class="number">1</span>; i++)&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;V+<span class="number">1</span>; j++)&#123;</div><div class="line">            <span class="comment">//如果第i件物品的重量大于背包容量j,则不装入背包</span></div><div class="line">            <span class="comment">//由于weight和value数组下标都是从0开始,故注意第i个物品的重量为weight[i-1],价值为value[i-1]</span></div><div class="line">            <span class="keyword">if</span>(weight[i-<span class="number">1</span>] &gt; j)</div><div class="line">                dp[i][j] = dp[i-<span class="number">1</span>][j];</div><div class="line">            <span class="keyword">else</span></div><div class="line">                dp[i][j] = Math.max(dp[i-<span class="number">1</span>][j], dp[i][j-weight[i-<span class="number">1</span>]] + value[i-<span class="number">1</span>]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//则容量为V的背包能够装入物品的最大值为</span></div><div class="line">    <span class="keyword">return</span> dp[N][V];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="组合问题"><a href="#组合问题" class="headerlink" title="组合问题"></a>组合问题</h3><p>给你不同面值的硬币数组coins和总金额amount。 编写一个函数来计算组成该amount的组合的数量。每种硬币的个数是无限的。<br>注意：假设</p>
+<ul>
+<li>0 &lt;= amount &lt;= 5000</li>
+<li>1 &lt;= coin &lt;= 5000</li>
+<li>the number of coins is less than 500</li>
+<li>the answer is guaranteed to fit into signed 32-bit integer</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> amount, <span class="keyword">int</span>[] coins)</span> </span>&#123;  </div><div class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[amount+<span class="number">1</span>];  </div><div class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;  </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;coins.length; i++)&#123;  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;amount+<span class="number">1</span>; j++)&#123;  </div><div class="line">            <span class="keyword">if</span>(j-coins[i] &gt;= <span class="number">0</span>)&#123;  </div><div class="line">                dp[j] += dp[j-coins[i]];  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">return</span> dp[amount];  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="海量数据处理"><a href="#海量数据处理" class="headerlink" title="海量数据处理"></a>海量数据处理</h2><h3 id="散列分治"><a href="#散列分治" class="headerlink" title="散列分治"></a>散列分治</h3><p>问题：海量日志数据，提取出某日访问百度次数最多的那个IP<br>算法思想：分而治之+Hash</p>
+<ul>
+<li>IP地址最多有2^32=4G种取值情况，所以不能完全加载到内存中处理；</li>
+<li>可以考虑采用“分而治之”的思想，按照IP地址的hash(ip)%1024, 把海量IP日志分别存储到1024个小文件中。这样，每个小文件最多包含4MB个IP地址；</li>
+<li>对于每个小文件，可以构建一个ip为key，出现次数为value的Hash_map，同时记录当前出现次数最多的那个ip地址，总共1000个IP；</li>
+<li>堆/快速排序，统计出1000个频率最高的IP后，依据他们各自频率的大小进行排序，找出最终那个出现频率最高的IP，即为所求。</li>
+</ul>
+<h3 id="多层划分"><a href="#多层划分" class="headerlink" title="多层划分"></a>多层划分</h3><p>问题：找出5亿个int整数的中位数<br>算法思路：</p>
+<ul>
+<li>将数据按照数据空间分为0-9999999，10000000-999999999, ……大概50个部分，每一部分存入一个小文件</li>
+<li>统计每个小文件中的元素个数，由于文件之间相对有序，可以容易得出中位数是位于哪一个文件之中</li>
+<li>并可以得出中位数在该小文件中的排序次序，用相同的方法对小文件进行处理，当文件内容比较小的时候可以直接在内存中进行找中位数操作</li>
+<li>对于n个随机数找k小元素的时间复杂度是O(n),所以总的时间复杂度为O(n)</li>
+</ul>
+<h3 id="外排序"><a href="#外排序" class="headerlink" title="外排序"></a>外排序</h3><p>问题：给定一个文件，里面最多含有n个不重复的正整数（也就是说可能含有少于n个不重复正整数），且其中每个数都小于等于n，n=10^7；得到按从小到大升序排列的包含所有输入的整数的列表；最多有大约1MB的内存空间可用，但磁盘空间足够。且要求运行时间在5分钟以下，10秒为最佳结果。<br>算法思路：</p>
+<ul>
+<li>将每个文件最开始的数读入(由于有序，所以为该文件最小数)，存放在一个大小为40的first_data数组中</li>
+<li>选择first_data数组中最小的数min_data，及其对应的文件索引index</li>
+<li>将first_data数组中最小的数写入文件result，然后更新数组first_data(根据index读取该文件下一个数代替min_data)</li>
+<li>判断是否所有数据都读取完毕，否则返回2</li>
+</ul>
+<h3 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h3><p>问题：给定40亿个不重复的没排过序的整数型，然后若再给定一个数，如何快速判断这个数是否在这40亿个整数当中？<br>算法思路：</p>
+<ul>
+<li>可以用位图的方式，申请512MB的内存，一个位代表一个整型的值，读入40亿个数，设置相应的位</li>
+<li>读入要查询的数，查看相应位是否为1，如果为1表示存在，如果为0表示不存在</li>
+</ul>
+<h3 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h3><p>问题：给定A和B两个文件，各存放50亿条URL，每条URL占用64字节，内存限制是4GB，请找出A和B两个文件中共同的URL<br>算法思路：</p>
+<ul>
+<li>如果允许有一定的误差率，可以使用布隆过滤器，4GB内存大致可以表示340亿位</li>
+<li>将其中一个文件中的URL使用布隆过滤器映射到340亿位，然后挨个检查另一个文件的URL，检查这两个URL是否相同</li>
+</ul>
+<h3 id="Trie树"><a href="#Trie树" class="headerlink" title="Trie树"></a>Trie树</h3><p>Trie又称前缀树或字典树，是一种有序树，用于保存关联数组，其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。</p>
+<p><img src="/images/algorithm/trie.jpg" width="600" alt="Trie树"></p>
+<ul>
+<li>根节点不包含字符，除根节点意外每个节点只包含一个字符</li>
+<li>从根节点到某一个节点，路径上经过的字符连接起来，为该节点对应的字符串</li>
+<li>每个节点的所有子节点包含的字符串不相同</li>
+</ul>
+<p>优点：可以最大限度地减少无谓的字符串比较，故可以用于词频统计和大量字符串排序<br>跟哈希表比较：</p>
+<ul>
+<li>最坏情况时间复杂度比hash表好</li>
+<li>没有冲突，除非一个key对应多个值（除key外的其他信息）</li>
+<li>自带排序功能（类似Radix Sort），中序遍历trie可以得到排序</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>虽然不同单词共享前缀，但其实trie是一个以空间换时间的算法。其每一个字符都可能包含至多字符集大小数目的指针（不包含卫星数据）；每个结点的子树的根节点的组织方式有几种。<br><strong> （1）如果默认包含所有字符集，则查找速度快但浪费空间（特别是靠近树底部叶子）
+</strong> （2）如果用链接法(如左儿子右兄弟)，则节省空间但查找需顺序（部分）遍历链表<br><strong> （3）alphabet reduction: 减少字符宽度以减少字母集个数
+</strong> （4）对字符集使用bitmap，再配合链接法。</li>
+<li>如果数据存储在外部存储器等较慢位置，Trie会较hash速度慢（hash访问O(1)次外存，Trie访问O(树高)）。</li>
+<li>长的浮点数等会让链变得很长。可用bitwise trie改进。</li>
+</ul>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>问题：散列索引的效率比B树高很多，但是为什么常见的数据库中一般都不用散列索引而使用B树索引哪？</p>
+<ul>
+<li>hash表存在散列冲突问题</li>
+<li>hash表的一般利用率仅为50%，这就会占用大量的存储空间而实际应用的空间却不多。B树和hash表都很灵活适用于多表查找和存储，可是当存储比例达到一定程度时hash表必须进行扩容才能维持之后的操作，而B树不用</li>
+<li>不过网上有人对此的见解是要更多的考虑磁盘和内存I/O之间的效率，而hash则是随机存取效率低下，不过我觉得这并不成立。B树对平衡维持和空间利用率处理不错，而且B树本身的规则保证了B树不会出现低效的情况，而hash不支持模糊查询和区域查询。B树在插入和删除时仍然保持高效率而不会随着进程的推移发生改变。</li>
+</ul>
+<h3 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h3><p>倒排索引是一种索引方法，用于存储在全文搜索下某个单词在一个文档或者一组文档中的存储位置的映射，常用于搜索引擎和关键词查询等问题。<br>以英文为例，下列是要被索引的文本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">T0 = &apos;it is what it is&apos;</div><div class="line">T1 = &apos;what its it&apos;</div><div class="line">T2 = &apos;it is a banana&apos;</div></pre></td></tr></table></figure></p>
+<p>能得到的倒排索引如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&apos;a&apos;: &#123;2&#125;</div><div class="line">&apos;banana&apos;: &#123;2&#125;</div><div class="line">&apos;is&apos;: &#123;0, 1, 2&#125;</div><div class="line">&apos;it&apos;: &#123;0, 1, 2&#125;</div><div class="line">&apos;what&apos;: &#123;0, 1&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="simhash算法"><a href="#simhash算法" class="headerlink" title="simhash算法"></a>simhash算法</h3><p>SimHash算法主要有五个过程：分词、Hash、加权、合并、降维。<br><img src="/images/algorithm/simhash.png" width="600" alt="SimHash算法"><br>（1）分词<br>对给定的一段文本进行分词，产生n个特征词，并赋予每个特征词一个权重。比如一段文本为“中国科大计算机系的学生的能力怎么样”，产生的特征词就应该是“中国科大”、“计算机系”、“的”、“学生”、“能力”、“怎么样”，然后对这些词分别赋予权重，假设有1-5五个分类，分词之后以上五个词便会各有一个权重，比如中国科大（4）、计算机系（3）、的（1）、学生（4）、能力（5）、怎么样（3）。<br>其中，数字越大，代表特征词在句子中的重要性就越高。这样，我们就得到了一个文本的分词的词向量和每个词向量对应的权重。</p>
+<p>（2）Hash<br>通过hash函数对每一个词向量进行映射，产生一个n位二进制串，比如CSDN的hash值就是100101。</p>
+<p>（3）加权<br>前面的计算我们已经得到了每个词向量的Hash串和该词向量对应的权重，这一步我们计算权重向量W=hash*weight。<br>具体的计算过程如下：hash二进制串中为1的乘以该特征词的分词权重，二进制串中为0的乘以该特征词的分词权重后取负，继而得到权重向量。<br>举个例子，CSDN的hash二进制串是100101，CSDN的权重是3，那么生成的权重向量就是[3，-3，-3，3，-3，3]。</p>
+<p>（4）合并<br>对于一个文本，我们计算出了文本分词之后每一个特征词的权重向量，在合并这个阶段，我们把文本所有词向量的权重向量相累加，得到一个新的权重向量，形如[3，4，1，5，-5，1]</p>
+<p>（5）降维<br>对于前面合并后得到的文本的权重向量，大于0的位置1，小于等于0的位置0，就可以得到该文本的SimHash值，以上面提到的[3，4，1，5，-5，1]为例，我们得到[1，1，1，1，0，1]这个bit串，也就是论文中提及的该文本的指纹。<br>到此为止，我们已经计算出了一个文本的SimHash值，即可使用海明距离计算相似度。</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><h4 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h4><p>平衡二叉树是基于二分法的策略提高数据的查找速度的二叉树的数据结构；平衡二叉树是采用二分法思维把数据按规则组装成一个树形结构的数据，用这个树形结构的数据减少无关数据的检索，大大的提升了数据检索的速度；平衡二叉树的数据结构组装过程有以下规则：</p>
+<ul>
+<li>非叶子节点最多拥有两个子节点</li>
+<li>非叶子节值大于左边子节点、小于右边子节点</li>
+<li>树的左右两边的层级数相差不会大于1</li>
+<li>没有值相等重复的节点</li>
+</ul>
+<p>平衡树的层级结构：因为平衡二叉树查询性能和树的层级（h高度）成反比，h值越小查询越快、为了保证树的结构左右两端数据大致平衡降低二叉树的查询难度一般会采用一种算法机制实现节点数据结构的平衡，实现了这种算法的有比如Treap、红黑树，使用平衡二叉树能保证数据的左右两边的节点层级相差不会大于1.，通过这样避免树形结构由于删除增加变成线性链表影响查询效率，保证数据平衡的情况下查找数据的速度近于二分法查找。</p>
+<h4 id="B-树"><a href="#B-树" class="headerlink" title="B-树"></a>B-树</h4><p>B-树和平衡二叉树稍有不同的是B-树属于多叉树又名平衡多路查找树（查找路径不只两个），数据库索引技术里大量使用者B-树和B+树的数据结构。</p>
+<ul>
+<li>排序方式：所有节点关键字是按递增次序排列，并遵循左小右大原则</li>
+<li>子节点数：非叶节点的子节点数&gt;1，且&lt;=M ，且M&gt;=2，空树除外（注：M阶代表一个树节点最多有多少个查找路径，M=M路,当M=2则是2叉树,M=3则是3叉）</li>
+<li>关键字数：枝节点的关键字数量大于等于ceil(m/2)-1个且小于等于M-1个（注：ceil()是个朝正无穷方向取整的函数 如ceil(1.1)结果为2)</li>
+<li>所有叶子节点均在同一层、叶子节点除了包含了关键字和关键字记录的指针外也有指向其子节点的指针只不过其指针地址都为null对应下图最后一层节点的空格子<br>最后我们用一个图和一个实际的例子来理解B-树（这里为了理解方便我就直接用实际字母的大小来排列C&gt;B&gt;A）:<br><img src="/images/algorithm/B-Tree.jpg" width="600" alt="B-树"><br>特点:<br>B-树相对于平衡二叉树的不同是，每个节点包含的关键字增多了，特别是在B树应用到数据库中的时候，数据库充分利用了磁盘块的原理（磁盘数据存储是采用块的形式存储的，每个块的大小为4K，每次IO进行数据读取时，同一个磁盘块的数据可以一次性读取出来）把节点大小限制和充分使用在磁盘快大小范围；把树的节点关键字增多后树的层级比原来的二叉树少了，减少数据查找的次数和复杂度。</li>
+</ul>
+<h4 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B+树"></a>B+树</h4><p>B+树是B树的一个升级版，相对于B树来说B+树更充分的利用了节点的空间，让查询速度更加稳定，其速度完全接近于二分法查找。为什么说B+树查找的效率要比B树更高、更稳定；我们先看看两者的区别。</p>
+<ul>
+<li>B+跟B树不同，B+树的非叶子节点不保存关键字记录的指针，只进行数据索引，这样使得B+树每个非叶子节点所能保存的关键字大大增加</li>
+<li>B+树叶子节点保存了父节点的所有关键字记录的指针，所有数据地址必须要到叶子节点才能获取到。所以每次数据查询的次数都一样；</li>
+<li>B+树叶子节点的关键字从小到大有序排列，左边结尾数据都会保存右边节点开始数据的指针。</li>
+<li>非叶子节点的子节点数=关键字数（来源百度百科）（根据各种资料 这里有两种算法的实现方式，另一种为非叶节点的关键字数=子节点数-1（来源维基百科)，虽然他们数据排列结构不一样，但其原理还是一样的Mysql 的B+树是用第一种方式实现）;<br><img src="/images/algorithm/B+Tree.jpg" width="600" alt="B+树"><br>特点:</li>
+<li>B+树的层级更少：相较于B树B+每个非叶子节点存储的关键字数更多，树的层级更少所以查询数据更快</li>
+<li>B+树查询速度更稳定：B+所有关键字数据地址都存在叶子节点上，所以每次查找的次数都相同所以查询速度要比B树更稳定</li>
+<li>B+树天然具备排序功能：B+树所有的叶子节点数据构成了一个有序链表，在查询大小区间的数据时候更方便，数据紧密性很高，缓存的命中率也会比B树高</li>
+<li>B+树全节点遍历更快：B+树遍历整棵树只需要遍历所有的叶子节点即可，，而不需要像B树一样需要对每一层进行遍历，这有利于数据库做全表扫描</li>
+<li>B树相对于B+树的优点是，如果经常访问的数据离根节点很近，而B树的非叶子节点本身存有关键字其数据的地址，所以这种数据检索的时候会要比B+树快</li>
+</ul>
+<h3 id="B-树-2"><a href="#B-树-2" class="headerlink" title="B*树"></a>B*树</h3><p>B*树是B+树的变种，相对于B+树他们的不同之处如下：</p>
+<ul>
+<li>首先是关键字个数限制问题，B+树初始化的关键字初始化个数是cei(m/2)，b<em>树的初始化个数为（cei(2/3</em>m)）</li>
+<li>B+树节点满时就会分裂，而B*树节点满时会检查兄弟节点是否满（因为每个节点都有指向兄弟的指针），如果兄弟节点未满则向兄弟节点转移关键字，如果兄弟节点已满，则从当前节点和兄弟节点各拿出1/3的数据创建一个新的节点出来</li>
+<li>在B+树的基础上因其初始化的容量变大，使得节点空间使用率更高，而又存有兄弟节点的指针，可以向兄弟节点转移关键字的特性使得B*树额分解次数变得更少；</li>
+</ul>
+<p><img src="/images/algorithm/BTree.jpg" width="600" alt="B*树"></p>
+]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;以前看到这样一句话，语言只是工具，算法才是程序设计的灵魂。的确，算法在计算机科学中的地位真的很重要，在很多大公司的笔试面试中，算法掌握程度的考察都占据了很大一部分。不管是为了面试还是自身编程能力的提升，花时间去研究常见的算法还是很有必要的，下面是自己对于算法这部分的学习总结
     
     </summary>
     
@@ -81,12 +975,175 @@
   
   <entry>
     <title>数据仓库知识梳理</title>
-    <link href="http://yoursite.com/2020/02/03/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
-    <id>http://yoursite.com/2020/02/03/数据仓库知识梳理/</id>
+    <link href="http://yoursite.com/2020/02/03/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"/>
+    <id>http://yoursite.com/2020/02/03/知识体系-数据仓库知识梳理/</id>
     <published>2020-02-03T09:09:48.000Z</published>
-    <updated>2020-02-03T09:12:19.000Z</updated>
+    <updated>2020-02-20T07:29:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>数据仓库是面向主题的、集成的、相对稳定的、反映历史变化的数据集合，用于支持管理决策。针对已经存在的不同来源的数据，通过清洗、转化、整合，以商业维度和度量组织数据集，并以便利的⽅式供下游(分析者或业务程序)提取有⽤的商业信息，从⽽及时做出正确的决策的⼀项⼯程。为企业所有级别的决策制定过程，提供所有类型数据支撑的战略集合，主要是用于数据挖掘和数据分析，以建立数据沙盘为基础，为消灭消息孤岛和支持决策为目的而创建的。</p>
+<h2 id="数据建模"><a href="#数据建模" class="headerlink" title="数据建模"></a>数据建模</h2><p>数据模型是抽象描述现实世界的一种工具和方法，是通过抽象的实体及实体之间联系的形式，来表示现实世界中事务的相互关系的一种映射。在这里，数据模型表现的抽象的是实体和实体之间的关系，通过对实体和实体之间关系的定义和描述，来表达实际的业务中具体的业务关系。<br>一般来说，数据模型的建设主要能够帮助我们解决以下的一些问题：</p>
+<ul>
+<li>进行全面的业务梳理，改进业务流程。在业务模型建设的阶段，能够帮助我们的企业或者是管理机关对本单位的业务进行全面的梳理。通过业务模型的建设，我们应该能够全面了解该单位的业务架构图和整个业务的运行情况，能够将业务按照特定的规律进行分门别类和程序化，同时，帮助我们进一步的改进业务的流程，提高业务效率，指导我们的业务部门的生产。</li>
+<li>建立全方位的数据视角，消灭信息孤岛和数据差异。通过数据仓库的模型建设，能够为企业提供一个整体的数据视角，不再是各个部门只是关注自己的数据，而且通过模型的建设，勾勒出了部门之间内在的联系，帮助消灭各个部门之间的信息孤岛的问题，更为重要的是，通过数据模型的建设，能够保证整个企业的数据的一致性，各个部门之间数据的差异将会得到有效解决。</li>
+<li>解决业务的变动和数据仓库的灵活性。通过数据模型的建设，能够很好的分离出底层技术的实现和上层业务的展现。当上层业务发生变化时，通过数据模型，底层的技术实现可以非常轻松的完成业务的变动，从而达到整个数据仓库系统的灵活性。</li>
+<li>帮助数据仓库系统本身的建设。通过数据仓库的模型建设，开发人员和业务人员能够很容易的达成系统建设范围的界定，以及长期目标的规划，从而能够使整个项目组明确当前的任务，加快整个系统建设的速度。</li>
+</ul>
+<h3 id="建模阶段划分"><a href="#建模阶段划分" class="headerlink" title="建模阶段划分"></a>建模阶段划分</h3><p>针对这几个层次的不同阶段的数据建模的工作的主要内容：<br><img src="/images/dw/stage.jpeg" width="600" alt="数据仓库建模阶段划分"><br>从上图我们可以清楚地看出，数据仓库的数据建模大致分为四个阶段。</p>
+<h4 id="业务建模"><a href="#业务建模" class="headerlink" title="业务建模"></a>业务建模</h4><p>这部分建模工作，主要包含以下几个部分：</p>
+<ul>
+<li>划分整个单位的业务，一般按照业务部门的划分，进行各个部分之间业务工作的界定，理清各业务部门之间的关系。</li>
+<li>深入了解各个业务部门的内具体业务流程并将其程序化。</li>
+<li>提出修改和改进业务部门工作流程的方法并程序化。</li>
+<li>数据建模的范围界定，整个数据仓库项目的目标和阶段划分。</li>
+</ul>
+<p>业务建模阶段其实是一次和业务人员梳理业务的过程，在这个过程中，不仅能帮助我们技术人员更好的理解业务，另一方面，也能够发现业务流程中的一些不合理的环节，加以改善和改进；业务建模阶段的另一个重要工作就是确定我们数据建模的范围，例如：在某些数据准备不够充分的业务模块内，我们可以考虑先不建设相应的数据模型。等到条件充分成熟的情况下，我们可以再来考虑数据建模的问题。</p>
+<h4 id="领域概念建模"><a href="#领域概念建模" class="headerlink" title="领域概念建模"></a>领域概念建模</h4><p>这部分得建模工作，主要包含以下几个部分：</p>
+<ul>
+<li>抽取关键业务概念，并将之抽象化。</li>
+<li>将业务概念分组，按照业务主线聚合类似的分组概念。</li>
+<li>细化分组概念，理清分组概念内的业务流程并抽象化。</li>
+<li>理清分组概念之间的关联，形成完整的领域概念模型。</li>
+</ul>
+<p>领域概念建模就是运用了实体建模法，从纷繁的业务表象背后通过实体建模法，抽象出实体，事件，说明等抽象的实体，从而找出业务表象后抽象实体间的相互的关联性，保证了我们数据仓库数据按照数据模型所能达到的一致性和关联性。</p>
+<h4 id="逻辑建模"><a href="#逻辑建模" class="headerlink" title="逻辑建模"></a>逻辑建模</h4><p>这部分的建模工作，主要包含以下几个部分：</p>
+<ul>
+<li>业务概念实体化，并考虑其具体的属性</li>
+<li>事件实体化，并考虑其属性内容</li>
+<li>说明实体化，并考虑其属性内容</li>
+</ul>
+<p>在逻辑建模阶段，我们主要考虑得是抽象实体的一些细致的属性。通过逻辑建模阶段，我们才能够将整个概念模型完整串联成一个有机的实体，才能够完整的表达出业务之间的关联性。</p>
+<h4 id="物理建模"><a href="#物理建模" class="headerlink" title="物理建模"></a>物理建模</h4><p>这部分得建模工作，主要包含以下几个部分：</p>
+<ul>
+<li>针对特定物理化平台，做出相应的技术调整</li>
+<li>针对模型的性能考虑，对特定平台作出相应的调整</li>
+<li>针对管理的需要，结合特定的平台，做出相应的调整</li>
+<li>生成最后的执行脚本，并完善之。</li>
+</ul>
+<p>物理建模阶段是整个数据建模的最后一个过程，这个过程其实是将前面的逻辑数据模型落地的一个过程。</p>
+<h3 id="数据建模方法"><a href="#数据建模方法" class="headerlink" title="数据建模方法"></a>数据建模方法</h3><h4 id="范式建模"><a href="#范式建模" class="headerlink" title="范式建模"></a>范式建模</h4><p>范式建模法其实是我们在构建数据模型常用的一个方法，该方法的主要由 Inmon 所提倡，主要解决关系型数据库得数据存储，利用的一种技术层面上的方法。目前，我们在关系型数据库中的建模方法，大部分采用的是三范式建模法。</p>
+<p>范式是数据库逻辑模型设计的基本理论，一个关系模型可以从第一范式到第五范式进行无损分解，这个过程也可称为规范化。在数据仓库的模型设计中目前一般采用第三范式，它有着严格的数学定义。从其表达的含义来看，一个符合第三范式的关系必须具有以下三个条件:</p>
+<ul>
+<li>每个属性值唯一，不具有多义性（保证每个字段取值具备原子性）</li>
+<li>每个非主属性必须完全依赖于整个主键，而非主键的一部分（保证一个表只描述一件事）</li>
+<li>每个非主属性不能依赖于其他关系中的属性，因为这样的话，这种属性应该归到其他关系中去（保证每列都和主键直接相关，解除传递依赖）</li>
+</ul>
+<p>以笔者的观点来看，Inmon 的范式建模法的最大优点就是从关系型数据库的角度出发，结合了业务系统的数据模型，能够比较方便的实现数据仓库的建模。但其缺点也是明显的，由于建模方法限定在关系型数据库之上，在某些时候反而限制了整个数据仓库模型的灵活性，性能等，特别是考虑到数据仓库的底层数据向数据集市的数据进行汇总时，需要进行一定的变通才能满足相应的需求。因此，笔者建议读者们在实际的使用中，参考使用这一建模方式。</p>
+<h4 id="维度建模"><a href="#维度建模" class="headerlink" title="维度建模"></a>维度建模</h4><p>维度建模法，Kimball 最先提出这一概念。其最简单的描述就是，按照事实表，维表来构建数据仓库，数据集市。这种方法的最被人广泛知晓的名字就是星型模式（Star-schema）。<br><img src="/images/dw/star-schema.jpeg" width="600" alt="维度建模法"><br>上图的这个架构中是典型的星型架构。星型模式之所以广泛被使用，在于针对各个维作了大量的预处理，如按照维进行预先的统计、分类、排序等。通过这些预处理，能够极大的提升数据仓库的处理能力。特别是针对 3NF 的建模方法，星型模式在性能上占据明显的优势。</p>
+<p>同时，维度建模法的另外一个优点是，维度建模非常直观，紧紧围绕着业务模型，可以直观的反映出业务模型中的业务问题。不需要经过特别的抽象处理，即可以完成维度建模。这一点也是维度建模的优势。</p>
+<p>但是，维度建模法的缺点也是非常明显的，由于在构建星型模式之前需要进行大量的数据预处理，因此会导致大量的数据处理工作。而且，当业务发生变化，需要重新进行维度的定义时，往往需要重新进行维度数据的预处理。而在这些与处理过程中，往往会导致大量的数据冗余。</p>
+<p>另外一个维度建模法的缺点就是，如果只是依靠单纯的维度建模，不能保证数据来源的一致性和准确性，而且在数据仓库的底层，不是特别适用于维度建模的方法。</p>
+<p>因此以笔者的观点看，维度建模的领域主要适用与数据集市层，它的最大的作用其实是为了解决数据仓库建模中的性能问题。维度建模很难能够提供一个完整地描述真实业务实体之间的复杂关系的抽象方法。</p>
+<h4 id="实体建模"><a href="#实体建模" class="headerlink" title="实体建模"></a>实体建模</h4><p>实体建模法并不是数据仓库建模中常见的一个方法，它来源于哲学的一个流派。从哲学的意义上说，客观世界应该是可以细分的，客观世界应该可以分成由一个个实体，以及实体与实体之间的关系组成。那么我们在数据仓库的建模过程中完全可以引入这个抽象的方法，将整个业务也可以划分成一个个的实体，而每个实体之间的关系，以及针对这些关系的说明就是我们数据建模需要做的工作。</p>
+<p>虽然实体法粗看起来好像有一些抽象，其实理解起来很容易。即我们可以将任何一个业务过程划分成 3 个部分，实体，事件和说明，如下图所示：<br><img src="/images/dw/entity.jpeg" width="600" alt="维度建模法"></p>
+<p>上图表述的是一个抽象的含义，如果我们描述一个简单的事实：“小明开车去学校上学”。以这个业务事实为例，我们可以把“小明”，“学校”看成是一个实体，“上学”描述的是一个业务过程，我们在这里可以抽象为一个具体“事件”，而“开车去”则可以看成是事件“上学”的一个说明。</p>
+<p>从上面的举例我们可以了解，我们使用的抽象归纳方法其实很简单，任何业务可以看成 3 个部分：</p>
+<ul>
+<li>实体，主要指领域模型中特定的概念主体，指发生业务关系的对象。</li>
+<li>事件，主要指概念主体之间完成一次业务流程的过程，特指特定的业务过程。</li>
+<li>说明，主要是针对实体和事件的特殊说明。</li>
+</ul>
+<p>由于实体建模法，能够很轻松的实现业务模型的划分，因此，在业务建模阶段和领域概念建模阶段，实体建模法有着广泛的应用。从笔者的经验来看，再没有现成的行业模型的情况下，我们可以采用实体建模的方法，和客户一起理清整个业务的模型，进行领域概念模型的划分，抽象出具体的业务概念，结合客户的使用特点，完全可以创建出一个符合自己需要的数据仓库模型来。</p>
+<p>但是，实体建模法也有着自己先天的缺陷，由于实体说明法只是一种抽象客观世界的方法，因此，注定了该建模方法只能局限在业务建模和领域概念建模阶段。因此，到了逻辑建模阶段和物理建模阶段，则是范式建模和维度建模发挥长处的阶段。</p>
+<h4 id="宽表模型"><a href="#宽表模型" class="headerlink" title="宽表模型"></a>宽表模型</h4><p>从字面意义上讲就是字段比较多的数据库表。通常是指业务主题相关的指标、维度、属性关联在一起的一张数据库表。由于把不同的内容都放在同一张表存储，宽表已经不符合三范式的模型设计规范，随之带来的主要坏处就是数据的大量冗余，与之相对应的好处就是查询性能的提高与便捷。这种宽表的设计广泛应用于数据挖掘模型训练前的数据准备，通过把相关字段放在同一张表中，可以大大提高数据挖掘模型训练过程中迭代计算时的效率问题。</p>
+<h4 id="Data-Vault模型"><a href="#Data-Vault模型" class="headerlink" title="Data Vault模型"></a>Data Vault模型</h4><p>DataVault是在ER模型的基础上衍生而来的，模型设计的初衷是有效的组织基础数据层，使之易扩展、灵活的应对业务变化，同时强调历史性、可追溯性和原子性，不要求对数据进行过度的一致性处理；并非针对分析场景所设计。</p>
+<p>Data Vault模型是一种中心辐射式模型，其设计重点围绕着业务键的集成模式，使之易扩展、灵活的应对业务变化，同时强调历史性、可追溯性和原子性，不要求对数据进行过度的一致性处理。这些业务键是存储在多个系统中的、针对各种信息的键，用于定位和唯一标识记录或数据。<br>包含3种基本结构：</p>
+<ul>
+<li>中心表——Hub<br>  唯一业务键的列表，唯一标识企业实际业务，企业的业务主体集合。</li>
+<li>链接表——Link<br>  表示中心表之间的关系，通过链接表串联整个企业的业务关联关系。</li>
+<li>卫星表——Satellite<br>  历史的描述性数据，数仓中数据的真正载体。</li>
+</ul>
+<p><img src="/images/dw/datavault.jpg" width="600" alt="Data Vault示例"></p>
+<p>特点：<br>Data Vault模型更容易设计，ETL过程中更易配置化实现。<br>Hub想象成人体的骨架，那么Link就是连接骨架的韧带组织，而satelite就是骨架上的血肉。<br>Data Vault是对ER模型更近一步的规范化，由于对数据的拆解和更偏向于基础数据组织，在处理分析类场景时相对复杂，适合数仓底层构建，目前实际应用场景较少。</p>
+<h3 id="数据处理方法"><a href="#数据处理方法" class="headerlink" title="数据处理方法"></a>数据处理方法</h3><h4 id="缓慢变化维"><a href="#缓慢变化维" class="headerlink" title="缓慢变化维"></a>缓慢变化维</h4><p>缓慢变化维的提出是因为在现实世界中，维度的属性并不是静态的，它会随着时间的流失发生缓慢的变化。这种随时间发生变化的维度我们一般称之为缓慢变化维，并且把处理维度表的历史变化信息的问题称为处理缓慢变化维的问题，有时也简称为处理SCD的问题。<br>处理缓慢变化维的方法通常有：</p>
+<ul>
+<li>直接更新覆盖，仅在旧值无意义时使用</li>
+<li>添加一行新的数据，包含生效时间、终止时间和当前的指示符</li>
+<li>添加一个新列，记录旧值</li>
+<li>微型维：添加一个新维，用于跟踪大型维度表中经常变化的属性</li>
+</ul>
+<h4 id="拉链表"><a href="#拉链表" class="headerlink" title="拉链表"></a>拉链表</h4><p>拉链表是针对数据仓库设计中表存储数据的方式而定义的，顾名思义，所谓拉链，就是记录历史。记录一个事物从开始，一直到当前状态的所有变化的信息。<br>在数据仓库的数据模型设计过程中，经常会遇到下面这种表的设计：</p>
+<ul>
+<li>有一些表的数据量很大，比如一张用户表，大约10亿条记录，50个字段，这种表，即使使用ORC压缩，单张表的存储也会超过100G，在HDFS使用双备份或者三备份的话就更大一些</li>
+<li>表中的部分字段会被update更新操作，如用户联系方式，产品的描述信息，订单的状态等等</li>
+<li>需要查看某一个时间点或者时间段的历史快照信息，比如，查看某一个订单在历史某一个时间点的状态</li>
+<li>表中的记录变化的比例和频率不是很大，比如，总共有10亿的用户，每天新增和发生变化的有200万左右，变化的比例占的很小</li>
+</ul>
+<p>拉链表在使用上基本兼顾了上述的需求。首先它在空间上做了一个取舍，虽说不像方案一那样占用量那么小，但是它每日的增量可能只有方案二的千分之一甚至是万分之一。其次它能满足方案二所能满足的需求，既能获取最新的数据，也能添加筛选条件也获取历史的数据。</p>
+<p>拉链表包括effect_begin_date、effect_end_date、is_enable</p>
+<h4 id="桥连表"><a href="#桥连表" class="headerlink" title="桥连表"></a>桥连表</h4><p>通过桥连表实现深度可变层次结构，建立在维度表和事实表中间的一个具有较多冗余信息的表。将事实表中一行对应维度表中多行的情况，转变成事实表和桥接表是1对多，桥接表和维表是1对1。</p>
+<h4 id="代理键"><a href="#代理键" class="headerlink" title="代理键"></a>代理键</h4><p>代理键的好处：</p>
+<ul>
+<li>联结处理更加高效</li>
+<li>避免由于自然建重新指派带来的冲突</li>
+<li>唯一标识与之相关的自然建</li>
+<li>避免自然建空值所带来的问题</li>
+<li>便于处理缓慢变化维</li>
+</ul>
+<h4 id="一致性维度"><a href="#一致性维度" class="headerlink" title="一致性维度"></a>一致性维度</h4><p>一致性维度的好处：</p>
+<ul>
+<li>确保使用一致的过滤口径，结果便于理解</li>
+<li>便于集成，可以首先单独计算各个事实表，再在结果集上关联</li>
+</ul>
+<h3 id="建模规范"><a href="#建模规范" class="headerlink" title="建模规范"></a>建模规范</h3><h4 id="分层规范"><a href="#分层规范" class="headerlink" title="分层规范"></a>分层规范</h4><p>在未分层的情况下，数据之间的耦合性与业务耦合性是不可避免的，当源业务系统的业务规则发生变化时，可能影响整个数据的清洗过程。</p>
+<ul>
+<li>数据分层简化了数据清洗的过程，每一层的逻辑变得更加简单和易于理解，当发生错误或规则变化时，只需要进行局部调整</li>
+<li>通过大量的预处理来提升应用系统查询速度，进而提升的用户体验，因此数据仓库会冗余大量的数据，是典型的空间换时间的策略<br><img src="/images/dw/layered.jpg" width="600" alt="阿里数据仓库分层介绍"></li>
+</ul>
+<h4 id="模型设计的基本原则"><a href="#模型设计的基本原则" class="headerlink" title="模型设计的基本原则"></a>模型设计的基本原则</h4><ul>
+<li><p>高内聚和低耦合，一个逻辑和物理模型由哪些记录和字段组成，应该遵循最基本的软件设计方法论中的高内聚和低耦合原则。主要从数据业务特性和访问特性两个角度来考虑：将业务相近或者相关的数据、粒度相同数据设计为一个逻辑或者物理模型；将高概率同时访问的数据放一起，将低概率同时访问的数据分开存储</p>
+</li>
+<li><p>核心模型与扩展模型分离，建立核心模型与扩展模型体系，核心模型包括的字段支持常用核心的业务，扩展模型包括的字段支持个性化或是少量应用的需要。在必须让核心模型与扩展模型做关联时，不能让扩展字段过度侵入核心模型，以免破坏了核心模型的架构简洁性与可维护性</p>
+</li>
+<li><p>公共处理逻辑下沉及单一，底层公用的处理逻辑应该在数据调度依赖的底层进行封装与实现，不要让公用的处理逻辑暴露给应用层实现，不要让公共逻辑在多处同时存在</p>
+</li>
+<li><p>成本与性能平衡，适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制</p>
+</li>
+<li><p>数据可回滚，处理逻辑不变，在不同时间多次运行数据的结果需确定不变</p>
+</li>
+<li><p>一致性，相同的字段在不同表中的字段名必须相同</p>
+</li>
+<li><p>命名清晰可理解，表命名规范需清晰、一致，表命名需易于下游的理解和使用。</p>
+</li>
+</ul>
+<h4 id="数仓命名规范"><a href="#数仓命名规范" class="headerlink" title="数仓命名规范"></a>数仓命名规范</h4><ul>
+<li>通用规范（长度、拼写、分割、层次、冲突、表意要求）</li>
+<li>表名规范（分层标识、业务标识、统计时间周期、更新周期标识、单分区增量全量标识）</li>
+<li>词根规范（业务线、数据粒度、数据周期）</li>
+</ul>
+<h2 id="元数据管理"><a href="#元数据管理" class="headerlink" title="元数据管理"></a>元数据管理</h2><ul>
+<li>数据源信息，包括数据源地址、表名、版本等</li>
+<li>存储信息，包括生命周期、数据结构、管理信息、数据描述等</li>
+<li>计算信息，包括血缘关系、执行状态、执行日志、调度策略等</li>
+<li>质量信息，包括完整性、准确性、就绪时间等</li>
+<li>使用信息，包括表访问、字段访问、查询时长、查询方式等</li>
+<li>成本信息，包括计算成本、存储成本等</li>
+<li>安全信息，包括安全等级、数据敏感性、权限管理等</li>
+<li>模型信息，包括业务过程、数据域、维度、粒度、事实、指标口径等</li>
+</ul>
+<h2 id="数据治理"><a href="#数据治理" class="headerlink" title="数据治理"></a>数据治理</h2><h3 id="数据安全"><a href="#数据安全" class="headerlink" title="数据安全"></a>数据安全</h3><ul>
+<li>数据的产生：通过数据分级体系对敏感字段打标签</li>
+<li>数据的存储：需要通过加密的方式存储相关数据，避免直接存储Text格式的数据</li>
+<li>数据的使用：包括了一个独立的权限控制系统</li>
+<li>数据的传输：相关的申请与查询操作需要通过专门的API接口进行，并且有高安全等级的加密措施</li>
+<li>数据的展示：在申请通过后，根据申请人的安全等级，展示对应等级的数据</li>
+<li>数据的销毁：敏感数据仅在HDFS上做逻辑删除是不够的，需要配合物理删除同步清理敏感数据</li>
+</ul>
+<h3 id="数据质量"><a href="#数据质量" class="headerlink" title="数据质量"></a>数据质量</h3><p>数据质量是保证数据应用的基础，它的评估标准主要包括四个方面，完整性、一致性、准确性、及时性。评估数据是否达到预期设定的质量要求，就可以通过这四个方面来进行判断。</p>
+<ul>
+<li>完整性，完整性指的是数据信息是否存在缺失的状况，数据缺失的情况可能是整个数据记录缺失，也可能是数据中某个字段信息的记录缺失。不完整的数据所能借鉴的价值就会大大降低，也是数据质量更为基础的一项评估标准</li>
+<li>一致性，一致性是指数据是否遵循了统一的规范，数据集合是否保持了统一的格式，数据质量的一致性主要体现在数据记录的规范和数据是否符合逻辑。规范指的是，一项数据存在它特定的格式，例如手机号码一定是13位的数字，IP地址一定 是由4个0到255间的数字加上”.”组成的。逻辑指的是，多项数据间存在着固定的逻辑关系，例如PV一定是大于等于UV的，跳出率一定是在0到1之间的</li>
+<li>准确性，准确性是指数据记录的信息是否存在异常或错误。和一致性不一样，存在准确性问题的数据不仅仅只是规则上的不一致。更为常见的数据准确性错误就如乱码。其次，异常的大或者小的数据也是不符合条件的数据</li>
+<li>及时性，及时性是指数据从产生到可以查看的时间间隔，也叫数据的延时时长。及时性对于数据分析本身要求并不高，但如果数据分析周期加上数据建立的时间过长，就可能导致分析得出的结论失去了借鉴意义</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li>IBM 浅谈数据仓库建设中的数据建模方法：<a href="https://www.ibm.com/developerworks/cn/data/library/techarticles/dm-0803zhousb/" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/data/library/techarticles/dm-0803zhousb/</a></li>
+<li>一位阿里人对数据模型建设的几点思考与总结：<a href="https://blog.csdn.net/nisjlvhudy/article/details/47758749" target="_blank" rel="external">https://blog.csdn.net/nisjlvhudy/article/details/47758749</a></li>
+</ul>
+]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;数据仓库是面向主题的、集成的、相对稳定的、反映历史变化的数据集合，用于支持管理决策。针对已经存在的不同来源的数据，通过清洗、转化、整合，以商业维度和度量组织数据集，并以便利的⽅式供下游(分析者或业务程序)提取有⽤的商业信息，从⽽及时做出正确的决策的⼀项⼯程。为企业所有级别的
     
     </summary>
     

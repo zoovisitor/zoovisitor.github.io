@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>知识体系-编程语言高频知识梳理 | Blogs</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">知识体系-编程语言高频知识梳理</h1><a id="logo" href="/.">Blogs</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">知识体系-编程语言高频知识梳理</h1><div class="post-meta">Feb 3, 2020<span> | </span><span class="category"><a href="/categories/知识体系/">知识体系</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java"><span class="toc-number">1.</span> <span class="toc-text">Java</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础知识"><span class="toc-number">1.1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#String类为什么是final的"><span class="toc-number">1.1.1.</span> <span class="toc-text">String类为什么是final的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HashTable、HashMap的区别"><span class="toc-number">1.1.2.</span> <span class="toc-text">HashTable、HashMap的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ConcurrentHashMap"><span class="toc-number">1.1.3.</span> <span class="toc-text">ConcurrentHashMap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vector和ArrayList的区别"><span class="toc-number">1.1.4.</span> <span class="toc-text">Vector和ArrayList的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#String、StringBuilder、StringBuffer区别"><span class="toc-number">1.1.5.</span> <span class="toc-text">String、StringBuilder、StringBuffer区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM知识"><span class="toc-number">1.2.</span> <span class="toc-text">JVM知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JVM的内存模型"><span class="toc-number">1.2.1.</span> <span class="toc-text">JVM的内存模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GC算法"><span class="toc-number">1.2.2.</span> <span class="toc-text">GC算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stop-the-world"><span class="toc-number">1.2.3.</span> <span class="toc-text">stop-the-world</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JVM的新生代、老年代、MinorGC、MajorGC"><span class="toc-number">1.2.4.</span> <span class="toc-text">JVM的新生代、老年代、MinorGC、MajorGC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MinorGC与MajorGC"><span class="toc-number">1.2.5.</span> <span class="toc-text">MinorGC与MajorGC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JVM每个区域的内存溢出"><span class="toc-number">1.2.6.</span> <span class="toc-text">JVM每个区域的内存溢出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jvm性能调优"><span class="toc-number">1.2.7.</span> <span class="toc-text">jvm性能调优</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO知识"><span class="toc-number">1.3.</span> <span class="toc-text">IO知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#String-编码UTF-8-和GBK的区别"><span class="toc-number">1.3.1.</span> <span class="toc-text">String 编码UTF-8 和GBK的区别?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么时候使用字节流、什么时候使用字符流"><span class="toc-number">1.3.2.</span> <span class="toc-text">什么时候使用字节流、什么时候使用字符流?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多线程知识"><span class="toc-number">1.4.</span> <span class="toc-text">多线程知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常用的线程池模式以及不同线程池的使用场景"><span class="toc-number">1.4.1.</span> <span class="toc-text">常用的线程池模式以及不同线程池的使用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java在创建线程后，直接调用start-方法和run-的区别"><span class="toc-number">1.4.2.</span> <span class="toc-text">Java在创建线程后，直接调用start()方法和run()的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现多线程有几种方式，多线程同步怎么做"><span class="toc-number">1.4.3.</span> <span class="toc-text">实现多线程有几种方式，多线程同步怎么做</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#衍生知识"><span class="toc-number">1.5.</span> <span class="toc-text">衍生知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hash冲突怎么办？哪些解决散列冲突的方法？"><span class="toc-number">1.5.1.</span> <span class="toc-text">Hash冲突怎么办？哪些解决散列冲突的方法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一致性hash"><span class="toc-number">1.5.2.</span> <span class="toc-text">一致性hash</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scala"><span class="toc-number">2.</span> <span class="toc-text">Scala</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础知识-1"><span class="toc-number">2.1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#scala中的闭包"><span class="toc-number">2.1.1.</span> <span class="toc-text">scala中的闭包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scala-中柯里化是什么？有什么优点？"><span class="toc-number">2.1.2.</span> <span class="toc-text">Scala 中柯里化是什么？有什么优点？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#case-class和class的区别"><span class="toc-number">2.1.3.</span> <span class="toc-text">case class和class的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#说说Scala中隐式转换？及优缺点？"><span class="toc-number">2.1.4.</span> <span class="toc-text">说说Scala中隐式转换？及优缺点？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL"><span class="toc-number">3.</span> <span class="toc-text">SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化内容"><span class="toc-number">3.1.</span> <span class="toc-text">优化内容</span></a></li></ol></li></ol></div></div><div class="post-content"><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="String类为什么是final的"><a href="#String类为什么是final的" class="headerlink" title="String类为什么是final的"></a>String类为什么是final的</h4><p>final可以修饰类，方法和变量，并且被修饰的类或方法，被final修饰的类不能被继承，即它不能拥有自己的子类，被final修饰的方法不能被重写， final修饰的变量，无论是类属性、对象属性、形参还是局部变量，都需要进行初始化操作。在了解final的用途后，final主要是为了”安全性“和”效率“的缘故。</p>
+<ul>
+<li>从内存角度来看，字符串常量池的要求：创建字符串时，如果该字符串已经存在于池中，则将返回现有字符串的引用，而不是创建新对象。多个String变量引用指向同一个内地地址。如果字符串是可变的，用一个引用更改字符串将导致其他引用的值错误。这是很危险的。</li>
+<li>缓存Hashcode，字符串的Hashcode在java中经常配合基于散列的集合一起正常运行，这样的散列集合包括HashSet、HashMap以及HashTable。不可变的特性保证了hashcode永远是相同的。不用每次使用hashcode就需要计算hashcode。这样更有效率。因为当向集合中插入对象时，是通过hashcode判别在集合中是否已经存在该对象了（不是通过equals方法逐个比较，效率低）。</li>
+<li>方便其它类使用， 其他类的设计基于string不可变，如set存储string，改变该string后set包含了重复值。</li>
+<li>安全性，String被广泛用作许多java类的参数，例如网络连接、打开文件等。如果对string的某一处改变一不小心就影响了该变量所有引用的表现，则连接或文件将被更改，这可能导致严重的安全威胁。不可变对象不能被写，所以不可变对象自然是线程安全的，因为不可变对象不能更改，它们可以在多个线程之间自由共享。</li>
+</ul>
+<h4 id="HashTable、HashMap的区别"><a href="#HashTable、HashMap的区别" class="headerlink" title="HashTable、HashMap的区别"></a>HashTable、HashMap的区别</h4><ul>
+<li>继承父类不同，Hashtable继承自Dictionary类，而HashMap继承自AbstractMap类；但二者都实现了Map接口</li>
+<li>线程的安全性，Hashtable 线程安全，因为它每个方法中都加入了Synchronize，在多线程并发的环境下，可以直接使用Hashtable，不需自己在加同步；HashMap线程不安全，因为HashMap底层是一个Entry数组，当发生hashmap冲突的时候，hashmap是采用链表的方式来解决的，在对应的数组位置存放链表的头结点。对链表而言，新加入的节点会从头结点加入</li>
+<li>是否有contains方法，HashTable有一个contains(Object value)方法，功能和containsValue方法(Object value)功能一样。HashMap把Hashtable的contains方法去掉了，改成containsValue和containsKey。</li>
+<li>可否允许有null值， Hashtable中，key和value都不允许出现null值。HashMap允许null值(key和value都可以)，因为在HashMap中null可以作为健，而它对应的值可以有多个null。</li>
+<li>遍历方式内部实现不同， HashTable使用Enumeration，HashMap使用Iterator。</li>
+<li>hash值不一样， HashTable直接使用对象的hashCode， HashMap要重新计算key值和hash值</li>
+<li>数组初始化和扩容不同， HashTable中hash数组默认大小是11，增加的方式是 arr*2+1。HashMap中hash数组的默认大小是16，而且一定是2的指数</li>
+</ul>
+<h4 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h4><p>底层采用分段的数组+链表实现，线程安全</p>
+<ul>
+<li>通过把整个Map分为N个Segment，可以提供相同的线程安全，但是效率提升N倍，默认提升16倍。(读操作不加锁，由于HashEntry的value变量是 volatile的，也能保证读取到最新的值。)</li>
+<li>Hashtable的synchronized是针对整张Hash表的，即每次锁住整张表让线程独占，ConcurrentHashMap允许多个修改操作并发进行，其关键在于使用了锁分离技术<br>有些方法需要跨段，比如size()和containsValue()，它们可能需要锁定整个表而而不仅仅是某个段，这需要按顺序锁定所有段，操作完毕后，又按顺序释放所有段的锁</li>
+<li>扩容：段内扩容（段内元素超过该段对应Entry数组长度的75%触发扩容，不会对整个Map进行扩容），插入前检测需不需要扩容，有效避免无效扩容</li>
+</ul>
+<h4 id="Vector和ArrayList的区别"><a href="#Vector和ArrayList的区别" class="headerlink" title="Vector和ArrayList的区别"></a>Vector和ArrayList的区别</h4><p>这两个类都实现了List接口（List接口继承了Collection接口），他们都是有序集合，即存储在这两个集合中的元素的位置都是有顺序的，相当于一种动态的数组，我们以后可以按位置索引号取出某个元素，并且其中的数据是允许重复的，这是与HashSet之类的集合的最大不同处，HashSet之类的集合不可以按索引号去检索其中的元素，也不允许有重复的元素。<br>ArrayList与Vector的区别主要包括两个方面：</p>
+<ul>
+<li>同步性，Vector是线程安全的，也就是说是它的方法之间是线程同步的，而ArrayList是线程序不安全的。</li>
+<li>数据增长，Vector默认增长为原来两倍，而ArrayList的增长策略在文档中没有明确规定（从源代码看到的是增长为原来的1.5倍）</li>
+</ul>
+<h4 id="String、StringBuilder、StringBuffer区别"><a href="#String、StringBuilder、StringBuffer区别" class="headerlink" title="String、StringBuilder、StringBuffer区别"></a>String、StringBuilder、StringBuffer区别</h4><ul>
+<li>String：适用于少量的字符串操作的情况</li>
+<li>StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情况</li>
+<li>StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况</li>
+</ul>
+<h3 id="JVM知识"><a href="#JVM知识" class="headerlink" title="JVM知识"></a>JVM知识</h3><h4 id="JVM的内存模型"><a href="#JVM的内存模型" class="headerlink" title="JVM的内存模型"></a>JVM的内存模型</h4><p>从这张图中很直观的看到，程序计数器，虚拟机栈，native栈是线程私有的，堆是线程共有的。<br><img src="/images/code/jvm-model.png" width="600" alt="JVM内存模型"></p>
+<ul>
+<li>堆（Heap），是java虚拟机所管理的内存中最大的一块内存区域，也是被各个线程共享的内存区域，该内存区域存放了对象实例及数组（但不是所有的对象实例都在堆中）</li>
+<li>方法区（Method Area），它用于存储虚拟机加载的类信息、常量、静态变量、是各个线程共享的内存区域。</li>
+<li>虚拟机栈(JVM Stack)，每个方法被执行的时候都会创建一个”栈帧”,用于存储局部变量表(包括参数)、操作栈、方法出口等信息。每个方法被调用到执行完的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。声明周期与线程相同，是线程私有的</li>
+<li>本地方法栈(Native Stack)，与虚拟机栈基本类似，区别在于虚拟机栈为虚拟机执行的java方法服务，而本地方法栈则是为Native方法服务。(栈的空间大小远远小于堆)</li>
+<li>程序计数器（PC Register），是最小的一块内存区域，它的作用是当前线程所执行的字节码的行号指示器，在虚拟机的模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、异常处理、线程恢复等基础功能都需要依赖计数器完成。</li>
+</ul>
+<h4 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法"></a>GC算法</h4><p>1、引用计数法<br>当一个对象A不再被引用时为垃圾对象，那就设置一个计数器，所以对于对象A，只要有任何一个对象引用了对象A，那么引用计数器就加一；而当这个引用失效了之后，引用计数器就减一。当一个对象的引用计数器的值为0的时候，那么这个对象就不可能再被使用了。但是引用计数法有一个很麻烦的问题，就是它无法处理垃圾对象的循环引用。由于这种算法存在上述缺陷，所以JVM其实并不使用它，而是使用另一种算法，是根搜索算法。这种算法是现代垃圾回收算法的思想基础。它的做法是：把一些对象设为根对象（也可以说是根结点），当任何一个根结点都不可达某一个对象的时候，这个对象就被认为是可以回收的。基于这种思想，上述引用计数法存在的问题就可以解决了，由于根对象无法到达那三个循环引用的对象，所以这三个对象都是视为可回收的垃圾。<br>那么什么对象可以作为根对象呢：</p>
+<ul>
+<li>Java虚拟机栈中引用的对象；</li>
+<li>方法区中的类静态成员引用的对象（static修饰的）；</li>
+<li>方法区中的常量引用的对象（主要是final修饰的）；</li>
+<li>本地方法栈中JNI（Java Native Interface）引用的对象</li>
+</ul>
+<p>2、标记-清除法<br>标记-清除法将垃圾回收分为两个阶段，即标记阶段和清除阶段。做法是，首先在标记阶段，遍历所有的根结点，将这些根结点的可达对象进行标记；而在清除阶段，遍历堆中的所有对象，对那些没有被标记的对象进行清除。<br>优缺点：</p>
+<ul>
+<li>首先是速度慢，因为标记-清除算法在标记阶段需要使用递归的方式从根结点出发，不断寻找可达的对象；而在清除阶段又需要遍历堆中的所有对象，查看其是否被标记，然后清除；并且其实在程序进行GC的时候，JVM中所有的Java程序都要进行暂停，俗称stop-the-world，后面会提到。</li>
+<li>其次是其最大的缺点，使用这种算法进行清理而得的堆内存的空闲空间一般是不连续的，我们知道对象实例在堆中是随机存储的，所以在清理之后，会产生许多的内存碎片，如果这个时候来了一个很大的对象实例，尽管显示内存还足够，但是已经存不下这个大对象了，内存碎片太多会导致当程序需要为较大对象分配内存时无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。再者，这种零散的碎片对于数组的分配也不是很方便。</li>
+</ul>
+<p>3、标记-压缩算法<br>标记-压缩算法是对标记-清除算法的一种改良，它们的工作原理差不多，也是分为两个阶段：标记阶段和压缩阶段。标记阶段和标记-清除算法一样；而在压缩阶段的时候，它不是将所有的未标记的对象清除，而是将所有的标记对象压缩熬堆内存的一段，然后清除边界以外的所有空间。</p>
+<p>优缺点：</p>
+<ul>
+<li>首先这种算法克服了标记-清除算法中会产生内存碎片的缺点，也解决了复制算法中内存减半使用的不足。</li>
+<li>而其缺点则是速度也不是很快，不仅要遍历标记所有可达结点，还要一个个整理可达存活对象的地址，所以导致其效率不是很高。</li>
+</ul>
+<p>4、复制算法<br>将堆内存分为两块大小完全相同的内存（不一定是全部堆内存空间），每一次只用一块（活跃空间），另一块（空闲空间）闲置不用。当其中的活跃空间使用完后，就将活跃空间中还存活的对象复制到空闲空间里去，按照地址整齐排好序。之后清除活跃空间中所有的对象。然后两者交换使用职位，现在空闲空间成为了活跃空间，活跃空间成为了空闲空间。</p>
+<p>优缺点：</p>
+<ul>
+<li>复制算法很明显的缺点就是浪费内存空间，因为将内存分为两块，一次只能使用一块，这也意味着分的块越大，浪费的内存越多。而且当对象的存活率很高的时候，不断的复制操作也会显得费时和不可忽视。</li>
+<li>但是也是拖了浪费内存的福，复制算法执行的速度较快，典型的空间换时间。</li>
+</ul>
+<h4 id="stop-the-world"><a href="#stop-the-world" class="headerlink" title="stop-the-world"></a>stop-the-world</h4><p>这个是在GC算法执行的时候产生的现象：在GC算法执行的时候，所有正在执行中的 Java程序都会被挂起（被暂停 ），只有native方法可以执行，但是也不能和JVM进行交互，这样一来似乎整个Java世界都停止了，这也就是为什么叫做stop-the-world。等到GC程序执行完毕后，Java程序才会重新恢复执行。<br>这个其实很好理解，因为GC程序是一个线程，Java程序也是一个线程，它们操作的堆内存是一片共享的区域，假设一种情况，Java程序A新建了一个对象object，new Object（）被存放在堆区，但是很不巧的是，堆区刚刚执行过复制算法，前一步存活的对象已经被转移到另一块空间了，而new Object（）就留在了原来的空间，无辜地被清除了。这显然是不可接受的，因为线程不安全。</p>
+<h4 id="JVM的新生代、老年代、MinorGC、MajorGC"><a href="#JVM的新生代、老年代、MinorGC、MajorGC" class="headerlink" title="JVM的新生代、老年代、MinorGC、MajorGC"></a>JVM的新生代、老年代、MinorGC、MajorGC</h4><p>JVM中的堆，一般分为三大部分：新生代、老年代、永久代：<br><img src="/images/code/jvm-gc.png" width="600" alt="JVM GC分布"><br>1、新生代：主要是用来存放新生的对象。一般占据堆的1/3空间。由于频繁创建对象，所以新生代会频繁触发MinorGC进行垃圾回收。<br>新生代又分为 Eden区、ServivorFrom、ServivorTo三个区：</p>
+<ul>
+<li>Eden区：Java新对象的出生地（如果新创建的对象占用内存很大，则直接分配到老年代）。当Eden区内存不够的时候就会触发MinorGC，对新生代区进行一次垃圾回收</li>
+<li>ServivorTo：保留了一次MinorGC过程中的幸存者</li>
+<li>ServivorFrom：上一次GC的幸存者，作为这一次GC的被扫描者</li>
+</ul>
+<p>2、老年代：主要存放应用程序中生命周期长的内存对象<br>老年代的对象比较稳定，所以MajorGC不会频繁执行。在进行MajorGC前一般都先进行了一次MinorGC，使得有新生代的对象晋身入老年代，导致空间不够用时才触发。当无法找到足够大的连续空间分配给新创建的较大对象时也会提前触发一次MajorGC进行垃圾回收腾出空间。</p>
+<p>3、永久代<br>指内存的永久保存区域，主要存放Class和Meta（元数据）的信息,Class在被加载的时候被放入永久区域. 它和和存放实例的区域不同,GC不会在主程序运行期对永久区域进行清理。所以这也导致了永久代的区域会随着加载的Class的增多而胀满，最终抛出OOM异常。<br>在Java8中，永久代已经被移除，被一个称为“元数据区”（元空间）的区域所取代， 元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间的大小仅受本地内存限制。类的元数据放入 native memory, 字符串池和类的静态变量放入java堆中. 这样可以加载多少类的元数据就不再由MaxPermSize控制, 而由系统的实际可用空间来控制.<br>采用元空间而不用永久代的几点原因：</p>
+<ul>
+<li>为了解决永久代的OOM问题，元数据和class对象存在永久代中，容易出现性能问题和内存溢出</li>
+<li>类及方法的信息等比较难确定其大小，因此对于永久代的大小指定比较困难，太小容易出现永久代溢出，太大则容易导致老年代溢出（因为堆空间有限，此消彼长）</li>
+<li>永久代会为 GC 带来不必要的复杂度，并且回收效率偏低</li>
+</ul>
+<h4 id="MinorGC与MajorGC"><a href="#MinorGC与MajorGC" class="headerlink" title="MinorGC与MajorGC"></a>MinorGC与MajorGC</h4><ul>
+<li>MinorGC的过程：MinorGC采用复制算法。首先，把Eden和ServivorFrom区域中存活的对象复制到ServicorTo区域（如果有对象的年龄以及达到了老年的标准，则赋值到老年代区），同时把这些对象的年龄+1（如果ServicorTo不够位置了就放到老年区）；然后，清空Eden和ServicorFrom中的对象；最后，ServicorTo和ServicorFrom互换，原ServicorTo成为下一次GC时的ServicorFrom区。</li>
+<li>MajorGC采用标记—清除算法：首先扫描一次所有老年代，标记出存活的对象，然后回收没有标记的对象。MajorGC的耗时比较长，因为要扫描再回收。MajorGC会产生内存碎片，为了减少内存损耗，我们一般需要进行合并或者标记出来方便下次直接分配。当老年代也满了装不下的时候，就会抛出OOM（Out of Memory）异常。</li>
+</ul>
+<h4 id="JVM每个区域的内存溢出"><a href="#JVM每个区域的内存溢出" class="headerlink" title="JVM每个区域的内存溢出"></a>JVM每个区域的内存溢出</h4><p>1、程序技术器，记录当前线程运行到了那一行代码,多线程来回切换时知道从哪里开始继续执行<br>唯一不会报错:OutOfMemoryError</p>
+<p>2、栈</p>
+<ul>
+<li>如果线程请求栈深度大于虚拟机所允许的深度,抛出StackOverflowError， 程序存在死循环或者深度递归调用</li>
+<li>无法申请到足够的内存抛出OutOfMemoryError</li>
+</ul>
+<p>3、本地方法栈<br>本地方法栈和线程栈作用相似,区别在于线程栈为虚拟机执行的java方法服务,而本地方法栈为虚拟机使用到的Native(本地)方法服务，报错StackOverflowError和OutOfMemoryError,和线程栈相同</p>
+<p>4、堆，堆上没有内存完成实例的分配就会报OutOfMemoryError</p>
+<p>5、方法区，当方法区无法满足内存分配需求时,会抛出OutOfMemoryError</p>
+<p>6、常量池，内存不足报OutOfMemoryError</p>
+<h4 id="jvm性能调优"><a href="#jvm性能调优" class="headerlink" title="jvm性能调优"></a>jvm性能调优</h4><p>对JVM内存的系统级的调优主要的目的是减少GC的频率和Full GC的次数。<br>Full GC会对整个堆进行整理，包括Young、Tenured和Perm。Full GC因为需要对整个堆进行回收，所以比较慢，因此应该尽可能减少Full GC的次数。<br>1、导致Full GC的原因</p>
+<ul>
+<li>年老代（Tenured）被写满，调优时尽量让对象在新生代GC时被回收、让对象在新生代多存活一段时间和不要创建过大的对象及数组避免直接在旧生代创建对象 。</li>
+<li>持久代Pemanet Generation空间不足，增大Perm Gen空间，避免太多静态对象 ， 控制好新生代和旧生代的比例</li>
+<li>System.gc()被显示调用，垃圾回收不要手动触发，尽量依靠JVM自身的机制<br>2、JVM性能调优方法和步骤</li>
+<li>使用各种JVM工具，查看当前日志，分析当前JVM参数设置，并且分析当前堆内存快照和gc日志，根据实际的各区域内存划分和GC执行时间，觉得是否进行优化。</li>
+<li>生成堆的dump文件，通过JMX的MBean生成当前的Heap信息，大小为一个3G（整个堆的大小）的hprof文件，如果没有启动JMX可以通过Java的jmap命令来生成该文件。</li>
+<li>分析dump文， 打开这个3G的堆信息文件，显然一般的Window系统没有这么大的内存，必须借助高配置的Linux，几种工具打开该文件：Visual VM、IBM HeapAnalyzer、JDK 自带的Hprof工具、Mat(Eclipse专门的静态内存分析工具)推荐使用</li>
+<li>分析结果，判断是否需要优化，如果各项参数设置合理，系统没有超时日志出现，GC频率不高，GC耗时不高，那么没有必要进行GC优化，如果GC时间超过1-3秒，或者频繁GC，则必须优化。</li>
+<li>调整GC类型和内存分配， 如果内存分配过大或过小，或者采用的GC收集器比较慢，则应该优先调整这些参数，并且先找1台或几台机器进行beta，然后比较优化过的机器和没有优化的机器的性能对比，并有针对性的做出最后选择。</li>
+<li>不断的分析和调整， 通过不断的试验和试错，分析并找到最合适的参数，如果找到了最合适的参数，则将这些参数应用到所有服务器。</li>
+</ul>
+<p>3、JVM调优参数参考</p>
+<ul>
+<li>针对JVM堆的设置，一般可以通过-Xms -Xmx限定其最小、最大值，为了防止垃圾收集器在最小、最大之间收缩堆而产生额外的时间，通常把最大、最小设置为相同的值;</li>
+<li>年轻代和年老代将根据默认的比例（1：2）分配堆内存， 可以通过调整二者之间的比率NewRadio来调整二者之间的大小，也可以针对回收代。比如年轻代，通过 -XX:newSize -XX:MaxNewSize来设置其绝对大小。同样，为了防止年轻代的堆收缩，我们通常会把-XX:newSize -XX:MaxNewSize设置为同样大小。</li>
+<li>年轻代和年老代设置多大才算合理，如何选择应该依赖应用程序对象生命周期的分布情况： 如果应用存在大量的临时对象，应该选择更大的年轻代；如果存在相对较多的持久对象，年老代应该适当增大。但很多应用都没有这样明显的特性。在抉择时应该根 据以下两点：（1）本着Full GC尽量少的原则，让年老代尽量缓存常用对象，JVM的默认比例1：2也是这个道理 。（2）通过观察应用一段时间，看其他在峰值时年老代会占多少内存，在不影响FullGC的前提下，根据实际情况加大年轻代，比如可以把比例控制在1：1。但应该给年老代至少预留1/3的增长空间。</li>
+<li>在配置较好的机器上（比如多核、大内存），可以为年老代选择并行收集算法： -XX:+UseParallelOldGC 。</li>
+<li>线程堆栈的设置：每个线程默认会开启1M的堆栈，用于存放栈帧、调用参数、局部变量等，对大多数应用而言这个默认值太了，一般256K就足用。</li>
+</ul>
+<h3 id="IO知识"><a href="#IO知识" class="headerlink" title="IO知识"></a>IO知识</h3><h4 id="String-编码UTF-8-和GBK的区别"><a href="#String-编码UTF-8-和GBK的区别" class="headerlink" title="String 编码UTF-8 和GBK的区别?"></a>String 编码UTF-8 和GBK的区别?</h4><p>GBK是在国家标准GB2312基础上扩容后兼容GB2312的标准（好像还不是国家标准）。GBK编码专门用来解决中文编码的，是双字节的。不论中英文都是双字节的。<br>UTF－8 编码是用以解决国际上字符的一种多字节编码，它对英文使用8位（即一个字节），中文使用24位（三个字节）来编码。对于英文字符较多的论坛则用UTF－8 节省空间。另外，如果是外国人访问你的GBK网页，需要下载中文语言包支持。访问UTF-8编码的网页则不出现这问题。可以直接访问。</p>
+<h4 id="什么时候使用字节流、什么时候使用字符流"><a href="#什么时候使用字节流、什么时候使用字符流" class="headerlink" title="什么时候使用字节流、什么时候使用字符流?"></a>什么时候使用字节流、什么时候使用字符流?</h4><p>InputStream 和OutputStream,两个是为字节流设计的,主要用来处理字节或二进制对象,<br>Reader和 Writer.两个是为字符流（一个字符占两个字节）设计的,主要用来处理字符或字符串.<br>字符流处理的单元为2个字节的Unicode字符，操作字符、字符数组或字符串，字节流处理单元为1个字节，操作字节和字节数组。所以字符流是由Java虚拟机将字节转化为2个字节的Unicode字符为单位的字符而成的，所以它对多国语言支持性比较好！如果是音频文件、图片、歌曲，就用字节流好点，如果是关系到中文（文本）的，用字符流好点。<br>主要区别是:</p>
+<ul>
+<li>字节流在操作时不会用到缓冲区（内存），是直接对文件本身进行操作的。而字符流在操作时使用了缓冲区，通过缓冲区再操作文件</li>
+<li>在硬盘上的所有文件都是以字节形式存在的（图片，声音，视频），而字符值在内存中才会形成</li>
+</ul>
+<h3 id="多线程知识"><a href="#多线程知识" class="headerlink" title="多线程知识"></a>多线程知识</h3><h4 id="常用的线程池模式以及不同线程池的使用场景"><a href="#常用的线程池模式以及不同线程池的使用场景" class="headerlink" title="常用的线程池模式以及不同线程池的使用场景"></a>常用的线程池模式以及不同线程池的使用场景</h4><p>1、为什么要用线程池<br>在线程的销毁时需要回收这些系统资源。频繁的创建和销毁线程会浪费大量的系统资源，增加并发编程的风险。另外，在服务器负载过大的时候，如何让新的线程等待或者友好的拒绝服务？这些丢失线程自身无法解决的。所以需要通过线程池协调多个线程，并实现类似主次线程隔离、定时执行、周期执行等任务。线程池的作用包括：</p>
+<ul>
+<li>利用线程池管理并复用线程、控制最大并发数等。</li>
+<li>实现任务线程队列缓存策略和拒绝机制。</li>
+<li>实现某些与时间相关的功能，如定时执行、周期执行等。</li>
+<li>隔离线程环境。比如，交易服务和搜索服务在同一台服务器上，分别开启两个线程池，交易线程的资源消耗明显要大；因此，通过配置独立的线程池，将较慢的交易服务与搜索服务隔开，避免个服务线程互相影响。</li>
+</ul>
+<p>2、线程池的创建<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建单核心的线程池</span></div><div class="line">ExecutorService executorService = Executors.newSingleThreadExecutor();</div><div class="line"><span class="comment">//创建固定核心数的线程池，这里核心数 = 2</span></div><div class="line">ExecutorService executorService = Executors.newFixedThreadPool(<span class="number">2</span>);</div><div class="line"><span class="comment">//创建一个按照计划规定执行的线程池，这里核心数 = 2</span></div><div class="line">ExecutorService executorService = Executors.newScheduledThreadPool(<span class="number">2</span>);</div><div class="line"><span class="comment">//创建一个自动增长的线程池</span></div><div class="line">ExecutorService executorService = Executors.newCachedThreadPool();</div><div class="line"><span class="comment">//创建一个具有抢占式操作的线程池</span></div><div class="line">ExecutorService executorService = Executors.newWorkStealingPool();</div><div class="line">我们只需要这样调用就可成功的创建适用于我们的线程池，不过从上面看不出上面东西来，我们要进入线程池创建的构造器，代码如下：</div><div class="line">```java</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></div><div class="line"><span class="function"><span class="params">                              <span class="keyword">int</span> maximumPoolSize,</span></span></div><div class="line"><span class="function"><span class="params">                              <span class="keyword">long</span> keepAliveTime,</span></span></div><div class="line"><span class="function"><span class="params">                              TimeUnit unit,</span></span></div><div class="line"><span class="function"><span class="params">                              BlockingQueue&lt;Runnable&gt; workQueue)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</div><div class="line">        Executors.defaultThreadFactory(), defaultHandler);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>corePoolSize : 表示线程池核心线程数，当初始化线程池时，会创建核心线程进入等待状态，即使它是空闲的，核心线程也不会被摧毁，从而降低了任务一来时要创建新线程的时间和性能开销。</li>
+<li>maximumPoolSize : 表示最大线程数，意味着核心线程数都被用完了，那只能重新创建新的线程来执行任务，但是前提是不能超过最大线程数量，否则该任务只能进入阻塞队列进行排队等候，直到有线程空闲了，才能继续执行任务。</li>
+<li>keepAliveTime : 表示线程存活时间，除了核心线程外，那些被新创建出来的线程可以存活多久。意味着，这些新的线程一但完成任务，而后面都是空闲状态时，就会在一定时间后被摧毁。</li>
+<li>unit : 存活时间单位，没什么好解释的，一看就懂。</li>
+<li>workQueue : 表示任务的阻塞队列，由于任务可能会有很多，而线程就那么几个，所以那么还未被执行的任务就进入队列中排队，队列我们知道是 FIFO 的，等到线程空闲了，就以这种方式取出任务。这个一般不需要我们去实现。</li>
+</ul>
+<p>3、线程池的比较<br>（1）newSingleThreadPool，为单核心线程池，最大线程也只有一个，这里的时间为 0 意味着无限的生命，就不会被摧毁了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0L</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()</div></pre></td></tr></table></figure></p>
+<p>（2）newFixedThreadPool，我们需要传入一个固定的核心线程数，并且核心线程数等于最大线程数，而且它们的线程数存活时间都是无限的<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads, <span class="number">0L</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()</div></pre></td></tr></table></figure></p>
+<p>（3）newCachedThreadPool，可以进行缓存的线程池，意味着它的线程数是最大的，无限的。但是核心线程数为0，这没关系。这里要考虑线程的摧毁，因为不能够无限的创建新的线程，所以在一定时间内要摧毁空闲的线程.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE, <span class="number">60L</span>, TimeUnit.MILLISECONDS, <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;()</div></pre></td></tr></table></figure></p>
+<p>（4）newScheduledThreadPool，这个表示的是有计划性的线程池，就是在给定的延迟之后运行，或周期性地执行。很好理解，大家应该用过 Timer 定时器类吧，这两个差不多的意思<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ThreadPoolExecutor(corePoolSize, Integer.MAX_VALUE, DEFAULT_KEEPALIVE_MILLIS, TimeUnit.MILLISECONDS, <span class="keyword">new</span> DelayedWorkQueue&lt;Runnable&gt;()</div></pre></td></tr></table></figure></p>
+<p>（5）newWorkStealingPool，这个是 JDK1.8 版本加入的一种线程池，stealing 翻译为抢断、窃取的意思，它实现的一个线程池和上面4种都不一样，用的是 ForkJoinPool 类。 从代码来看，最明显的用意就是它是一个并行的线程池，参数中传入的是一个线程并发的数量，这里和之前就有很明显的区别，前面4种线程池都有核心线程数、最大线程数等等，而这就使用了一个并发线程数解决问题。从介绍中，还说明这个线程池不会保证任务的顺序执行，也就是 WorkStealing 的意思，抢占式的工作<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newWorkStealingPool</span><span class="params">(<span class="keyword">int</span> parallelism)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ForkJoinPool(parallelism, ForkJoinPool.defaultForkJoinWorkerThreadFactory,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Java在创建线程后，直接调用start-方法和run-的区别"><a href="#Java在创建线程后，直接调用start-方法和run-的区别" class="headerlink" title="Java在创建线程后，直接调用start()方法和run()的区别"></a>Java在创建线程后，直接调用start()方法和run()的区别</h4><ul>
+<li>run()方法:在本线程内调用该Runnable对象的run()方法，可以重复多次调用；直接执行run（）方法不会启动多线程</li>
+<li>start()方法:启动一个线程，调用该Runnable对象的run()方法，不能多次启动一个线程；也就是说start（）方法做了两件事情：启动线程和执行run（）方法。</li>
+</ul>
+<h4 id="实现多线程有几种方式，多线程同步怎么做"><a href="#实现多线程有几种方式，多线程同步怎么做" class="headerlink" title="实现多线程有几种方式，多线程同步怎么做"></a>实现多线程有几种方式，多线程同步怎么做</h4><p>1、多线程的创建方法</p>
+<ul>
+<li>继承Thread类，重写Thread的run()方法，将线程运行的逻辑放在其中</li>
+<li>通过实现Runnable接口，实例化Thread类</li>
+<li>通过线程池实现<br>Thread类也实现了Runnable接口，应尽量使用实现Runnable的方式，因为实现Runnable接口的方式比继承Thread类方法多以下优势：</li>
+<li>适合多个相同程序代码的线程去处理同一资源；</li>
+<li>避免了Java单继承带来的局限性；</li>
+<li>增强了程序的健壮性，代码能被多个线程共享，代码与数据是独立的。</li>
+</ul>
+<p>2、多线程的同步方法<br>（1）ThreadLocal，保证不同线程拥有不同实例，相同线程一定拥有相同的实例，即为每一个使用该变量的线程提供一个该变量值的副本，每一个线程都可以独立改变自己的副本，而不是与其它线程的副本冲突。<br>优势：</p>
+<ul>
+<li>提供了线程安全的共享对象</li>
+<li>与其它同步机制的区别：同步机制是为了同步多个线程对相同资源的并发访问，是为了多个线程之间进行通信；而 ThreadLocal是隔离多个线程的数据共享，从根本上就不在多个线程之间共享资源，这样当然不需要多个线程进行同步了。</li>
+</ul>
+<p>（2）volatile 它的原理是每次要线程要访问volatile修饰的变量时都是从内存中读取，而不是从缓存当中读取，因此每个线程访问到的变量值都是一样的。这样就保证了同步。<br>优势：</p>
+<ul>
+<li>volatile不能保证原子操作导致的，因此volatile不能代替synchronized。此外volatile会组织编译器对代码优化，</li>
+<li>这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。</li>
+<li>要使 volatile 变量提供理想的线程安全，必须同时满足下面两个条件：对变量的写操作不依赖于当前值；该变量没有包含在具有其他变量的不变式中。</li>
+</ul>
+<p>（3）synchronized</p>
+<ul>
+<li>修饰一个类，其作用的范围是synchronized后面括号括起来的部分，作用的对象是这个类的所有对象，只要是这个类型的class不管有几个对象都会起作用</li>
+<li>修饰一个方法</li>
+<li>修饰代码块<br>在并发量比较小的情况下访问公共资源，使用synchronized是个不错的选择，但是在并发量比较高的情况下，其性能下降很严重</li>
+</ul>
+<p>（4） wait() 与 notify()</p>
+<ul>
+<li>wait()提供三种构造方法，但前两种最为常用，wait()是让线程一直处于等待状态，直到手动唤醒，而wait(long timeout)可以指定等待时间，之后会自动唤醒。</li>
+<li>notify()唤醒等待的线程，如果监视器种只有一个等待线程，使用notify()可以唤醒。但是如果有多条线程notify()是随机唤醒其中一条线程，与之对应的就是notifyAll()就是唤醒所有等待的线程<br>wait、notify注意事项：</li>
+<li>可以使用wait（）和notify（）方法在Java中实现线程间通信。不只是一个或两个线程，而是多个线程可以使用这些方法相互通信。</li>
+<li>在synchronized方法或synchronized块中调用wait（），notify（）和notifyAll（）方法，否则JVM将抛出IllegalMonitorStateException。</li>
+<li>从while（条件）循环调用wait和notify方法，而不是从if（）块调用，因为要重复检查条件，而不仅仅是一次。</li>
+<li>多使用notifyAll方法而不是notify</li>
+</ul>
+<h3 id="衍生知识"><a href="#衍生知识" class="headerlink" title="衍生知识"></a>衍生知识</h3><h4 id="Hash冲突怎么办？哪些解决散列冲突的方法？"><a href="#Hash冲突怎么办？哪些解决散列冲突的方法？" class="headerlink" title="Hash冲突怎么办？哪些解决散列冲突的方法？"></a>Hash冲突怎么办？哪些解决散列冲突的方法？</h4><p>1、开放定址法（再散列法）（线性探测再散列，二次探测再散列，伪随机探测再散列）<br>这种方法也称再散列法，其基本思想是：当关键字key的哈希地址p=H（key）出现冲突时，以p为基础，产生另一个哈希地址p1，如果p1仍然冲突，再以p为基础，产生另一个哈希地址p2，…，直到找出一个不冲突的哈希地址pi ，将相应元素存入其中。<br>优点：</p>
+<ul>
+<li>记录更容易进行序列化（serialize）操作（由于不存在指针）</li>
+<li>如果记录总数可以预知，可以创建完美哈希函数，此时处理数据的效率是非常高的。<br>缺点：</li>
+<li>扩容成本飙升。存储记录的数目不能超过桶数组的长度，如果超过就需要扩容，而扩容会导致某次操作的时间成本飙升，这在实时或者交互式应用中可能会是一个严重的缺陷</li>
+<li>加大计算成本。使用探测序列，有可能其计算的时间成本过高，导致哈希表的处理性能降低</li>
+<li>有空槽导致内存浪费。由于记录是存放在桶数组中的，而桶数组必然存在空槽，所以当记录本身尺寸（size）很大并且记录总数规模很大时，空槽占用的空间会导致明显的内存浪费</li>
+<li>删除记录时，比较麻烦。比如需要删除记录a，记录b是在a之后插入桶数组的，但是和记录a有冲突，是通过探测序列再次跳转找到的地址，所以如果直接删除a，a的位置变为空槽，而空槽是查询记录失败的终止条件，这样会导致记录b在a的位置重新插入数据前不可见，所以不能直接删除a，而是设置删除标记。这就需要额外的空间和操作。</li>
+</ul>
+<p>2、拉链法<br>将所有哈希地址为i的元素构成一个称为同义词链的单链表，并将单链表的头指针存在哈希表的第i个单元中，因而查找、插入和删除主要在同义词链中进行。链地址法适用于经常进行插入和删除的情况。<br>优点：</p>
+<ul>
+<li>对于记录总数频繁可变的情况，处理的比较好（也就是避免了动态调整的开销）</li>
+<li>由于记录存储在结点中，而结点是动态分配，不会造成内存的浪费，所以尤其适合那种记录本身尺寸（size）很大的情况，因为此时指针的开销可以忽略不计了</li>
+<li>删除记录时，比较方便，直接通过指针操作即可<br>缺点：</li>
+<li>存储的记录是随机分布在内存中的，这样在查询记录时，相比结构紧凑的数据类型（比如数组），哈希表的跳转访问会带来额外的时间开销</li>
+<li>由于使用指针，记录不容易进行序列化（serialize）操作</li>
+</ul>
+<p>3、再哈希法</p>
+<ul>
+<li>这种方法是同时构造多个不同的哈希函数，当哈希地址Hi=RH1（key）发生冲突时，再计算Hi=RH2（key）……，直到冲突不再产生。这种方法不易产生聚集，但增加了计算时间</li>
+</ul>
+<p>4、建立公共溢出区</p>
+<ul>
+<li>将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表。</li>
+</ul>
+<h4 id="一致性hash"><a href="#一致性hash" class="headerlink" title="一致性hash"></a>一致性hash</h4><p>在解决分布式系统中负载均衡的问题时候可以使用Hash算法让固定的一部分请求落到同一台服务器上，这样每台服务器固定处理一部分请求（并维护这些请求的信息），起到负载均衡的作用。<br>但是普通的余数hash（hash(比如用户id)%服务器机器数）算法伸缩性很差，当新增或者下线服务器机器时候，用户id与服务器的映射关系会大量失效。一致性hash则利用hash环对其进行了改进。<br>具体在计算一致性hash时采用如下步骤：</p>
+<ul>
+<li>首先求出memcached服务器（节点）的哈希值，并将其配置到0～232的圆（continuum）上</li>
+<li>然后采用同样的方法求出存储数据的键的哈希值，并映射到相同的圆上</li>
+<li>然后从数据映射到的位置开始顺时针查找，将数据保存到找到的第一个服务器上。如果超过232仍然找不到服务器，就会保存到第一台服务器上<br>1、一致性hash的特性</li>
+<li>单调性(Monotonicity)，单调性是指如果已经有一些请求通过哈希分派到了相应的服务器进行处理，又有新的服务器加入到系统中时候，应保证原有的请求可以被映射到原有的或者新的服务器中去，而不会被映射到原来的其它服务器上去</li>
+<li>分散性(Spread)：分布式环境中，客户端请求时候可能不知道所有服务器的存在，可能只知道其中一部分服务器，在客户端看来他看到的部分服务器会形成一个完整的hash环。如果多个客户端都把部分服务器作为一个完整hash环，那么可能会导致，同一个用户的请求被路由到不同的服务器进行处理。这种情况显然是应该避免的，因为它不能保证同一个用户的请求落到同一个服务器。所谓分散性是指上述情况发生的严重程度。好的哈希算法应尽量避免尽量降低分散性。 一致性hash具有很低的分散性</li>
+<li>平衡性(Balance)：平衡性是指哈希的结果能够尽可能分布到所有的缓冲中去，这样可以使得所有的缓冲空间都得到利用。很多哈希算法都能够满足这一条件。</li>
+</ul>
+<p>2、虚拟节点<br>当服务器节点比较少的时候会出现上节所说的一致性hash倾斜的问题，一个解决方法是多加机器，但是加机器是有成本的，那么就加虚拟节点。<br>一致性Hash算法引入了虚拟节点机制，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。具体做法可以在服务器IP或主机名的后面增加编号来实现。<br>例如可以为每台服务器计算三个虚拟节点，于是可以分别计算 “Node A#1”、“Node A#2”、“Node A#3”、“Node B#1”、“Node B#2”、“Node B#3”的哈希值，同时数据定位算法不变，只是多了一步虚拟节点到实际节点的映射，例如定位到“Node A#1”、“Node A#2”、“Node A#3”三个虚拟节点的数据均定位到Node A上。这样就解决了服务节点少时数据倾斜的问题。在实际应用中，通常将虚拟节点数设置为32甚至更大，因此即使很少的服务节点也能做到相对均匀的数据分布。</p>
+<h2 id="Scala"><a href="#Scala" class="headerlink" title="Scala"></a>Scala</h2><h3 id="基础知识-1"><a href="#基础知识-1" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="scala中的闭包"><a href="#scala中的闭包" class="headerlink" title="scala中的闭包"></a>scala中的闭包</h4><p>闭包是一个函数，返回值依赖于声明在函数外部的一个或多个变量。<br>闭包的实质就是代码与用到的非局部变量的混合，即：闭包 = 代码 + 用到的非局部变量</p>
+<h4 id="Scala-中柯里化是什么？有什么优点？"><a href="#Scala-中柯里化是什么？有什么优点？" class="headerlink" title="Scala 中柯里化是什么？有什么优点？"></a>Scala 中柯里化是什么？有什么优点？</h4><p>柯里化(Currying)指的是把原来接受多个参数的函数变换成接受一个参数的函数过程，并且返回接受余下的参数且返回结果为一个新函数的技术。<br>scala柯里化风格的使用可以简化主函数的复杂度，提高主函数的自闭性，提高功能上的可扩张性、灵活性。可以编写出更加抽象,功能化和高效的函数式代码。</p>
+<h4 id="case-class和class的区别"><a href="#case-class和class的区别" class="headerlink" title="case class和class的区别"></a>case class和class的区别</h4><p>case class: 其实就是一个普通的class。但是它又和普通的class略有区别：</p>
+<ul>
+<li>初始化的时候可以不用new，当然你也可以加上，普通类一定需要加new</li>
+<li>默认实现了equals 、toString和hashCode</li>
+<li>默认是可以序列化的，也就是实现了Serializable</li>
+<li>自动从scala.Product中继承一些函数， case class构造函数的参数是public级别的，我们可以直接访问</li>
+<li>支持模式匹配</li>
+</ul>
+<h4 id="说说Scala中隐式转换？及优缺点？"><a href="#说说Scala中隐式转换？及优缺点？" class="headerlink" title="说说Scala中隐式转换？及优缺点？"></a>说说Scala中隐式转换？及优缺点？</h4><p>Scala提供的隐式转换和隐式参数功能，是非常有特色的功能。是Java等编程语言所没有的功能。它可以允许你手动指定，将某种类型的对象转换成其他类型的对象或者是给一个类增加方法。通过这些功能，可以实现非常强大、特殊的功能。其中所有的隐式值和隐式方法必须放到object中。<br>缺点：</p>
+<ul>
+<li>implicit关键字只能用来修饰方法、变量（参数)。</li>
+<li>隐式转换的方法在当前范围内才有效。如果隐式转换不在当前范围内定义（比如定义在另一个类中或包含在某个对象中），那么必须通过import语句将其导入。<br>优点：</li>
+<li>隐式转换函数名可以是任意的,隐式转换与函数名有关,只与函数参数类型和返回值类型有关</li>
+<li>隐式函数可以有多个,就是隐式函数列表,但是必须保证当前环境下,只有一个隐式函数能被识别</li>
+</ul>
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="优化内容"><a href="#优化内容" class="headerlink" title="优化内容"></a>优化内容</h3><ul>
+<li>对查询进行优化，要尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引</li>
+<li>应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，最好不要给数据库留NULL，尽可能的使用 NOT NULL填充数据库.</li>
+<li>应尽量避免在 where 子句中使用 != 或 &lt;&gt; 操作符，否则将引擎放弃使用索引而进行全表扫描</li>
+<li>应尽量避免在 where 子句中使用 or 来连接条件，如果一个字段有索引，一个字段没有索引，将导致引擎放弃使用索引而进行全表扫描</li>
+<li>in 和 not in 也要慎用，否则会导致全表扫描，对于连续的数值，能用 between 就不要用 in 了， 很多时候用 exists 代替 in 是一个好的选择</li>
+<li>如果在 where 子句中使用参数，也会导致全表扫描。因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时；它必须在编译时进行选择。然 而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项, 可以改为强制查询使用索引：select id from t with(index(索引名)) where num = @num</li>
+<li>应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描</li>
+<li>应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描</li>
+<li>不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引</li>
+<li>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</li>
+<li>Update 语句，如果只更改1、2个字段，不要Update全部字段，否则频繁调用会引起明显的性能消耗，同时带来大量日志</li>
+<li>索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有 必要</li>
+</ul>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2020/02/03/知识体系-编程语言高频知识梳理/" data-id="ck8sm2ygc0005ujufbb8frcqk" class="article-share-link">分享</a><div class="tags"></div><div class="post-nav"><a href="/2020/02/03/知识体系-其他常用知识梳理/" class="pre">知识体系-其他常用知识梳理</a><a href="/2020/02/03/知识体系-大数据处理常见问题梳理/" class="next">大数据处理常见问题梳理</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/知识体系/">知识体系</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-其他常用知识梳理/">知识体系-其他常用知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-编程语言高频知识梳理/">知识体系-编程语言高频知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-大数据处理常见问题梳理/">大数据处理常见问题梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-常见算法知识梳理/">知识体系-常见算法知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-数据仓库知识梳理/">数据仓库知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/Hadoop数据完整性/">Hadoop的I/O操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Hadoop分布式文件系统（HDFS）/">Hadoop分布式文件系统（HDFS）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Hadoop参数调优/">Hadoop参数调优</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Blogs.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>大数据处理常见问题梳理 | Blogs</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">大数据处理常见问题梳理</h1><a id="logo" href="/.">Blogs</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">大数据处理常见问题梳理</h1><div class="post-meta">Feb 3, 2020<span> | </span><span class="category"><a href="/categories/知识体系/">知识体系</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实时处理"><span class="toc-number">1.</span> <span class="toc-text">实时处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Strom常见问题"><span class="toc-number">1.1.</span> <span class="toc-text">Strom常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Strom的架构模型"><span class="toc-number">1.1.1.</span> <span class="toc-text">Strom的架构模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Strom的编程模型"><span class="toc-number">1.1.2.</span> <span class="toc-text">Strom的编程模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何提高Strom并发度"><span class="toc-number">1.1.3.</span> <span class="toc-text">如何提高Strom并发度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Strom可靠性如何实现"><span class="toc-number">1.1.4.</span> <span class="toc-text">Strom可靠性如何实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Strom的分发策略"><span class="toc-number">1.1.5.</span> <span class="toc-text">Strom的分发策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Trident框架"><span class="toc-number">1.1.6.</span> <span class="toc-text">Trident框架</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flink常见问题"><span class="toc-number">1.2.</span> <span class="toc-text">Flink常见问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#离线处理"><span class="toc-number">2.</span> <span class="toc-text">离线处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MapReduce"><span class="toc-number">2.1.</span> <span class="toc-text">MapReduce</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MR的Shuffle详解"><span class="toc-number">2.1.1.</span> <span class="toc-text">MR的Shuffle详解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spark"><span class="toc-number">2.2.</span> <span class="toc-text">Spark</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#窄依赖与宽依赖"><span class="toc-number">2.2.1.</span> <span class="toc-text">窄依赖与宽依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spark-Shuffle详解"><span class="toc-number">2.2.2.</span> <span class="toc-text">Spark Shuffle详解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spark-Schedule（任务调度）"><span class="toc-number">2.2.3.</span> <span class="toc-text">Spark Schedule（任务调度）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Spark-Stage划分"><span class="toc-number">2.2.4.</span> <span class="toc-text">Spark Stage划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PairRDD处理详解"><span class="toc-number">2.2.5.</span> <span class="toc-text">PairRDD处理详解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RDD弹性数据集"><span class="toc-number">2.2.6.</span> <span class="toc-text">RDD弹性数据集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MR与Spark的区别"><span class="toc-number">2.2.7.</span> <span class="toc-text">MR与Spark的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据存储"><span class="toc-number">3.</span> <span class="toc-text">数据存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka"><span class="toc-number">3.1.</span> <span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hdfs"><span class="toc-number">3.2.</span> <span class="toc-text">Hdfs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS的存储格式"><span class="toc-number">3.2.1.</span> <span class="toc-text">HDFS的存储格式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase"><span class="toc-number">3.3.</span> <span class="toc-text">HBase</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hbase和Hive有什么区别"><span class="toc-number">3.3.1.</span> <span class="toc-text">Hbase和Hive有什么区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scan和get的异同"><span class="toc-number">3.3.2.</span> <span class="toc-text">scan和get的异同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#简述HBASE中compact用途是什么"><span class="toc-number">3.3.3.</span> <span class="toc-text">简述HBASE中compact用途是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HBASE表的设计原则"><span class="toc-number">3.3.4.</span> <span class="toc-text">HBASE表的设计原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HBase二级索引的设计"><span class="toc-number">3.3.5.</span> <span class="toc-text">HBase二级索引的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HBase读写过程"><span class="toc-number">3.3.6.</span> <span class="toc-text">HBase读写过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hive"><span class="toc-number">3.4.</span> <span class="toc-text">Hive</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#排序函数"><span class="toc-number">3.4.1.</span> <span class="toc-text">排序函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排序方式"><span class="toc-number">3.4.2.</span> <span class="toc-text">排序方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES"><span class="toc-number">3.5.</span> <span class="toc-text">ES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tair"><span class="toc-number">3.6.</span> <span class="toc-text">Tair</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OLAP"><span class="toc-number">4.</span> <span class="toc-text">OLAP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kylin"><span class="toc-number">4.1.</span> <span class="toc-text">Kylin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Kylin基本原理"><span class="toc-number">4.1.1.</span> <span class="toc-text">Kylin基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Kylin维度优化指南"><span class="toc-number">4.1.2.</span> <span class="toc-text">Kylin维度优化指南</span></a></li></ol></li></ol></li></ol></div></div><div class="post-content"><h2 id="实时处理"><a href="#实时处理" class="headerlink" title="实时处理"></a>实时处理</h2><h3 id="Strom常见问题"><a href="#Strom常见问题" class="headerlink" title="Strom常见问题"></a>Strom常见问题</h3><h4 id="Strom的架构模型"><a href="#Strom的架构模型" class="headerlink" title="Strom的架构模型"></a>Strom的架构模型</h4><ul>
+<li>Nimbus：负责资源分配和任务调度。新版本中的nimbus节点可以有多个，做主备</li>
+<li>Supervisor：负责接受nimbus分配的任务，启动和停止属于自己管理的worker进程。</li>
+<li>Worker：运行具体处理组件逻辑的进程。</li>
+<li>Task：worker中每一个spout/bolt的线程称为一个task. 在storm0.8之后，task不再与物理线程对应，同一个spout/bolt的task可能会共享一个物理线程，该线程称为executor。最新版本的Jstorm已经废除了task的概念。<br><img src="/images/bigdata/stromfw.png" width="600" alt="Strom架构模型"></li>
+</ul>
+<h4 id="Strom的编程模型"><a href="#Strom的编程模型" class="headerlink" title="Strom的编程模型"></a>Strom的编程模型</h4><ul>
+<li>Spout：用于持续不断的发送数据</li>
+<li>Tuple：数据都被封装进tuple容器，进行传输，Storm中发送数据的基本单元，Tuple不断的向后传输，像水滴一样</li>
+<li>Bolt：用于接受并处理数据</li>
+<li>Stream：从Spout中源源不断传递数据给Blot，以及上一个Blog传递数据给下一个Blot，所组成的数据通道叫做Stream，Stream默认的名称为default，可以为其指定id。</li>
+<li>并行度：可以使用多线程模型，充分利用CPU，可以有效应对高并发，高数据量的应用场景，还可以多台服务器，多节点，多线程运行任务</li>
+<li>有向无环图（Directed Acyclic Graph）：对于Storm实时计算逻辑的封装，即通过一系列由数据流相互关联的Spout、Blot所组成的拓扑结构</li>
+</ul>
+<h4 id="如何提高Strom并发度"><a href="#如何提高Strom并发度" class="headerlink" title="如何提高Strom并发度"></a>如何提高Strom并发度</h4><p>下面我们定义一个名为mytopology的拓扑，由一个Spout组件(BlueSpout)、两个Bolt组件(GreenBolt和YellowBolt)共三个组件构成，代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Config conf = <span class="keyword">new</span> Config();</div><div class="line">conf.setNumWorkers(<span class="number">2</span>); </div><div class="line">topologyBuilder.setSpout(<span class="string">"blue-spout"</span>, <span class="keyword">new</span> BlueSpout(), <span class="number">2</span>);  </div><div class="line">topologyBuilder.setBolt(<span class="string">"green-bolt"</span>, <span class="keyword">new</span> GreenBolt(), <span class="number">2</span>).setNumTasks(<span class="number">4</span>).shuffleGrouping(<span class="string">"blue-spout"</span>);</div><div class="line">topologyBuilder.setBolt(<span class="string">"yellow-bolt"</span>, <span class="keyword">new</span> YellowBolt(), <span class="number">6</span>).shuffleGrouping(<span class="string">"green-bolt"</span>);</div><div class="line">StormSubmitter.submitTopology(<span class="string">"mytopology"</span>, conf, topologyBuilder.createTopology());</div></pre></td></tr></table></figure></p>
+<p>该拓扑一共有两个Worker，2+2+6=10个Executor，2+4+6=12个任务。因此，每个工作进程可以分配到10/2=5个Executor，12/2=6个Task。默认情况下，一个Executor执行一个Task，但是如果指定了Executor的数目，则任务会平均分配到Executor中，因此，GreenBolt的实例”green-bolt”的一个Executor将会分配到4/2个Task。<br>mytopology的拓扑及其对应的资源分配如下图所示：<br><img src="/images/bigdata/topology.png" width="600" alt="拓扑资源分配图"></p>
+<p><strong> 注意：</strong></p>
+<ul>
+<li>并行度主要就是调整executor的数量，但是调整之后的executor的数量必须小于等于task的数量！如果 分配的executor的线程数比task数量多的话也只能分配和task数量相等的executor</li>
+<li>如果设置了多个task实例，但是并行度executor并没有很大提高！例如Spout只有两个线程(executor)去运行这些实例,是没有意义的，当然rebalance的时候用到！ </li>
+<li>rebalance不需要修改代码，就可以动态修改topology的并行度executor，这样的话就必须提前配置好多个(task)实例，在rebalance的时候主要是对之前设置多余的任务实例分配线程去执行。只有设置足够多的线程和实例才可以真正的提高并行度</li>
+<li>worker是进程，executor对应于线程，spout或bolt是一个个的task；同一个worker只会执行同一个topology相关的task，即：一个worder执行一个topology的一部分task，因为topology由多台物理机上的worder构成的！在同一个executor中可以执行多个同类型的task, 即在同一个executor中，要么全部是bolt类的task，要么全部是 spout类的task运行的时候，spout和bolt需要被包装成一个又一个task，task的存在只是为了topology扩展的灵活性，与并行度无关。</li>
+</ul>
+<p>总结一下：<br>worker&gt;executor&gt;task 要想提高storm的并行度可以从三个方面来改造worker(进程)&gt;executor(线程)&gt;task(实例)增加work进程，增加executor线程，增加task实例！**</p>
+<h4 id="Strom可靠性如何实现"><a href="#Strom可靠性如何实现" class="headerlink" title="Strom可靠性如何实现"></a>Strom可靠性如何实现</h4><p><img src="/images/bigdata/spout.png" width="600" alt="消息树"><br>spout端可靠性：</p>
+<ul>
+<li>在有保障数据的处理过程中，bolt每收到一个tuple，都需要向上游确认应答(ack)或报错。对主干tuple中的一个tuple，如果tuple树上的每个bolt进行了确认应答，spout会调用ack方法来标明这条信息已经完全处理了。如果树中的任何一个bolt处理tuple报错，或者处理超时，spout会调用fail方法。</li>
+<li>Storm的ISpout接口定义了三个可靠性相关的API：nextTuple，ack和fail。<br>前面讲过，Storm通过调用Spout的nextTuple()发送一个tuple。为实现可靠的消息处理，首先要给每个发出的tuple带上唯一的ID，并且将ID作为参数传递SpoutOutputCollector的emit()方法：    collector.emit(new Values(“value1”, “value2”), msgId);</li>
+<li>给tuple指定ID告诉Storm系统，无论执行成功还是失败，spout都要接收tuple树上所有节点返回的通知。如果处理成功，spout的ack()方法将会对编号是ID的消息应答确认，如果执行失败或者超时，会调用fail()方法。</li>
+<li>Fail方法即重发失败的tuple。</li>
+</ul>
+<p>bolt端可靠性，bolt要实现可靠的消息处理机制包含两个步骤：</p>
+<ul>
+<li>当发射衍生的tuple时，需要锚定读入的tuple，</li>
+<li>当处理消息成功或者失败时分别确认应答或者报错</li>
+</ul>
+<p>锚定一个tuple的意思是，建立读入tuple和衍生出的tuple之间的对应关系，这样下游的bolt就可以通过应答确认、报错或超时来加入到tuple树结构中。非锚定的tuple不会对数据流的可靠性起作用。如果一个非锚定的tuple在下游处理失败，原始的根tuple不会重新发送。</p>
+<h4 id="Strom的分发策略"><a href="#Strom的分发策略" class="headerlink" title="Strom的分发策略"></a>Strom的分发策略</h4><ul>
+<li>Shuffle Grouping，随机分发，随机派发Stream里面的tuple，保证每个bolt task接收到的tuple的数量大致相同</li>
+<li>Field Grouping，根据字段分发，例如根据OutputFieldsDeclarer中声明的一个field属性进行分发，field的对应的tuple的值相同，就会分发到同一bolt中去进行处理，filed不同可能就会被分发到不同的task</li>
+<li>All Grouping，广播模式分发，每一个tuple都会被分发到下一个阶段的所有的bolt中</li>
+<li>Global Grouping分发，将tuple分发到后续bolt中taskid最小的task中去执行，可以看做是高可用，其他的bolt作为备用，一旦taskid最小的task对应的bolt挂了，还有bolt可以使用，可以保证Storm集群的可用性</li>
+<li>None Grouping，类似于Shuffle Grouping，不同的是None Grouping采用的是轮训的形式，Shuffle采用的是随机分发有一点不同的是storm会把使用none grouping的这个bolt放到这个bolt的订阅者同一个线程里面去执行</li>
+<li>Direct Grouping，指向性分发，这种分发策略意味着消息（tuple）的发送者指定由消息接受者的哪个task来处理消息，只有被声明为Direct Stream的消息流可以声明这种分组方法，而且这种消息必须由emitDirect方法来发送。可以使用TopologyContext获取taskId，还有outputCollector.emit()方法也可以返回taskid</li>
+<li>Local or Shuffle Grouping，本地随机分组，如果目标bolt有一个或者多个task与源bolt的task在同进程中，则随机分发到同进程的task中，否则和Shuffle Grouping一样</li>
+<li>自定义分发 customGrouping</li>
+</ul>
+<h4 id="Trident框架"><a href="#Trident框架" class="headerlink" title="Trident框架"></a>Trident框架</h4><p>Trident是Storm中最为核心的概念，在做Strom开发的过程中，绝大部分情况下我们都会使用Trident，而不是使用传统的Spout、Bolt。Trident是Storm原语的高级封装，学会Trident之后，将会使得我们Storm开发变得非常简单。Trident对于Storm原语的抽象主要也就是针对这些基本概念的抽象。主要体现在：Trident Spout,Operation、State。</p>
+<ul>
+<li>Trident Spout是针对Storm原语中的Spout进行的抽象</li>
+<li>Operation是针对Bolt、Grouping等概念的抽象</li>
+<li>State是新提出的概念，实际上就是数据持久化的接口</li>
+</ul>
+<p>单词计数案例:<br>(1)StormTopology<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">TopologyBuilder builder = <span class="keyword">new</span> TopologyBuilder();</div><div class="line">builder.setSpout(<span class="string">"word-reader"</span> , <span class="keyword">new</span> WordReader(),<span class="number">4</span>);</div><div class="line">builder.setBolt(<span class="string">"word-normalizer"</span> , <span class="keyword">new</span> WordNormalizer(),<span class="number">3</span>).shuffleGrouping(<span class="string">"word-reader"</span> );</div><div class="line">builder.setBolt(<span class="string">"word-counter"</span> , <span class="keyword">new</span> WordCounter(),<span class="number">1</span>).fieldsGrouping(<span class="string">"word-normalizer"</span> , <span class="keyword">new</span> Fields(<span class="string">"word"</span>));</div><div class="line">StormTopology topology = builder .createTopology();</div></pre></td></tr></table></figure></p>
+<p>(2)TridentTopology<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">TridentTopology tridentTopology = <span class="keyword">new</span> TridentTopology();</div><div class="line">             tridentTopology.newStream(<span class="string">"word-reader-stream"</span> , <span class="keyword">new</span> WordReader()).parallelismHint(<span class="number">16</span>)</div><div class="line">            .each( <span class="keyword">new</span> Fields(<span class="string">"line"</span> ), <span class="keyword">new</span> NormalizeFunction(), <span class="keyword">new</span> Fields(<span class="string">"word"</span> ))</div><div class="line">            .groupBy( <span class="keyword">new</span> Fields(<span class="string">"word"</span> ))</div><div class="line">            .persistentAggregate( <span class="keyword">new</span> MemoryMapState.Factory(), <span class="keyword">new</span> Sum(), <span class="keyword">new</span> Fields(<span class="string">"sum"</span> ));</div><div class="line">StormTopology stormTopology = tridentTopology.build();</div></pre></td></tr></table></figure></p>
+<p>对比：</p>
+<ul>
+<li>在StormTopology中，我们都是通过TopologyBuilder的setSpout、setBolt的方式来创建Topology，然后通过Grouping策略指定Bolt的数据来源和分组策略。</li>
+<li>在TridentTopology中，我们使用TridentTopology来创建Topology，整个创建过程中，都是流式编程风格的。要注意的是，在Trident中，我们依然使用了WordReader这个Spout，但是并没有使用Bolt，而是使用了类似于each、persistentAggregate这样方法，来取代Bolt的功能。关于这些方法的作用再之后会详细介绍，目前只要知道Bolt的作用被一些方法取代了即可。</li>
+</ul>
+<h3 id="Flink常见问题"><a href="#Flink常见问题" class="headerlink" title="Flink常见问题"></a>Flink常见问题</h3><p>暂时停止梳理</p>
+<h2 id="离线处理"><a href="#离线处理" class="headerlink" title="离线处理"></a>离线处理</h2><h3 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h3><h4 id="MR的Shuffle详解"><a href="#MR的Shuffle详解" class="headerlink" title="MR的Shuffle详解"></a>MR的Shuffle详解</h4><p>shuffle的本意是洗牌、混洗的意思，把一组有规则的数据尽量打乱成无规则的数据。<br><img src="/images/bigdata/shuffle.jpg" width="600" alt="Shuffle官方流程图"><br>(1) Map端Shuffle</p>
+<ul>
+<li><p>分区Partition，在将map()函数处理后得到的（key,value）对写入到缓冲区之前，需要先进行分区操作，这样就能把map任务处理的结果发送给指定的reducer去执行，从而达到负载均衡，避免数据倾斜。</p>
+</li>
+<li><p>写入环形内存缓冲区，因为频繁的磁盘I/O操作会严重的降低效率，因此“中间结果”不会立马写入磁盘，而是优先存储到map节点的“环形内存缓冲区”，并做一些预排序以提高效率，当写入的数据量达到预先设置的阙值后便会执行一次I/O操作将数据写入到磁盘。每个map任务都会分配一个环形内存缓冲区，用于存储map任务输出的键值对（默认大小100MB，mapreduce.task.io.sort.mb调整）以及对应的partition，被缓冲的（key,value）对已经被序列化（为了写入磁盘）。</p>
+</li>
+<li><p>执行溢写出，一旦缓冲区内容达到阈值（mapreduce.map.io.sort.spill.percent,默认0.80，或者80%），就会会锁定这80%的内存，并在每个分区中对其中的键值对按键进行sort排序，具体是将数据按照partition和key两个关键字进行排序，排序结果为缓冲区内的数据按照partition为单位聚集在一起，同一个partition内的数据按照key有序。排序完成后会创建一个溢出写文件（临时文件），然后开启一个后台线程把这部分数据以一个临时文件的方式溢出写（spill）到本地磁盘中，剩余的20%的内存在此期间可以继续写入map输出的键值对。溢出写过程按轮询方式将缓冲区中的内容写到mapreduce.cluster.local.dir属性指定的目录中。</p>
+</li>
+<li><p>合并Combiner，如果指定了Combiner，可能在两个地方被调用：当为作业设置Combiner类后，缓存溢出线程将缓存存放到磁盘时，就会调用；缓存溢出的数量超过mapreduce.map.combine.minspills（默认3）时，在缓存溢出文件合并的时候会调用。</p>
+</li>
+<li><p>归并merge，当一个map task处理的数据很大，以至于超过缓冲区内存时，就会生成多个spill文件。此时就需要对同一个map任务产生的多个spill文件进行归并生成最终的一个已分区且已排序的大文件。配置属性mapreduce.task.io.sort.factor控制着一次最多能合并多少流，默认值是10。这个过程包括排序和合并（可选），归并得到的文件内键值对有可能拥有相同的key，这个过程如果client设置过Combiner，也会合并相同的key值的键值对（根据上面提到的combine的调用时机可知）。溢出写文件归并完毕后，Map将删除所有的临时溢出写文件，并告知NodeManager任务已完成，只要其中一个MapTask完成，ReduceTask就开始复制它的输出（Copy阶段分区输出文件通过http的方式提供给reducer）。</p>
+</li>
+<li><p>压缩，写磁盘时压缩map端的输出，因为这样会让写磁盘的速度更快，节约磁盘空间，并减少传给reducer的数据量。默认情况下，输出是不压缩的(将mapreduce.map.output.compress设置为true即可启动)。</p>
+</li>
+</ul>
+<p>(2) Reduce端shuffle</p>
+<ul>
+<li><p>复制copy，Reduce进程启动一些数据copy线程，通过HTTP方式请求MapTask所在的NodeManager以获取输出文件。NodeManager需要为分区文件运行reduce任务。并且reduce任务需要集群上若干个map任务的map输出作为其特殊的分区文件。而每个map任务的完成时间可能不同，因此只要有一个任务完成，reduce任务就开始复制其输出。reduce任务有少量复制线程，因此能够并行取得map输出。默认线程数为5，但这个默认值可以通过mapreduce.reduce.shuffle.parallelcopies属性进行设置。</p>
+</li>
+<li><p>归并merge， Copy过来的数据会先放入内存缓冲区中，如果内存缓冲区中能放得下这次数据的话就直接把数据写到内存中，即内存到内存merge。Reduce要向每个Map去拖取数据，在内存中每个Map对应一块数据，当内存缓存区中存储的Map数据占用空间达到一定程度的时候，开始启动内存中merge，把内存中的数据merge输出到磁盘上一个文件中，即内存到磁盘merge。与map端的溢写类似，在将buffer中多个map输出合并写入磁盘之前，如果设置了Combiner，则会化简压缩合并的map输出。Reduce的内存缓冲区可通过mapred.job.shuffle.input.buffer.percent配置，默认是JVM的heap size的70%。内存到磁盘merge的启动门限可以通过mapred.job.shuffle.merge.percent配置，默认是66%。</p>
+</li>
+<li><p>reduce，当一个reduce任务完成全部的复制和排序后，就会针对已根据键排好序的Key构造对应的Value迭代器。这时就要用到分组，默认的根据键分组，自定义的可是使用 job.setGroupingComparatorClass()方法设置分组函数类。对于默认分组来说，只要这个比较器比较的两个Key相同，它们就属于同一组，它们的 Value就会放在一个Value迭代器，而这个迭代器的Key使用属于同一个组的所有Key的第一个Key。 在reduce阶段，reduce()方法的输入是所有的Key和它的Value迭代器。此阶段的输出直接写到输出文件系统，一般为HDFS。如果采用HDFS，由于NodeManager也运行数据节点，所以第一个块副本将被写到本地磁盘。</p>
+</li>
+</ul>
+<h3 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h3><h4 id="窄依赖与宽依赖"><a href="#窄依赖与宽依赖" class="headerlink" title="窄依赖与宽依赖"></a>窄依赖与宽依赖</h4><p>窄依赖：指父RDD的每个分区只被子RDD的一个分区所使用，子RDD分区通常对应常数个父RDD分区（O(1)，与数据规模无关）<br>宽依赖：是指父RDD的每个分区都可能被多个子RDD分区所使用，子RDD分区通常对应所有的父RDD分区（O(n),与数据规模有关）<br>相比于依赖，窄依赖对优化很有利，主要基于以下两点：</p>
+<ul>
+<li>窄依赖允许在一个集群节点上以流水线的方式计算所有父分区，而宽依赖则需要首先计算好所有父分区数据，然后在节点之间进行Shuffle，这与MapReduce类似</li>
+<li>窄依赖能够更有效地进行失效节点的恢复，即只需要重新计算丢失分区的父分区，而且不同节点之间可以并行计算；而对于一个宽依赖的Lineage图，单个节点失效可能导致这个RDD的所有祖先丢失部分分区，因而需要整体重新计算</li>
+</ul>
+<h4 id="Spark-Shuffle详解"><a href="#Spark-Shuffle详解" class="headerlink" title="Spark Shuffle详解"></a>Spark Shuffle详解</h4><p>(1)普通机制的Sort Shuffle<br><img src="/images/bigdata/spark_sort_shuffle.jpeg" width="600" alt="普通机制的Sort Shuffle"><br>(2)bypass机制的Sort Shuffle<br>bypass运行机制的触发条件如下：</p>
+<ul>
+<li>shuffle map task数量小于spark.shuffle.sort.bypassMergeThreshold参数的值</li>
+<li>不是聚合类的shuffle算子（比如reduceByKey，reduceByKey在操作时能够在本地先进行merge操作，需要进行排序）<br><img src="/images/bigdata/spark_bypass_shuffle.jpeg" width="600" alt="普通机制的Sort Shuffle"></li>
+</ul>
+<h4 id="Spark-Schedule（任务调度）"><a href="#Spark-Schedule（任务调度）" class="headerlink" title="Spark Schedule（任务调度）"></a>Spark Schedule（任务调度）</h4><p><img src="/images/bigdata/spark_schedule.jpg" width="600" alt="Spark Schedule（任务调度）"></p>
+<h4 id="Spark-Stage划分"><a href="#Spark-Stage划分" class="headerlink" title="Spark Stage划分"></a>Spark Stage划分</h4><p>spark划分stage的整体思路是：从后往前推，遇到宽依赖就断开，划分为一个stage；遇到窄依赖就将这个RDD加入该stage中。</p>
+<ul>
+<li>在spark中，Task的类型分为2种：ShuffleMapTask和ResultTask；简单来说，DAG的最后一个阶段会为每个结果的partition生成一个ResultTask，即每个Stage里面的Task的数量是由该Stage中最后一个RDD的Partition的数量所决定的！</li>
+<li>而其余所有阶段都会生成ShuffleMapTask；之所以称之为ShuffleMapTask是因为它需要将自己的计算结果通过shuffle到下一个stage中。</li>
+</ul>
+<h4 id="PairRDD处理详解"><a href="#PairRDD处理详解" class="headerlink" title="PairRDD处理详解"></a>PairRDD处理详解</h4><p>1、combineByKey<br>一个用于合并Pair RDD中同key对应value的非常高效的实现，通过多个规约函数将value以one by one的方式进行处理合并<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span></span>[<span class="type">C</span>](createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>, mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>, mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span></span>[<span class="type">C</span>](createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>, mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>, mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>, numPartitions: <span class="type">Int</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span></span>[<span class="type">C</span>](createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>, mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>, mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>, partitioner: <span class="type">Partitioner</span>, mapSideCombine: <span class="type">Boolean</span> = <span class="literal">true</span>, serializerClass: <span class="type">String</span> = <span class="literal">null</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)]</div></pre></td></tr></table></figure></p>
+<p>其中第三个实现是最底层的实现，其他为简化版本。参数说明：</p>
+<ul>
+<li>createcombiner:  将V类型转换成C类型值</li>
+<li>mergeValue:  将一个V类型值与一个C类型值合并成C类型值</li>
+<li>mergeCombiners:  将两个C类型值合并为一个C类型值</li>
+<li>partitioner:  分区函数</li>
+<li>numPartitions：传入一个Int型的分区个数，实现以该值为HashParitioner参数的分区函数</li>
+<li>mapSideCombine:  布尔类型值，指定是否需要在Map端进行combine操作，默认为true</li>
+</ul>
+<p>运行原理：</p>
+<ul>
+<li>mapSideCombine为true：<br><strong> map端：将按key的不同，将createCombiner函数应用于某key在该partition内的第一条记录；在该partition中，对于同key的记录，应用mergeValue处理读入记录，并得到C类型的值，最终map端的每个分区得到一系列RDD[(K, C)]类型的对象（map端不同partition的输出可能具有相同的key）；
+</strong> reduce端：根据numPartitions或者partitioner进行shuffle，同一个key的所有map输出结果存放到同一个partition内，将同key的数据应用mergeCombiners，最终得到RDD[(K, C)]类型的输出结果</li>
+<li>mapSideCombine为false：map端什么都不做，直接进行shuffle，所有操作在reduce端执行</li>
+</ul>
+<p>注：在PairRDD的处理中 aggregateByKey, reduceByKey, foldByKey, groupByKey等都是基于combineByKey实现的</p>
+<p>示例：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#combineByKey实现求最值</div><div class="line"><span class="keyword">val</span> max = rdd.combineByKey((a:<span class="type">Int</span>) =&gt; a.max(<span class="number">0</span>), (a:<span class="type">Int</span>, b:<span class="type">Int</span>) =&gt; a.max(b), (a:<span class="type">Int</span>, b:<span class="type">Int</span>) =&gt; a.max(b))</div><div class="line"></div><div class="line">#combineByKey实现求平均值</div><div class="line"><span class="keyword">val</span> avg = rdd.combineByKey((_, <span class="number">1</span>), (c: (<span class="type">Int</span>, <span class="type">Int</span>), v) =&gt; ((v + c._1 * c._2)/(c._2 + <span class="number">1</span>), c._2 + <span class="number">1</span>), (m: (<span class="type">Int</span>, <span class="type">Int</span>), n: (<span class="type">Int</span>, <span class="type">Int</span>)) =&gt; ((m._1 * m._2 + n._1 * n._2)/(m._2 + n._2), m._2 + n._2))</div></pre></td></tr></table></figure></p>
+<p>2、aggregateByKey<br>使用给定的合并函数和初始值，规约每一个key的数据。该函数返回与输入RDD[(K, V)]不同的类型RDD[(K, U)]。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>](zeroValue: <span class="type">U</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) ⇒ <span class="type">U</span>, combOp: (<span class="type">U</span>, <span class="type">U</span>) ⇒ <span class="type">U</span>)(<span class="keyword">implicit</span> arg0: <span class="type">ClassTag</span>[<span class="type">U</span>]): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>](zeroValue: <span class="type">U</span>, numPartitions: <span class="type">Int</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) ⇒ <span class="type">U</span>, combOp: (<span class="type">U</span>, <span class="type">U</span>) ⇒ <span class="type">U</span>)(<span class="keyword">implicit</span> arg0: <span class="type">ClassTag</span>[<span class="type">U</span>]): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>](zeroValue: <span class="type">U</span>, partitioner: <span class="type">Partitioner</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) ⇒ <span class="type">U</span>, combOp: (<span class="type">U</span>, <span class="type">U</span>) ⇒ <span class="type">U</span>)(<span class="keyword">implicit</span> arg0: <span class="type">ClassTag</span>[<span class="type">U</span>]): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)]</div></pre></td></tr></table></figure></p>
+<p>由于返回类型不同，需要一个将类型V的值映射到类型U的方法seqOp，及合并两个U类型值的方法combOp。seqOp在一个partition内使用，而combOp则用于合并partition间的值。<br>aggregateByKey是基于combineByKey的mapSideCombine = true的实现，与combineByKey的不同在于：</p>
+<ul>
+<li>aggregateByKey采用柯里化（接受多个参数的函数变换成接受一个单一参数）定义方式， 及默认是mapSideCombine = true</li>
+<li>aggregateByKey带有一个初始化的累加器zeroValue，同createCombiner一样，该累加器仅应用于一个分区内不同key 的第一个元素<br>之后操作同combineByKey，seqOp操作对应combineByKey的mergeValue操作，combOp对应combineBykey的mergeCombiners操作，最终得到RDD[(K, U)]类型的输出。<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#combineByKey实现求最值</div><div class="line"><span class="keyword">val</span> maxAgg = rdd.aggregateByKey(<span class="number">0</span>)((a:<span class="type">Int</span>, b:<span class="type">Int</span>) =&gt; a.max(b), (a:<span class="type">Int</span>, b:<span class="type">Int</span>) =&gt; a.max(b))</div><div class="line"></div><div class="line">#combineByKey实现求平均值</div><div class="line"><span class="keyword">val</span> avg_agg = rdd.aggregateByKey((<span class="number">0</span>,<span class="number">0</span>))((c: (<span class="type">Int</span>, <span class="type">Int</span>), v) =&gt; ((v + c._1 * c._2)/(c._2 + <span class="number">1</span>), c._2 + <span class="number">1</span>), (m: (<span class="type">Int</span>, <span class="type">Int</span>), n: (<span class="type">Int</span>, <span class="type">Int</span>)) =&gt; ((m._1 * m._2 + n._1 * n._2)/(m._2 + n._2), m._2 + n._2))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>3、reduceByKey<br>使用联合规约方法合并相同key的数据，类似于实现combiner的MapReduce，func定义的操作会在本地map端的partition内执行后再将结果发送到reducer端，再次执行func定义的操作。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(func: (<span class="type">V</span>, <span class="type">V</span>) =&gt; <span class="type">V</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">V</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(func: (<span class="type">V</span>, <span class="type">V</span>) =&gt; <span class="type">V</span>, numPartitions: <span class="type">Int</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">V</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(partitioner: <span class="type">Partitioner</span>, func: (<span class="type">V</span>, <span class="type">V</span>) =&gt; <span class="type">V</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">V</span>)]</div></pre></td></tr></table></figure></p>
+<p>reduceByKey 与combineByKey，及aggregateByKey的不同在于：</p>
+<ul>
+<li>reduceByKey输出类型与输入类型相同，为RDD[(K, V)]</li>
+<li>reduceByKey由于操作过程不能设置临时变量，因此不能用于处理有状态数据，即不能自定义中间类型C<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#combineByKey实现求最值</div><div class="line"><span class="keyword">val</span> maxRBK = rdd.reduceByKey((m, n) =&gt; m.max(n))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>4、groupByKey<br>将RDD根据key进行分组，并生成一个迭代器<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">Iterable</span>[<span class="type">V</span>])]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(numPartitions: <span class="type">Int</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">Iterable</span>[<span class="type">V</span>])]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(partitioner: <span class="type">Partitioner</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">Iterable</span>[<span class="type">V</span>])]</div></pre></td></tr></table></figure></p>
+<p>使用groupByKey注意事项：</p>
+<ul>
+<li>每次groupByKey操作后，组内元素顺序不一定相同</li>
+<li>与aggregateByKey及reduceByKey区别：groupByKey操作基于mapSideCombine = false的combineByKey的实现，性能较差；如为对每一个key值进行规约处理，建议使用aggregateByKey或者reduceByKey操作<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> rdd = sc.parallelize(<span class="type">Array</span>((<span class="number">1</span>,<span class="number">12</span>),(<span class="number">2</span>,<span class="number">45</span>),(<span class="number">3</span>,<span class="number">67</span>),(<span class="number">2</span>,<span class="number">23</span>),(<span class="number">2</span>,<span class="number">89</span>),(<span class="number">1</span>,<span class="number">56</span>)),<span class="number">2</span>)</div><div class="line"><span class="keyword">val</span> gbk = rdd.groupByKey()</div><div class="line"></div><div class="line">#combineByKey实现求最值</div><div class="line"><span class="keyword">val</span> max = gbk.mapValues(_.max)</div><div class="line"></div><div class="line">#combineByKey实现求平均值</div><div class="line">gbk.mapValues(elem =&gt; elem.sum / elem.size)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>5、sortByKey<br>根据key实现RDD的排序<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sortByKey</span></span>(ascending: <span class="type">Boolean</span> = <span class="literal">true</span>, numPartitions: <span class="type">Int</span> = self.partitions.size): <span class="type">RDD</span>[<span class="type">P</span>]</div></pre></td></tr></table></figure></p>
+<p>参数说明：</p>
+<ul>
+<li>ascending：标记，指示使用升序排序，还是降序排序</li>
+<li>numPartitions：输出分区的个数</li>
+</ul>
+<p>使用sortByKey注意事项：</p>
+<ul>
+<li>相同key的记录，存放在同一个partition</li>
+<li>一个partition内不一定仅包含一个key对应的数据</li>
+<li>通常sortByKey后接mapPartitions，按传统Hadoop MapReduce的方式处理数据</li>
+<li>与基于CombineByKey的Pair RDD处理函数默认使用HashPartitioner不同，sortByKey使用RangePartitioner进行数据分区；对于基于key数据倾斜的问题（部分key对应数据量过大），能够实现良好的数据分区<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">/sbk: org.apache.spark.rdd.<span class="type">RDD</span>[(<span class="type">Int</span>, <span class="type">Int</span>)] = <span class="type">ShuffledRDD</span></div><div class="line"><span class="keyword">val</span> sbk = rdd.sortByKey()</div><div class="line"><span class="comment">//Array[(Int, Int)] = Array((1,12), (1,56), (2,45), (2,23), (2,89), (3,67))</span></div><div class="line">sbk collect</div><div class="line"> </div><div class="line"><span class="comment">//最值：((1,56), (2,89), (3,67))</span></div><div class="line"><span class="keyword">val</span> max = sbk.mapPartitions&#123;</div><div class="line">  lines =&gt;</div><div class="line">    <span class="keyword">val</span> out = scala.collection.mutable.<span class="type">ListBuffer</span>[(<span class="type">Int</span>, <span class="type">Int</span>)]()</div><div class="line">    <span class="keyword">var</span> key = <span class="number">-1</span></div><div class="line">    <span class="keyword">var</span> result = <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (line &lt;- lines) &#123;</div><div class="line">      <span class="keyword">if</span>(line._1 != key) &#123;</div><div class="line">        <span class="keyword">if</span> (key != <span class="number">-1</span>)</div><div class="line">          out += ((key, result))</div><div class="line">        key = line._1</div><div class="line">        result = line._2</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span></div><div class="line">        result = result.max(line._2)</div><div class="line">    &#125;</div><div class="line">    out += ((key, result))</div><div class="line">    </div><div class="line">    out.toList.toIterator</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//均值：((1,34), (2,52), (3,67))</span></div><div class="line"><span class="keyword">val</span> avg = sbk.mapPartitions&#123;</div><div class="line">  lines =&gt;</div><div class="line">    <span class="keyword">val</span> out = scala.collection.mutable.<span class="type">ListBuffer</span>[(<span class="type">Int</span>, <span class="type">Int</span>)]()</div><div class="line">    <span class="keyword">var</span> key = <span class="number">-1</span></div><div class="line">    <span class="keyword">var</span> result = (<span class="number">0</span>, <span class="number">0</span>)</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (line &lt;- lines) &#123;</div><div class="line">      <span class="keyword">if</span>(line._1 != key) &#123;</div><div class="line">        <span class="keyword">if</span> (key != <span class="number">-1</span>)</div><div class="line">          out += ((key, result._1))</div><div class="line">        key = line._1</div><div class="line">        result = (line._2, <span class="number">1</span>)</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span> &#123;</div><div class="line">        result = ((result._1 * result._2 + line._2) / (result._2 + <span class="number">1</span>), result._2 + <span class="number">1</span>)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    out += ((key, result._1))</div><div class="line"></div><div class="line">    out.toList.toIterator</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>6、Aggregate<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregate</span></span>[<span class="type">S</span>](zeroValue: =&gt;<span class="type">S</span>)(seqop: (<span class="type">S</span>, <span class="type">T</span>) =&gt; <span class="type">S</span>, combop: (<span class="type">S</span>, <span class="type">S</span>) =&gt; <span class="type">S</span>): <span class="type">S</span></div></pre></td></tr></table></figure></p>
+<p>其中seqOp是聚合各分区中的元素,将元素类型从T转变为S,操作的初始值是zeroValue<br>combop是将聚合各分区中元素的结果再次进行聚合，操作的初始值也是zeroValue</p>
+<p>7、AppendOnlyMap<br>AppendOnlyMap是spark自己实现的Map，只能添加数据，不能remove。该Map是使用开放定址法中的二次探测法，不用自带的HashMap，是为了是节省空间，提高性能。spark早期版本采用的是AppendOnlyMap来实现shuffle reduce阶段数据的聚合，当数据量不大时没什么问题，但当数据量很大时就会占用大量内存，最后可能OOM。所以从spark 0.9开始就引入了ExternalAppendOnlyMap来代替AppendOnlyMap。</p>
+<p>8、ExternalAppendOnlyMap<br>ExternalAppendOnlyMap也在内存维护了一个SizeTrackingAppendOnlyMap(继承于AppendOnlyMap),当该Map元素数超过一定值时就spill到磁盘。最后ExternalAppendOnlyMap其实是维护了一个内存Map:currentMap以及多个diskMap:spillMaps。</p>
+<h4 id="RDD弹性数据集"><a href="#RDD弹性数据集" class="headerlink" title="RDD弹性数据集"></a>RDD弹性数据集</h4><p>RDD（弹性分布式数据集），它是分区的，可并行计算的数据集，它是一个逻辑概念；spark主要是基于内存做运算操作,把数据加载到内存然后形成了RDD,但是如果内存资源不足的情况下，Spark会自动将RDD数据写入磁盘,这里就体现了弹性分布式数据集中的”弹性”.<br>RDD特点:</p>
+<ul>
+<li>分区，RDD逻辑上是分区的，每个分区的数据是抽象存在的，计算的时候会通过一个compute函数得到每个分区的数据。</li>
+<li>只读，RDD是只读的，要想改变RDD中的数据，只能在现有的RDD基础上创建新的RDD。算子分为转换算子和行动算子。</li>
+<li>依赖，RDDs通过操作算子进行转换，转换得到的新RDD包含了从其他RDDs衍生所必需的信息，RDDs之间维护着这种血缘关系，也称之为依赖。依赖分为窄依赖和宽依赖。</li>
+<li>缓存，如果在应用程序中多次使用同一个RDD，可以将该RDD缓存起来，该RDD只有在第一次计算的时候会根据血缘关系得到分区的数据，在后续其他地方用到该RDD的时候，会直接从缓存处取而不用再根据血缘关系计算。此时是将RDD的数据保存到内存中。</li>
+<li>CheckPoint，与缓存一样都是切断血缘关系的操作,但是会将RDD的数据保存到磁盘上。</li>
+<li>弹性，如开篇所述.</li>
+</ul>
+<h4 id="MR与Spark的区别"><a href="#MR与Spark的区别" class="headerlink" title="MR与Spark的区别"></a>MR与Spark的区别</h4><p>在同一个节点上，Hadoop MapReduce采用了多进程模型，而Spark采用了多线程模型。</p>
+<p>多进程模型便于细粒度控制每个任务占用的资源，但会消耗较多的启动时间，不适合运行低延迟类型的作业，这是MapReduce广为诟病的原因之一。而多线程则相反，该模型使得Spark很适合运行低延迟类型的作业。总之，Spark同节点上的任务以多线程的方式运行在一个JVM进程中，可带来以下好处：</p>
+<ul>
+<li>任务启动速度快，与之相反的是MapReduce Task进程的慢启动速度，通常需要1s左右；</li>
+<li>同节点上所有任务运行在一个进程中，有利于共享内存。这非常适合内存密集型任务，尤其对于那些需要加载大量词典的应用程序，可大大节省内存。</li>
+<li>同节点上所有任务可运行在一个JVM进程(Executor)中，且Executor所占资源可连续被多批任务使用，不会在运行部分任务后释放掉，这避免 了每个任务重复申请资源带来的时间开销，对于任务数目非常多的应用，可大大降低运行时间。与之对比的是MapReduce中的Task：每个Task单独 申请资源，用完后马上释放，不能被其他任务重用，尽管1.0支持JVM重用在一定程度上弥补了该问题，但2.0尚未支持该功能。</li>
+</ul>
+<p>尽管Spark的过线程模型带来了很多好处，但同样存在不足，主要有：</p>
+<ul>
+<li>由于同节点上所有任务运行在一个进程中，因此，会出现严重的资源争用，难以细粒度控制每个任务占用资源。与之相 反的是MapReduce，它允许用户单独为Map Task和Reduce Task设置不同的资源，进而细粒度控制任务占用资源量，有利于大作业的正常平稳运行。</li>
+</ul>
+<h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><h3 id="Hdfs"><a href="#Hdfs" class="headerlink" title="Hdfs"></a>Hdfs</h3><h4 id="HDFS的存储格式"><a href="#HDFS的存储格式" class="headerlink" title="HDFS的存储格式"></a>HDFS的存储格式</h4><h3 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h3><p>hbase的特点是：</p>
+<ul>
+<li>hbase是一个分布式的，基于列式存储的数据库，基于hadoop的hdfs存储，zookeeper进行管理</li>
+<li>hbase 适合存储半结构化或非结构化的数据，对于数据结构字段不够确定或者杂乱无章很难按照一个概念去抽取的数据</li>
+<li>hbase为null的数据不会被存储</li>
+<li>基于的表包含rowKey，时间戳和列族，新写入数据时，时间戳更新，同时可以查询到以前的版本</li>
+<li>hbase是主从结构，hmaster作为主节点，hregionServer作为从节点</li>
+</ul>
+<h4 id="Hbase和Hive有什么区别"><a href="#Hbase和Hive有什么区别" class="headerlink" title="Hbase和Hive有什么区别"></a>Hbase和Hive有什么区别</h4><p>共同点：</p>
+<ul>
+<li>hbase与hive都是架构在hadoop之上的。都是用hadoop作为底层存储</li>
+</ul>
+<p>区别：</p>
+<ul>
+<li>Hive是建立在Hadoop之上为了减少MapReducejobs编写工作的批处理系统，HBase是为了支持弥补Hadoop对实时操作的缺陷的项目</li>
+<li>想象你在操作RMDB数据库，如果是全表扫描，就用Hive+Hadoop,如果是索引访问，就用HBase+Hadoop</li>
+<li>Hive query就是MapReduce jobs可以从5分钟到数小时不止，HBase是非常高效的，肯定比Hive高效的多</li>
+<li>Hive本身不存储和计算数据，它完全依赖于HDFS和MapReduce，Hive中的表纯逻辑</li>
+<li>hive借用hadoop的MapReduce来完成一些hive中的命令的执行</li>
+<li>hbase是物理表，不是逻辑表，提供一个超大的内存hash表，搜索引擎通过它来存储索引，方便查询操作</li>
+<li>hbase是列存储</li>
+<li>hdfs作为底层存储，hdfs是存放文件的系统，而Hbase负责组织文件</li>
+<li>hive需要用到hdfs存储文件，需要用到MapReduce计算框架</li>
+</ul>
+<h4 id="scan和get的异同"><a href="#scan和get的异同" class="headerlink" title="scan和get的异同"></a>scan和get的异同</h4><ul>
+<li>按指定RowKey 获取唯一一条记录， get方法（org.apache.hadoop.hbase.client.Get）Get 的方法处理分两种 : 设置了 ClosestRowBefore 和没有设置的 rowlock .主要是用来保证行的事务性，即每个 get 是以一个 row 来标记的.一个 row 中可以有很多 family 和 column.</li>
+<li>按指定的条件获取一批记录， scan 方法(org.apache.Hadoop.hbase.client.Scan)实现条件查询功能使用的就是 scan 方式.1)scan 可以通过 setCaching（针对row） 与 setBatch(针对返回的列空值) 方法提高速度(以空间换时间)； 2)scan 可以通过 setStartRow 与 setEndRow 来限定范围([start， end]start 是闭区间， end 是开区间)。范围越小，性能越高。3)scan 可以通过 setFilter 方法添加过滤器，这也是分页、多条件查询的基础。</li>
+<li>全表扫描，即直接扫描整张表中所有行记录 </li>
+</ul>
+<h4 id="简述HBASE中compact用途是什么"><a href="#简述HBASE中compact用途是什么" class="headerlink" title="简述HBASE中compact用途是什么"></a>简述HBASE中compact用途是什么</h4><p>在 hbase中每当有memstore数据flush到磁盘之后，就形成一个storefile，当storeFile的数量达到一定程度后，就需要将storefile文件来进行compaction操作。<br>Compact 的作用：合并文件、清除过期，多余版本的数据、提高读写数据的效率</p>
+<h4 id="HBASE表的设计原则"><a href="#HBASE表的设计原则" class="headerlink" title="HBASE表的设计原则"></a>HBASE表的设计原则</h4><p>对HBase表的设计会直接影响hbase使用的效率和使用的便利性，主要是 列族的设计 和 行键的设计。<br>1、列族的设计</p>
+<ul>
+<li>在设计hbase表时候，列族不宜过多，越少越好，官方推荐hbase表的列族不宜超过3个。</li>
+<li>经常要在一起查询的数据最好放在一个列族中，尽量的减少跨列族的数据访问。</li>
+<li>如果有多个列族，多个列族中的数据应该设计的比较均匀。<br>2、行键的设计<br>hbase表中行键是唯一标识一个表的字段，所以行键设计的好不好将会直接影响未来对hbase的查询的性能和查询的便利性，所以hbase中的行键是需要进行设计的</li>
+<li>行键必须唯一：必须唯一才能唯一标识数据</li>
+<li>行键必须有意义：这样才能方便数据的查询</li>
+<li>行键最好是字符串类型：因为数值类型在不同的系统中处理的方式可能不同</li>
+<li>行键最好具有固定的长度：不同长度的数据可能会造成自然排序时排序的结果和预期不一致</li>
+<li>行键不宜过长：行键最多可以达到64KB,但是最好是在10~100字节之间，最好不要超过16字节，越短越好，最好是8字节的整数倍。<br>3、行键的最佳实践</li>
+<li>散列原则：行键的设计将会影响数据在hbase表中的排序方式，这会影响region切分后的结果，要注意，在设计行键时应该让经常要查询的数据分散在不同的region中，防止某一个或某几个regionserver成为热点。</li>
+<li>有序原则：行键的设计将会影响数据在hbase表中的排序方式，所以一种策略是将经常连续查询的条件作为行键最前面的数据，这样一来可以方便批量查询。</li>
+</ul>
+<h4 id="HBase二级索引的设计"><a href="#HBase二级索引的设计" class="headerlink" title="HBase二级索引的设计"></a>HBase二级索引的设计</h4><p>涉及到多个条件组合查询时，hbase就有点力不从心了，因为hbase支持的是三种方式，上面已经提到了，对于多条件组合查询来说，如果通过某个条件filter出来一部分数据，然后再一个个判断，这样比较影响性能。但又不能将这些条件都设计到rowkey中去，这时可以考虑到用二级索引。</p>
+<p>二级索引的本质就是建立各列值与行键之间的映射关系。</p>
+<p>二级索引的实现:设计两个列族，一个列族什么数据都不存，存放索引的key就对应这个列族，另一个列族就对应主数据，主数据的rowkey就是之前业务正常设计好的，现在通过二级索引来满足多条件组合查询。数据还是和之前不变，只是多用一些资源来存放索引的rowkey。先通过多条件找到二级索引的rowkey，然后再截取到最终查询主数据的rowkey，这样就可以实现多条件组合查询了。</p>
+<p>其实也可以将这些组合条件放入mysql，通过mysql找到查询主数据的rowkey，然后用这个rowkey去hbase中查询，得到最终结果。</p>
+<h4 id="HBase读写过程"><a href="#HBase读写过程" class="headerlink" title="HBase读写过程"></a>HBase读写过程</h4><p>1、写过程</p>
+<ul>
+<li>Client访问ZK，根据ROOT表获取meta表所在Region的位置信息，并将该位置信息写入Client Cache</li>
+<li>Client读取meta表，再根据meta表中查询得到的Namespace、表名和RowKey等相关信息，获取将要写入Region的位置信息</li>
+<li>Client向上一步HRegionServer发出写请求，HRegionServer先将操作和数据写入HLog</li>
+<li>当MemStore的数据量超过阈值时，将数据溢写磁盘，生成一个StoreFile文件，（预写日志，Write Ahead Log，WAL），再将数据写入MemStore，并保持有序。</li>
+<li>当MemStore的数据量超过阈值时，将数据溢写磁盘，生成一个StoreFile文件。当Store中StoreFile的数量超过阈值时，将若干小StoreFile合并（Compact）为一个大StoreFile。当Region中最大Store的大小超过阈值时，Region分裂（Split），等分成两个子Region。</li>
+</ul>
+<p>2、读过程</p>
+<ul>
+<li>获取将要读取Region的位置信息（同读的1、2步）。</li>
+<li>Client向HRegionServer发出读请求。</li>
+<li>HRegionServer先从MemStore读取数据，如未找到，再从StoreFile中读取</li>
+</ul>
+<h3 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h3><h4 id="排序函数"><a href="#排序函数" class="headerlink" title="排序函数"></a>排序函数</h4><ul>
+<li>sort by ：不是全局排序，其在数据进入reducer前完成排序</li>
+<li>order by ：会对输入做全局排序，因此只有一个reducer(多个reducer无法保证全局有序).只有一个reducer,会导致当输入规模较大时，需要较长的计算时间。</li>
+<li>cluster by ： 当distribute by 和sort by的字段相同时，等同于cluster by.可以看做特殊的distribute + sort</li>
+<li>distribute by ：按照指定的字段对数据进行划分输出到不同的reduce中</li>
+</ul>
+<p>####累计窗口函数<br><a href="https://blog.csdn.net/qq_22222499/article/details/92406370" target="_blank" rel="external">https://blog.csdn.net/qq_22222499/article/details/92406370</a></p>
+<p>####行列互转</p>
+<ul>
+<li>行专列：lateral view explode(split(column, ‘,’)) num</li>
+<li>列转行：concat_ws(‘,’,collect_set(column))，collect_list 不去重，collect_set 去重</li>
+</ul>
+<h4 id="排序方式"><a href="#排序方式" class="headerlink" title="排序方式"></a>排序方式</h4><ul>
+<li>row_number() 是没有重复值的排序(即使两天记录相等也是不重复的),可以利用它来实现分页</li>
+<li>dense_rank() 是连续排序,两个第二名仍然跟着第三名</li>
+<li>rank()       是跳跃排序的,两个第二名下来就是第四名</li>
+</ul>
+<h3 id="ES"><a href="#ES" class="headerlink" title="ES"></a>ES</h3><h3 id="Tair"><a href="#Tair" class="headerlink" title="Tair"></a>Tair</h3><h2 id="OLAP"><a href="#OLAP" class="headerlink" title="OLAP"></a>OLAP</h2><h3 id="Kylin"><a href="#Kylin" class="headerlink" title="Kylin"></a>Kylin</h3><h4 id="Kylin基本原理"><a href="#Kylin基本原理" class="headerlink" title="Kylin基本原理"></a>Kylin基本原理</h4><p>Kylin的核心思想是预计算。<br>理论基础是：以空间换时间。即多维分析可能用到的度量进行预计算，将计算好的结果保存成Cube并存储到HBase中，供查询时直接访问。<br>大致流程：将数据源(比如Hive)中的数据按照指定的维度和指标，由计算引擎Mapreduce离线计算出所有可能的查询结果(即Cube)存储到HBase中。HBase中每行记录的Rowkey由各维度的值拼接而成，度量会保存在column family中。为了减少存储代价，这里会对维度和度量进行编码。查询阶段，利用HBase列存储的特性就可以保证Kylin有良好的快速响应和高并发<br><img src="/images/bigdata/kylin.png" width="600" alt="Kylin原理"></p>
+<h4 id="Kylin维度优化指南"><a href="#Kylin维度优化指南" class="headerlink" title="Kylin维度优化指南"></a>Kylin维度优化指南</h4><p>因为如果不进行任何维度优化，直接将所有的维度放在一个聚集组里，Kylin就会计算所有的维度组合（cuboid）。比如，有12个维度，Kylin就会计算2的12次方即4096个cuboid，实际上查询可能用到的cuboid不到1000个，甚至更少。如果对维度不进行优化，会造成集群计算和存储资源的浪费，也会影响cube的build时间和查询性能，所以我们需要进行cube的维度优化。<br>目前Kylin可以使用的维度优化手段有以下几种：</p>
+<p>1、聚集组, 用来精确控制哪些cuboid需要计算。<br>适用场景：</p>
+<ul>
+<li>一般是经常会一起查询的维度放到一个聚集组。维度个数10个以上时，如果计算所有可能的维度组合，计算与存储量会很大。这时候就需要利用聚集组进行计算剪枝<br>注意事项： </li>
+<li>如果只需要计算base cuboid，可以把所有维度做成一个joint dimension</li>
+<li>不要把一个聚集组的所有维度做成强制维度</li>
+<li>聚集组不宜设置太多，比如超过10个</li>
+</ul>
+<p>2、强制维度, 所有cuboid必须包含的维度，不会计算不包含强制维度的cuboid。<br>适用场景：</p>
+<ul>
+<li>可以将确定在查询时一定会使用的维度设为强制维度。例如，时间维度<br>优化效果： </li>
+<li>一个维度设为强制维度，则cuboid个数直接减半。</li>
+</ul>
+<p>3、层次维度, 具有一定层次关系的维度。<br>适用场景：</p>
+<ul>
+<li>国家，省份，城市这类具有层次关系的维度，且查询时按照层次关系查询。<br>优化效果： </li>
+<li>将N个维度设置为层次维度，则这N个维度组合成的cuboid个数会从2的N次方减少到N+1。</li>
+</ul>
+<p>4、联合维度，将几个维度视为一个维度。<br>适用场景： </p>
+<ul>
+<li>可以将确定在查询时一定会同时使用的几个维度设为一个联合维度。 </li>
+<li>可以将基数很小的几个维度设为一个联合维度。 </li>
+<li>可以将查询时很少使用的几个维度设为一个联合维度。<br>优化效果： </li>
+<li>将N个维度设置为联合维度，则这N个维度组合成的cuboid个数会从2的N次方减少到1。</li>
+</ul>
+<p>5、Extended Column<br>在OLAP分析场景中，经常存在对某个id进行过滤，但查询结果要展示为name的情况，比如user_id和user_name。这类问题通常有三种解决方式：</p>
+<ul>
+<li>将ID和Name都设置为维度，查询语句类似select name, count(*) from table where id = 1 group by id, name。这种方式的问题是会导致维度增多，导致预计算结果膨胀；</li>
+<li>将ID和Name都设置为维度，并且将两者设置为一个联合维度。这种方式的好处是保持维度组合数不会增加，但限制了维度的其它优化，比如ID不能再被设置为强制维度或者层次维度；<br>*将ID设置为维度，Name设置为特殊的Measure(度量)，类型为extend edcolumn。这种方式既能保证过滤id且查询name的需求，同时也不影响id维度的进一步优化。</li>
+</ul>
+<p>备注：将name设置为维度的另一个问题是，Kylin默认会对所有维度进行字典编码，如果name的基数很高，或者值很大，”Build Dimension Dictionary”创建字典可能会失败</p>
+<p>##参考文件</p>
+<ul>
+<li>MapReduce的shuffle过程详解：<a href="https://blog.csdn.net/asn_forever/article/details/81233547" target="_blank" rel="external">https://blog.csdn.net/asn_forever/article/details/81233547</a></li>
+</ul>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2020/02/03/知识体系-大数据处理常见问题梳理/" data-id="ck8sm2yge0007ujuf3r1xmsse" class="article-share-link">分享</a><div class="tags"></div><div class="post-nav"><a href="/2020/02/03/知识体系-编程语言高频知识梳理/" class="pre">知识体系-编程语言高频知识梳理</a><a href="/2020/02/03/知识体系-常见算法知识梳理/" class="next">知识体系-常见算法知识梳理</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/知识体系/">知识体系</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-其他常用知识梳理/">知识体系-其他常用知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-编程语言高频知识梳理/">知识体系-编程语言高频知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-大数据处理常见问题梳理/">大数据处理常见问题梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-常见算法知识梳理/">知识体系-常见算法知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/知识体系-数据仓库知识梳理/">数据仓库知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/Hadoop数据完整性/">Hadoop的I/O操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Hadoop分布式文件系统（HDFS）/">Hadoop分布式文件系统（HDFS）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Hadoop参数调优/">Hadoop参数调优</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Blogs.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
