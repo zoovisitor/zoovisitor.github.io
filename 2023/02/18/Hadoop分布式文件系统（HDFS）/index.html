@@ -37,7 +37,7 @@
 </ul>
 <p><strong>注：故障转移控制器（早期基于ZooKepper实现）可以监视寄主NameNode是否失效（心跳机制），并在失效时进行故障切换。</strong></p>
 <h2 id="4-文件读取"><a href="#4-文件读取" class="headerlink" title="4 文件读取"></a>4 文件读取</h2><p>客户端通过调用FileSystem对象的open()方法来打开希望读取的文件，对于HDFS而言，这个对象是分布式文件系统的实例（步骤1），DistributedFileSystem<br>通过使用 RPC<br>来调用NameNode，已确定文件起始块的位置（步骤2），包括该数据块及它的副本的DataName的地址，并根据它们和客户端的距离进行排序。</p>
-<p><img src="images/hadoop/%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%BB%E5%8F%96HDFS%E6%95%B0%E6%8D%AE.png" alt="客户端读取HDFS数据流程图"></p>
+<p><img src="/images/hadoop/%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%BB%E5%8F%96HDFS%E6%95%B0%E6%8D%AE.png" alt="客户端读取HDFS数据流程图"></p>
 <p>DistributedFileSystem返回一个FSDataInputStream对象给客户端，客户端利用这个输入流调用read方法（步骤3），随即<br>FSDataInputStream连接距离<br>最近的DataNode，反复调用read方法，将数据从DataNode传输给客户端（步骤4），到达数据块的末尾时，关闭数据流与DataNode之间的连接，然后寻找下一个数据块的最佳DataNode（步骤5）。</p>
 <p>客户端从流中读取数据时，FSDataInputStream会根据需要询问NameNode来检索下一批数据块的DataNode的位置，一旦客户端读取完成，就调用close方法。</p>
 <p>在读取数据时，如果DFSInputStream在与DataNode通信时遇到错误，会尝试从这个块的另一个最邻近位置读取数据，并记录故障的DataNode，防止后续不断的访问故障的DataNode中的其他数据块。DFSInputStream会通过校验和确认从DataNode读取的数据是否完整，如果发现有损坏的块，就会在DFSInputStream从其他DataNode读取其他副本之前通知NameNode。</p>
@@ -48,7 +48,7 @@
 <li>NameNode只需响应块位置的请求，无需响应数据请求，避免由于客户端的增长而使NameNode成为瓶颈</li>
 </ul>
 <h2 id="5-文件写入"><a href="#5-文件写入" class="headerlink" title="5 文件写入"></a>5 文件写入</h2><p>客户端通过DistributedFileSystem对NameNode创建一个RPC调用，在命名空间中创建一个文件，对象调用create函数来创建文件（步骤1），DistributedFileSystem对NameNode创建一个RPC调用，在命名空间中创建一个还没有数据块的文件（步骤2），NameNode执行不同的检测以确定文件不存在，且客户端有新建文件的权限。如果检验通过，则会向客户端返回一个FSDataOutputStream对象，该对象封装了一个DFSOutputStream对象，负责处理NameNode与DataNode之间的通信。</p>
-<p><img src="images/hadoop/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%88%B0HDFS.png" alt="客户端写入数据到HDFS流程图"></p>
+<p><img src="/images/hadoop/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%88%B0HDFS.png" alt="客户端写入数据到HDFS流程图"></p>
 <p>在客户单写入数据时(步骤3)，DFSOutputStream对象将数据分为一个个的数据包，构成数据队列。DataStreamer处理数据队列，它根据DataNode的队列要求NameNode分配合适的数据块来存放复本，假设系统设置的副本数为3，DataStreamer将数据包流式的传输给第1个DataNode，该DataNode存储数据包并将它发送到管道中的第2个DataNode，同样的第2个DataNode存储数据并它发送到管道中的第3个DataNode（步骤4）。</p>
 <p>DFSOutputStream也维护一个数据包队列来等待DataNode的收到确认回执，称为“确认队列”。收到队列中所有DataNode确认信息后，该数据包才会从确认队列中删除（步骤5）。</p>
 <p>如果在数据写入期间DataNode发生故障，则执行以下操作：<br>（1）首先关闭管道，确定把队列中的数据包都添加会数据队列的最前端，以确保故障节点的下游的DataNode不会漏掉任何一个数据包；<br>（2）为存储在另一正常DataNode的当前数据块制定一个新的标识，并将该标识传给NameNode，以便故障节点DataNode在恢复后可以删除存储的部分数据块；<br>（3）从管线中删除故障数据节点并且把余下的数据块写入管线中的两个正常的DataNode；<br>（4）namenode注意到块复本量不足时，会在另一个节点上创建一个新的复本，后续的数据块继续正常接收处理。</p>
