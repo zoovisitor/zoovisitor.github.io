@@ -1,0 +1,994 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title> | Blogs</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Blogs</h1><a id="logo" href="/.">Blogs</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-meta">2023-02-18</div><div class="post-content"><h1 id="知识体系-常见算法知识梳理"><a href="#知识体系-常见算法知识梳理" class="headerlink" title="知识体系-常见算法知识梳理"></a>知识体系-常见算法知识梳理</h1><p>以前看到这样一句话，语言只是工具，算法才是程序设计的灵魂。的确，算法在计算机科学中的地位真的很重要，在很多大公司的笔试面试中，算法掌握程度的考察都占据了很大一部分。不管是为了面试还是自身编程能力的提升，花时间去研究常见的算法还是很有必要的，下面是自己对于算法这部分的学习总结。</p>
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>基本思想：类似于水中冒泡，较大的数沉下去，较小的数慢慢冒起来，假设从小到大，即为较大的数慢慢往后排，较小的数慢慢往前排。即每一趟遍历，将一个最大的数移到序列末尾。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(arr == <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> len = arr.length</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(len &lt;= <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">    	<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i, j, t;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; len - <span class="number">1</span>; j++)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; len - j - <span class="number">1</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(arr[i] &gt; arr[i+<span class="number">1</span>])&#123;</span><br><span class="line"></span><br><span class="line">                t = arr[i]; </span><br><span class="line"></span><br><span class="line">                arr[i] = arr[i+<span class="number">1</span>]; </span><br><span class="line"></span><br><span class="line">                arr[i+<span class="number">1</span>] = t;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>基本思想：</p>
+<ul>
+<li><p>选择基准：在待排序列中，按照某种方式挑出一个元素，作为 “基准”（pivot）</p>
+</li>
+<li><p>分割操作：以该基准在序列中的实际位置，把序列分成两个子序列。此时，在基准左边的元素都比该基准小，在基准右边的元素都比基准大</p>
+</li>
+<li><p>递归地对两个序列进行快速排序，直到序列为空或者只有一个元素</p>
+<pre><code class="java">
+public void quickSort(int[] arrs, int start, int end)&#123;
+
+    if(start&gt;=end)
+
+        return;
+
+    int mid = sort(arrs, start, end);
+
+    quickSort(arrs, start, mid-1);
+
+    quickSort(arrs, mid+1, end);
+
+&#125;
+
+public int sort(int[] arrs, int start, int end) &#123;
+
+    int i = start, j = end;
+
+    int tmp = arrs[i];
+
+    while(i &lt; j) &#123;
+
+        while (arrs[j] &gt;= tmp &amp;&amp; i &lt; j)
+
+            j--;
+
+        while (arrs[i] &lt;= tmp &amp;&amp; i &lt; j)
+
+            i++;
+
+        swap(arrs[i], arrs[j]);
+
+    &#125;
+
+    swap(arrs[i], arrs[start]);
+
+    return i;
+
+&#125;
+
+public void swap(int[] arrs, int i, int j) &#123;
+
+    int tmp = arrs[i];
+
+    arrs[i] = arrs[j];
+
+    arrs[j] = tmp;
+
+&#125;  
+</code></pre>
+<p>快速排序的优化思路：<br>对于分治算法，当每次划分时，算法若都能分成两个等长的子序列时，那么分治算法效率会达到最大。也就是说，基准的选择是很重要的。选择基准的方式决定了两个分割后两个子序列的长度，进而对整个算法的效率产生决定性影响。最理想的方法是，选择的基准恰好能把待排序序列分成两个等长的子序列</p>
+</li>
+<li><p>使用左端、右端和中心位置上的三个元素的中值作为枢纽元</p>
+</li>
+<li><p>对于很小和部分有序的数组，快排不如插排好。当待排序序列的长度分割到一定大小后，继续分割的效率比插入排序要差，此时可以使用插排而不是快排</p>
+</li>
+<li><p>在一次分割结束后，可以把与基准Key相等的元素聚在一起，继续下次分割时，不用再对与key相等元素分割，可以减少不少冗余的划</p>
+</li>
+</ul>
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>基本思想：分治法</p>
+<ul>
+<li><p>将n个元素从中间切开，分成两部分。（左边可能比右边多1个数）</p>
+</li>
+<li><p>将步骤1分成的两部分，再分别进行递归分解，直到所有部分的元素个数都为1。</p>
+</li>
+<li><p>从最底层开始逐步合并两个排好序的数列。</p>
+<pre><code class="java">public void mergeSort(int[] array) &#123;
+
+    if (array == null || array.length == 0)
+
+        return;
+
+    int[] temp = new int[array.length];
+
+    mergeSort(array, 0, array.length - 1, temp);
+
+&#125;
+
+// 归并
+
+private static void mergeSort(int array[], int first, int last, int temp[]) &#123;
+
+    if (first &lt; last) &#123;
+
+        int mid = (first + last) / 2;
+
+         // 递归归并左边元素
+
+        mergeSort(array, first, mid, temp);
+
+        // 递归归并右边元素
+
+        mergeSort(array, mid + 1, last, temp);
+
+        // 再将二个有序数列合并
+
+        mergeArray(array, first, mid, last, temp); 
+
+    &#125;
+
+&#125;
+
+ 
+
+/**
+
+ * 合并两个有序数列
+
+ * array[first]~array[mid]为第一组
+
+ * array[mid+1]~array[last]为第二组
+
+ * temp[]为存放两组比较结果的临时数组
+
+ */
+
+private static void mergeArray(int array[], int first, int mid, int last, int temp[]) &#123;
+
+    // i为第一组的起点, j为第二组的起点
+
+    int i = first, j = mid + 1; 
+
+    // m为第一组的终点, n为第二组的终点
+
+    int m = mid, n = last; 
+
+    // k用于指向temp数组当前放到哪个位置
+
+    int k = 0; 
+
+    // 将两个有序序列循环比较, 填入数组temp
+
+    while (i &lt;= m &amp;&amp; j &lt;= n) &#123; 
+
+        if (array[i] &lt;= array[j])
+
+            temp[k++] = array[i++];
+
+        else
+
+            temp[k++] = array[j++];
+
+    &#125;
+
+    // 如果比较完毕, 第一组还有数剩下, 则全部填入temp
+
+    while (i &lt;= m) &#123; 
+
+        temp[k++] = array[i++];
+
+    &#125;
+
+    // 如果比较完毕, 第二组还有数剩下, 则全部填入temp
+
+    while (j &lt;= n) &#123;
+
+        temp[k++] = array[j++];
+
+    &#125;
+
+    // 将排好序的数填回到array数组的对应位置
+
+    for (i = 0; i &lt; k; i++) &#123;
+
+        array[first + i] = temp[i];
+
+    &#125;
+
+&#125;  
+</code></pre>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3></li>
+</ul>
+<p>基本思想：通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。</p>
+<pre><code class="java">    public void doInsertSort(int[] array)&#123;
+    
+        if(arr == null) &#123;
+    
+            return;
+    
+        &#125;
+    
+        int len = arr.length
+    
+        if(len &lt;= 0) &#123;
+    
+            return;
+    
+        &#125;
+    
+        for(int index = 1; index &lt; len; index++)&#123;
+    
+            //用作比较的数据
+    
+            int temp = array[index];
+    
+            int leftindex = index - 1;
+    
+            //当比到最左边或者遇到比temp小的数据时，结束循环
+    
+            while(leftindex &gt;= 0 &amp;&amp; array[leftindex] &gt; temp)&#123;
+    
+                array[leftindex + 1] = array[leftindex];
+    
+                leftindex--;
+    
+            &#125;
+    
+            //把temp放到空位上
+    
+            array[leftindex+1] = temp;
+    
+        &#125;
+    
+    &#125;  
+  
+</code></pre>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>基本思想：堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。堆排序可以说是一种利用堆的概念来排序的选择排序。分为两种方法：</p>
+<ul>
+<li>大顶堆：每个节点的值都大于或等于其子节点的值，在堆排序算法中用于升序排列；</li>
+<li>小顶堆：每个节点的值都小于或等于其子节点的值，在堆排序算法中用于降序排列；</li>
+<li>堆排序的平均时间复杂度为 Ο(nlogn)。</li>
+</ul>
+<p>排序步骤：</p>
+<ul>
+<li>构建初始堆，将待排序列构成一个大顶堆(或者小顶堆)，升序大顶堆，降序小顶堆；</li>
+<li>将堆顶元素与堆尾元素交换，并断开(从待排序列中移除)堆尾元素；</li>
+<li>重新构建堆；</li>
+<li>重复2~3，直到待排序列中只剩下一个元素(堆顶元素)。</li>
+</ul>
+<p>堆排序图解：<br><img src="/images/algorithm/heapsort.png" alt="堆排序图解"></p>
+<p>代码实现：  </p>
+<pre><code class="java">    public void sort(int[] arr)&#123;
+    
+        //1.构建大顶堆
+    
+        for(int i = arr.length / 2 - 1; i &gt;= 0; i--)&#123;
+    
+            //从第一个非叶子结点从下至上，从右至左调整结构
+    
+            adjustHeap(arr, i, arr.length);
+    
+        &#125;
+    
+        //2.调整堆结构+交换堆顶元素与末尾元素
+    
+        for(int j = arr.length - 1; j &gt; 0; j--)&#123;
+    
+            //将堆顶元素与末尾元素进行交换
+    
+            swap(arr, 0, j);
+    
+            //重新对堆进行调整
+    
+            adjustHeap(arr, 0, j);
+    
+        &#125;
+    
+    &#125;
+    
+    /**
+    
+     * 调整大顶堆（仅是调整过程，建立在大顶堆已构建的基础上）
+    
+     * @param arr
+    
+     * @param i
+    
+     * @param length
+    
+     */
+    
+    public void adjustHeap(int[] arr, int i, int length)&#123;
+    
+        //先取出当前元素i
+    
+        int temp = arr[i];
+    
+        //从i结点的左子结点开始，也就是2i+1处开始
+    
+        for(int k= i * 2 + 1; k &lt; length; k = k * 2 + 1)&#123;
+    
+            //如果左子结点小于右子结点，k指向右子结点
+    
+            if(k + 1 &lt; length &amp;&amp; arr[k] &lt; arr[k+1])&#123;
+    
+                k++;
+    
+            &#125;
+    
+            //如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
+    
+            if(arr[k] &gt; temp)&#123;
+    
+                arr[i] = arr[k];
+    
+                i = k;
+    
+            &#125; else &#123;
+    
+                break;
+    
+            &#125;
+    
+        &#125;
+    
+        //将temp值放到最终的位置
+    
+        arr[i] = temp;
+    
+    &#125;
+    
+    /**
+    
+     * 交换元素
+    
+     * @param arr
+    
+     * @param a
+    
+     * @param b
+    
+     */
+    
+    public void swap(int[] arr, int a , int b)&#123;
+    
+        int temp = arr[a];
+    
+        arr[a] = arr[b];
+    
+        arr[b] = temp;
+    
+    &#125;  
+  
+</code></pre>
+<h2 id="查找算法"><a href="#查找算法" class="headerlink" title="查找算法"></a>查找算法</h2><h3 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h3><p>基本思想：顺序查找也称为线形查找，属于无序查找算法。从数据结构线形表的一端开始，顺序扫描，依次将扫描到的结点关键字与给定值k相比较，若相等则表示查找成功；若扫描结束仍没有找到关键字等于k的结点，表示查找失败。</p>
+<pre><code class="java">    public boolean search(int[] a, int key) &#123;
+    
+        if(a == null) &#123;
+    
+            return false;
+    
+        &#125;
+    
+        int len = a.length
+    
+        if(len &lt;= 0) &#123;
+    
+            return false;
+    
+        &#125;
+    
+        for (int i = 0; i &lt; len; i++) &#123;
+    
+            if (a[i] == key)
+    
+                return true;
+    
+        &#125;
+    
+        return false;
+    
+    &#125;  
+</code></pre>
+<h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>基本思想：二分法查找适用于大的数据，但前提条件是数据必须是有序的，他的原理是先和中间的比较，如果等于就直接返回，如果小于就在前半部分继续使用二分法进行查找，如果大于则在后半部分继续使用二分法进行查找。</p>
+<pre><code>    public boolean binarySearch(int[] nums, int key)&#123;
+    
+        int length = nums.length;
+    
+        QuickSort.quickSort(nums, 0, length - 1);
+    
+        int begin = 0;
+    
+        int end = length - 1;
+    
+        //循环，直到end &lt; begin,返回-1
+    
+        while(begin &lt;= end)&#123;
+    
+            int mid = (begin + end) / 2;
+    
+            int now = nums[mid];
+    
+            if(now == key)&#123;
+    
+                //如果相同，返回index
+    
+                return true;
+    
+            &#125;
+    
+            if(now &lt; key)&#123;
+    
+                //如果mid&lt;key,那么begin=mid+1
+    
+                begin = mid + 1;
+    
+            &#125;
+    
+            if(now &gt; key)&#123;
+    
+                //如果mid&gt;key,那么end=mid-1
+    
+                end = mid - 1;
+    
+            &#125;           
+    
+        &#125;               
+    
+        return false;
+    
+    &#125;  
+  
+</code></pre>
+<h3 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h3><h4 id="BM算法"><a href="#BM算法" class="headerlink" title="BM算法"></a>BM算法</h4><p>基本思想：有模式串中不存在的字符，那么肯定不匹配，往后多移动几位，提高效率。</p>
+<p>BM算法（Boyer-Moore算法）是由Robert S. Boyer和J Strother<br>Moore于1997年发明的一种字符串匹配算法，该算法在实际实践中会比KMP算法效率高，因为BM算法即使在最坏情况下其时间复杂度也为O(N)，BM算法不仅算法效率高，而且构思非常巧妙，也很容易理解，匹配过程参照：<a target="_blank" rel="noopener" href="https://blog.csdn.net/eternity1118_/article/details/52067627">https://blog.csdn.net/eternity1118_/article/details/52067627</a></p>
+<pre><code class="java">    public class BM &#123;
+    
+        /**
+    
+         * 算法匹配
+    
+         */
+    
+        public static int pattern(String pattern, String target) &#123;
+    
+            int tLen = target.length();
+    
+            int pLen = pattern.length();
+    
+            if (pLen &gt; tLen) &#123;
+    
+                return -1;
+    
+            &#125;
+    
+            int[] bad_table = build_bad_table(pattern);// 1,3,5,6,2,
+    
+            int[] good_table = build_good_table(pattern);// 1,8,5,10,11,12,13
+    
+            for (int i = pLen - 1, j; i &lt; tLen;) &#123;
+    
+                System.out.println(&quot;跳跃位置：&quot; + i);
+    
+                for (j = pLen - 1; target.charAt(i) == pattern.charAt(j); i--, j--) &#123;
+    
+                    if (j == 0) &#123;
+    
+                        System.out.println(&quot;匹配成功，位置：&quot; + i);
+    
+                        return i;
+    
+                    &#125;
+    
+                &#125;
+    
+                i += Math.max(good_table[pLen - j - 1], bad_table[target.charAt(i)]);
+    
+            &#125;
+    
+            return -1;
+    
+        &#125;
+    
+        /**
+    
+         * 字符信息表
+    
+         */
+    
+        public static int[] build_bad_table(String pattern) &#123;
+    
+            final int table_size = 256;
+    
+            int[] bad_table = new int[table_size];
+    
+            int pLen = pattern.length();
+    
+            for (int i = 0; i &lt; bad_table.length; i++) &#123;
+    
+                bad_table[i] = pLen;  //默认初始化全部为匹配字符串长度
+    
+            &#125;
+    
+            for (int i = 0; i &lt; pLen - 1; i++) &#123;
+    
+                int k = pattern.charAt(i);
+    
+                bad_table[k] = pLen - 1 - i;
+    
+            &#125;
+    
+            return bad_table;
+    
+        &#125;
+    
+        /**
+    
+         * 匹配偏移表。
+    
+         *
+    
+         * @param pattern
+    
+         *            模式串
+    
+         * @return
+    
+         */
+    
+        public static int[] build_good_table(String pattern) &#123;
+    
+            int pLen = pattern.length();
+    
+            int[] good_table = new int[pLen];
+    
+            int lastPrefixPosition = pLen;
+    
+            for (int i = pLen - 1; i &gt;= 0; --i) &#123;
+    
+                if (isPrefix(pattern, i + 1)) &#123;
+    
+                    lastPrefixPosition = i + 1;
+    
+                &#125;
+    
+                good_table[pLen - 1 - i] = lastPrefixPosition - i + pLen - 1;
+    
+            &#125;
+    
+            for (int i = 0; i &lt; pLen - 1; ++i) &#123;
+    
+                int slen = suffixLength(pattern, i);
+    
+                good_table[slen] = pLen - 1 - i + slen;
+    
+            &#125;
+    
+            return good_table;
+    
+        &#125;
+    
+        /**
+    
+         * 前缀匹配
+    
+         */
+    
+        private static boolean isPrefix(String pattern, int p) &#123;
+    
+            int patternLength = pattern.length();
+    
+            for (int i = p, j = 0; i &lt; patternLength; ++i, ++j) &#123;
+    
+                if (pattern.charAt(i) != pattern.charAt(j)) &#123;
+    
+                    return false;
+    
+                &#125;
+    
+            &#125;
+    
+            return true;
+    
+        &#125;
+    
+        /**
+    
+         * 后缀匹配
+    
+         */
+    
+        private static int suffixLength(String pattern, int p) &#123;
+    
+            int pLen = pattern.length();
+    
+            int len = 0;
+    
+            for (int i = p, j = pLen - 1; i &gt;= 0 &amp;&amp; pattern.charAt(i) == pattern.charAt(j); i--, j--) &#123;
+    
+                len += 1;
+    
+            &#125;
+    
+            return len;
+    
+        &#125;
+    
+    &#125;  
+  
+</code></pre>
+<h4 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h4><p>KMP 算法是 D.E.Knuth、J,H,Morris 和 V.R.Pratt 三位神人共同提出的，称之为 Knuth-Morria-Pratt<br>算法，简称 KMP 算法。该算法相对于 Brute-<br>Force（暴力）算法有比较大的改进，主要是消除了主串指针的回溯，从而使算法效率有了某种程度的提高。详情参照：<a target="_blank" rel="noopener" href="https://blog.csdn.net/dark_cy/article/details/88698736">https://blog.csdn.net/dark_cy/article/details/88698736</a></p>
+<pre><code class="java">    public class KMP &#123;
+    
+        private int[][] dp;
+    
+        private String pat;
+    
+        public KMP(String pat) &#123;
+    
+            this.pat = pat;
+    
+            int M = pat.length();
+    
+            // dp[状态][字符] = 下个状态
+    
+            dp = new int[M][256];
+    
+            // base case
+    
+            dp[0][pat.charAt(0)] = 1;
+    
+            // 影子状态 X 初始为 0
+    
+            int X = 0;
+    
+            // 构建状态转移图（稍改的更紧凑了）
+    
+            for (int j = 1; j &lt; M; j++) &#123;
+    
+                for (int c = 0; c &lt; 256; c++) &#123;
+    
+                    dp[j][c] = dp[X][c];
+    
+                dp[j][pat.charAt(j)] = j + 1;
+    
+                // 更新影子状态
+    
+                X = dp[X][pat.charAt(j)];
+    
+            &#125;
+    
+        &#125;
+    
+        public int search(String txt) &#123;
+    
+            int M = pat.length();
+    
+            int N = txt.length();
+    
+            // pat 的初始态为 0
+    
+            int j = 0;
+    
+            for (int i = 0; i &lt; N; i++) &#123;
+    
+                // 计算 pat 的下一个状态
+    
+                j = dp[j][txt.charAt(i)];
+    
+                // 到达终止态，返回结果
+    
+                if (j == M) return i - M + 1;
+    
+            &#125;
+    
+            // 没到达终止态，匹配失败
+    
+            return -1;
+    
+        &#125;
+    
+    &#125;  
+  
+</code></pre>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>动态规划实际上是一类题目的总称，并不是指某个固定的算法。动态规划的意义就是通过采用递推（或者分而治之）的策略，通过解决大问题的子问题从而解决整体的做法。动态规划的核心思想是巧妙的将问题拆分成多个子问题，通过计算子问题而得到整体问题的解。而子问题又可以拆分成更多的子问题，从而用类似递推迭代的方法解决要求的问题。<br>动态规划的解题核心主要分为两步：</p>
+<ul>
+<li>第一步：状态的定义</li>
+<li>第二步：状态转移方程的定义</li>
+</ul>
+<h3 id="优化问题"><a href="#优化问题" class="headerlink" title="优化问题"></a>优化问题</h3><p>一个背包的总容量为V,现在有N类物品,第i类物品的重量为weight[i],价值为value[i]<br>那么往该背包里装东西,怎样装才能使得最终包内物品的总价值最大。这里装物品主要由三种装法：</p>
+<ul>
+<li>0-1背包：每类物品最多只能装一次</li>
+<li>多重背包：每类物品都有个数限制，第i类物品最多可以装num[i]次</li>
+<li>完全背包：每类物品可以无限次装进包内</li>
+</ul>
+<p>1、0-1背包的解法<br>假设我们已经求出前i-1件物品装入容量j的背包的价值总和最大值为dp[i-1][j],固定容量j的值不变，则对第i件物品的装法讨论如下：<br>首先第i件物品的重量weight[i]必须小于等于容量j才行，即</p>
+<ul>
+<li><p>若weight[i]&gt;j,则第i件物品肯定不能装入容量为j的背包，此时dp[i][j]=dp[i-1][j]</p>
+</li>
+<li><p>若weight[i]&lt;=j,则首先明确的是这件物品是可以装入容量为j的背包的，那么如果我们将该物品装入，则有 dp[i][j]=dp[i-1][j-weight[i]]+value[i]</p>
+<pre><code class="java">
+public int zeroOnePack(int V, int N, int[] weight, int[] value)&#123;
+
+    //初始化动态规划数组
+
+    int[][] dp = new int[N + 1][V + 1];
+
+    //为了便于理解,将dp[i][0]和dp[0][j]均置为0，从1开始计算
+
+    for(int i = 1; i &lt; N + 1; i++)&#123;
+
+        for(int j = 1; j &lt; V + 1; j++)&#123;
+
+            //如果第i件物品的重量大于背包容量j,则不装入背包
+
+            //由于weight和value数组下标都是从0开始,故注意第i个物品的重量为weight[i-1],价值为value[i-1]
+
+            if(weight[i- 1] &gt; j)
+
+                dp[i][j] = dp[i-1][j];
+
+            else
+
+                dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-weight[i-1]] + value[i-1]);
+
+        &#125;
+
+    &#125;
+
+    return dp[N][V];  
+
+&#125;  
+</code></pre>
+<p>2、多重背包的解法  </p>
+<pre><code class="java">public int manyPack(int V,int N,int[] weight,int[] value,int[] num)&#123;
+
+    //初始化动态规划数组
+
+    int[][] dp = new int[N+1][V+1];
+
+    //为了便于理解,将dp[i][0]和dp[0][j]均置为0，从1开始计算
+
+    for(int i=1; i&lt;N+1; i++)&#123;
+
+        for(int j=1; j&lt;V+1; j++)&#123;
+
+            //如果第i件物品的重量大于背包容量j,则不装入背包
+
+            //由于weight和value数组下标都是从0开始,故注意第i个物品的重量为weight[i-1],价值为value[i-1]
+
+            if(weight[i-1] &gt; j)
+
+                dp[i][j] = dp[i-1][j];
+
+            else&#123;
+
+                //考虑物品的件数限制
+
+                int maxV = Math.min(num[i-1], j / weight[i-1]);
+
+                for(int k=0; k&lt;maxV+1; k++)&#123;
+
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-k*weight[i-1]] + k*value[i-1]);
+
+                &#125;
+
+            &#125;
+
+        &#125;
+
+    &#125;
+
+    return dp[N][V];
+
+&#125;  
+</code></pre>
+<p>3、完全背包的解法  </p>
+<pre><code class="java">
+/**
+
+ * 第二类背包：完全背包
+
+ * 思路分析：
+
+ * 0-1背包问题是在前一个子问题（i-1种物品）的基础上来解决当前问题（i种物品），
+
+ * 向i-1种物品时的背包添加第i种物品；而完全背包问题是在解决当前问题（i种物品）
+
+ * 向i种物品时的背包添加第i种物品。
+
+ * 推公式计算时，f[i][y] = max&#123;f[i-1][y], (f[i][y-weight[i]]+value[i])&#125;，
+
+ * 注意这里当考虑放入一个物品 i 时应当考虑还可能继续放入 i，
+
+ * 因此这里是f[i][y-weight[i]]+value[i], 而不是f[i-1][y-weight[i]]+value[i]。
+
+ * @return
+
+ */
+
+public int completePack(int V, int N, int[] weight, int[] value)&#123;
+
+    //初始化动态规划数组
+
+    int[][] dp = new int[N+1][V+1];
+
+    //为了便于理解,将dp[i][0]和dp[0][j]均置为0，从1开始计算
+
+    for(int i=1; i&lt;N+1; i++)&#123;
+
+        for(int j=1; j&lt;V+1; j++)&#123;
+
+            //如果第i件物品的重量大于背包容量j,则不装入背包
+
+            //由于weight和value数组下标都是从0开始,故注意第i个物品的重量为weight[i-1],价值为value[i-1]
+
+            if(weight[i-1] &gt; j)
+
+                dp[i][j] = dp[i-1][j];
+
+            else
+
+                dp[i][j] = Math.max(dp[i-1][j], dp[i][j-weight[i-1]] + value[i-1]);
+
+        &#125;
+
+    &#125;
+
+    //则容量为V的背包能够装入物品的最大值为
+
+    return dp[N][V];
+
+&#125;  
+</code></pre>
+<h3 id="组合问题"><a href="#组合问题" class="headerlink" title="组合问题"></a>组合问题</h3></li>
+</ul>
+<p>给你不同面值的硬币数组coins和总金额amount。 编写一个函数来计算组成该amount的组合的数量。每种硬币的个数是无限的。<br>注意：假设</p>
+<ul>
+<li><p>0 &lt;= amount &lt;= 5000</p>
+</li>
+<li><p>1 &lt;= coin &lt;= 5000</p>
+</li>
+<li><p>the number of coins is less than 500</p>
+</li>
+<li><p>the answer is guaranteed to fit into signed 32-bit integer</p>
+<pre><code class="java">public int change(int amount, int[] coins) &#123;  
+
+    int[] dp = new int[amount+1];  
+
+    dp[0] = 1;  
+
+    for(int i=0; i&lt;coins.length; i++)&#123;  
+
+        for(int j=0; j&lt;amount+1; j++)&#123;  
+
+            if(j-coins[i] &gt;= 0)&#123;  
+
+                dp[j] += dp[j-coins[i]];  
+
+            &#125;  
+
+        &#125;  
+
+    &#125;  
+
+    return dp[amount];  
+
+&#125;  
+</code></pre>
+<h2 id="海量数据处理"><a href="#海量数据处理" class="headerlink" title="海量数据处理"></a>海量数据处理</h2></li>
+</ul>
+<h3 id="散列分治"><a href="#散列分治" class="headerlink" title="散列分治"></a>散列分治</h3><p>问题：海量日志数据，提取出某日访问百度次数最多的那个IP<br>算法思想：分而治之+Hash</p>
+<ul>
+<li>IP地址最多有2^32=4G种取值情况，所以不能完全加载到内存中处理；</li>
+<li>可以考虑采用“分而治之”的思想，按照IP地址的hash(ip)%1024, 把海量IP日志分别存储到1024个小文件中。这样，每个小文件最多包含4MB个IP地址；</li>
+<li>对于每个小文件，可以构建一个ip为key，出现次数为value的Hash_map，同时记录当前出现次数最多的那个ip地址，总共1000个IP；</li>
+<li>堆/快速排序，统计出1000个频率最高的IP后，依据他们各自频率的大小进行排序，找出最终那个出现频率最高的IP，即为所求。</li>
+</ul>
+<h3 id="多层划分"><a href="#多层划分" class="headerlink" title="多层划分"></a>多层划分</h3><p>问题：找出5亿个int整数的中位数<br>算法思路：</p>
+<ul>
+<li>将数据按照数据空间分为0-9999999，10000000-999999999, ……大概50个部分，每一部分存入一个小文件</li>
+<li>统计每个小文件中的元素个数，由于文件之间相对有序，可以容易得出中位数是位于哪一个文件之中</li>
+<li>并可以得出中位数在该小文件中的排序次序，用相同的方法对小文件进行处理，当文件内容比较小的时候可以直接在内存中进行找中位数操作</li>
+<li>对于n个随机数找k小元素的时间复杂度是O(n),所以总的时间复杂度为O(n)</li>
+</ul>
+<h3 id="外排序"><a href="#外排序" class="headerlink" title="外排序"></a>外排序</h3><p>问题：给定一个文件，里面最多含有n个不重复的正整数（也就是说可能含有少于n个不重复正整数），且其中每个数都小于等于n，n=10^7；得到按从小到大升序排列的包含所有输入的整数的列表；最多有大约1MB的内存空间可用，但磁盘空间足够。且要求运行时间在5分钟以下，10秒为最佳结果。<br>算法思路：</p>
+<ul>
+<li>将每个文件最开始的数读入(由于有序，所以为该文件最小数)，存放在一个大小为40的first_data数组中</li>
+<li>选择first_data数组中最小的数min_data，及其对应的文件索引index</li>
+<li>将first_data数组中最小的数写入文件result，然后更新数组first_data(根据index读取该文件下一个数代替min_data)</li>
+<li>判断是否所有数据都读取完毕，否则返回2</li>
+</ul>
+<h3 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h3><p>问题：给定40亿个不重复的没排过序的整数型，然后若再给定一个数，如何快速判断这个数是否在这40亿个整数当中？<br>算法思路：</p>
+<ul>
+<li>可以用位图的方式，申请512MB的内存，一个位代表一个整型的值，读入40亿个数，设置相应的位</li>
+<li>读入要查询的数，查看相应位是否为1，如果为1表示存在，如果为0表示不存在</li>
+</ul>
+<h3 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h3><p>问题：给定A和B两个文件，各存放50亿条URL，每条URL占用64字节，内存限制是4GB，请找出A和B两个文件中共同的URL<br>算法思路：</p>
+<ul>
+<li>如果允许有一定的误差率，可以使用布隆过滤器，4GB内存大致可以表示340亿位</li>
+<li>将其中一个文件中的URL使用布隆过滤器映射到340亿位，然后挨个检查另一个文件的URL，检查这两个URL是否相同</li>
+</ul>
+<h3 id="Trie树"><a href="#Trie树" class="headerlink" title="Trie树"></a>Trie树</h3><p>Trie又称前缀树或字典树，是一种有序树，用于保存关联数组，其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。</p>
+<p><img src="/images/algorithm/trie.jpg" alt="Trie树"></p>
+<ul>
+<li>根节点不包含字符，除根节点意外每个节点只包含一个字符</li>
+<li>从根节点到某一个节点，路径上经过的字符连接起来，为该节点对应的字符串</li>
+<li>每个节点的所有子节点包含的字符串不相同</li>
+</ul>
+<p>优点：可以最大限度地减少无谓的字符串比较，故可以用于词频统计和大量字符串排序<br>跟哈希表比较：</p>
+<ul>
+<li>最坏情况时间复杂度比hash表好</li>
+<li>没有冲突，除非一个key对应多个值（除key外的其他信息）</li>
+<li>自带排序功能（类似Radix Sort），中序遍历trie可以得到排序</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>虽然不同单词共享前缀，但其实trie是一个以空间换时间的算法。其每一个字符都可能包含至多字符集大小数目的指针（不包含卫星数据）；每个结点的子树的根节点的组织方式有几种。  </p>
+</li>
+<li><p>*（1）如果默认包含所有字符集，则查找速度快但浪费空间（特别是靠近树底部叶子）**<br>（2）如果用链接法(如左儿子右兄弟)，则节省空间但查找需顺序（部分）遍历链表  </p>
+</li>
+<li><p>*（3）alphabet reduction: 减少字符宽度以减少字母集个数** （4）对字符集使用bitmap，再配合链接法。</p>
+</li>
+<li><p>如果数据存储在外部存储器等较慢位置，Trie会较hash速度慢（hash访问O(1)次外存，Trie访问O(树高)）。</p>
+</li>
+<li><p>长的浮点数等会让链变得很长。可用bitwise trie改进。</p>
+</li>
+</ul>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>问题：散列索引的效率比B树高很多，但是为什么常见的数据库中一般都不用散列索引而使用B树索引哪？</p>
+<ul>
+<li>hash表存在散列冲突问题</li>
+<li>hash表的一般利用率仅为50%，这就会占用大量的存储空间而实际应用的空间却不多。B树和hash表都很灵活适用于多表查找和存储，可是当存储比例达到一定程度时hash表必须进行扩容才能维持之后的操作，而B树不用</li>
+<li>不过网上有人对此的见解是要更多的考虑磁盘和内存I/O之间的效率，而hash则是随机存取效率低下，不过我觉得这并不成立。B树对平衡维持和空间利用率处理不错，而且B树本身的规则保证了B树不会出现低效的情况，而hash不支持模糊查询和区域查询。B树在插入和删除时仍然保持高效率而不会随着进程的推移发生改变。</li>
+</ul>
+<h3 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h3><p>倒排索引是一种索引方法，用于存储在全文搜索下某个单词在一个文档或者一组文档中的存储位置的映射，常用于搜索引擎和关键词查询等问题。<br>以英文为例，下列是要被索引的文本：  </p>
+<pre><code>    T0 = &#39;it is what it is&#39;
+    
+    T1 = &#39;what its it&#39;
+    
+    T2 = &#39;it is a banana&#39;  
+  
+</code></pre>
+<p>能得到的倒排索引如下：  </p>
+<pre><code>    &#39;a&#39;: &#123;2&#125;
+    
+    &#39;banana&#39;: &#123;2&#125;
+    
+    &#39;is&#39;: &#123;0, 1, 2&#125;
+    
+    &#39;it&#39;: &#123;0, 1, 2&#125;
+    
+    &#39;what&#39;: &#123;0, 1&#125;  
+  
+</code></pre>
+<h3 id="simhash算法"><a href="#simhash算法" class="headerlink" title="simhash算法"></a>simhash算法</h3><p>SimHash算法主要有五个过程：分词、Hash、加权、合并、降维。<br><img src="/images/algorithm/simhash.png" alt="SimHash算法"><br>（1）分词<br>对给定的一段文本进行分词，产生n个特征词，并赋予每个特征词一个权重。比如一段文本为“中国科大计算机系的学生的能力怎么样”，产生的特征词就应该是“中国科大”、“计算机系”、“的”、“学生”、“能力”、“怎么样”，然后对这些词分别赋予权重，假设有1-5五个分类，分词之后以上五个词便会各有一个权重，比如中国科大（4）、计算机系（3）、的（1）、学生（4）、能力（5）、怎么样（3）。<br>其中，数字越大，代表特征词在句子中的重要性就越高。这样，我们就得到了一个文本的分词的词向量和每个词向量对应的权重。</p>
+<p>（2）Hash<br>通过hash函数对每一个词向量进行映射，产生一个n位二进制串，比如CSDN的hash值就是100101。</p>
+<p>（3）加权<br>前面的计算我们已经得到了每个词向量的Hash串和该词向量对应的权重，这一步我们计算权重向量W=hash*weight。<br>具体的计算过程如下：hash二进制串中为1的乘以该特征词的分词权重，二进制串中为0的乘以该特征词的分词权重后取负，继而得到权重向量。<br>举个例子，CSDN的hash二进制串是100101，CSDN的权重是3，那么生成的权重向量就是[3，-3，-3，3，-3，3]。</p>
+<p>（4）合并<br>对于一个文本，我们计算出了文本分词之后每一个特征词的权重向量，在合并这个阶段，我们把文本所有词向量的权重向量相累加，得到一个新的权重向量，形如[3，4，1，5，-5，1]</p>
+<p>（5）降维<br>对于前面合并后得到的文本的权重向量，大于0的位置1，小于等于0的位置0，就可以得到该文本的SimHash值，以上面提到的[3，4，1，5，-5，1]为例，我们得到[1，1，1，1，0，1]这个bit串，也就是论文中提及的该文本的指纹。<br>到此为止，我们已经计算出了一个文本的SimHash值，即可使用海明距离计算相似度。</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><h4 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h4><p>平衡二叉树是基于二分法的策略提高数据的查找速度的二叉树的数据结构；平衡二叉树是采用二分法思维把数据按规则组装成一个树形结构的数据，用这个树形结构的数据减少无关数据的检索，大大的提升了数据检索的速度；平衡二叉树的数据结构组装过程有以下规则：</p>
+<ul>
+<li>非叶子节点最多拥有两个子节点</li>
+<li>非叶子节值大于左边子节点、小于右边子节点</li>
+<li>树的左右两边的层级数相差不会大于1</li>
+<li>没有值相等重复的节点</li>
+</ul>
+<p>平衡树的层级结构：因为平衡二叉树查询性能和树的层级（h高度）成反比，h值越小查询越快、为了保证树的结构左右两端数据大致平衡降低二叉树的查询难度一般会采用一种算法机制实现节点数据结构的平衡，实现了这种算法的有比如Treap、红黑树，使用平衡二叉树能保证数据的左右两边的节点层级相差不会大于1.，通过这样避免树形结构由于删除增加变成线性链表影响查询效率，保证数据平衡的情况下查找数据的速度近于二分法查找。</p>
+<h4 id="B-树"><a href="#B-树" class="headerlink" title="B-树"></a>B-树</h4><p>B-树和平衡二叉树稍有不同的是B-树属于多叉树又名平衡多路查找树（查找路径不只两个），数据库索引技术里大量使用者B-树和B+树的数据结构。</p>
+<ul>
+<li>排序方式：所有节点关键字是按递增次序排列，并遵循左小右大原则</li>
+<li>子节点数：非叶节点的子节点数&gt;1，且&lt;=M ，且M&gt;=2，空树除外（注：M阶代表一个树节点最多有多少个查找路径，M=M路,当M=2则是2叉树,M=3则是3叉）</li>
+<li>关键字数：枝节点的关键字数量大于等于ceil(m/2)-1个且小于等于M-1个（注：ceil()是个朝正无穷方向取整的函数 如ceil(1.1)结果为2)</li>
+<li>所有叶子节点均在同一层、叶子节点除了包含了关键字和关键字记录的指针外也有指向其子节点的指针只不过其指针地址都为null对应下图最后一层节点的空格子<br>最后我们用一个图和一个实际的例子来理解B-树（这里为了理解方便我就直接用实际字母的大小来排列C&gt;B&gt;A）:<br><img src="/images/algorithm/B-Tree.jpg" alt="B-树"><br>特点:<br>B-树相对于平衡二叉树的不同是，每个节点包含的关键字增多了，特别是在B树应用到数据库中的时候，数据库充分利用了磁盘块的原理（磁盘数据存储是采用块的形式存储的，每个块的大小为4K，每次IO进行数据读取时，同一个磁盘块的数据可以一次性读取出来）把节点大小限制和充分使用在磁盘快大小范围；把树的节点关键字增多后树的层级比原来的二叉树少了，减少数据查找的次数和复杂度。</li>
+</ul>
+<h4 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B+树"></a>B+树</h4><p>B+树是B树的一个升级版，相对于B树来说B+树更充分的利用了节点的空间，让查询速度更加稳定，其速度完全接近于二分法查找。为什么说B+树查找的效率要比B树更高、更稳定；我们先看看两者的区别。</p>
+<ul>
+<li><p>B+跟B树不同，B+树的非叶子节点不保存关键字记录的指针，只进行数据索引，这样使得B+树每个非叶子节点所能保存的关键字大大增加</p>
+</li>
+<li><p>B+树叶子节点保存了父节点的所有关键字记录的指针，所有数据地址必须要到叶子节点才能获取到。所以每次数据查询的次数都一样；</p>
+</li>
+<li><p>B+树叶子节点的关键字从小到大有序排列，左边结尾数据都会保存右边节点开始数据的指针。</p>
+</li>
+<li><p>非叶子节点的子节点数=关键字数（来源百度百科）（根据各种资料 这里有两种算法的实现方式，另一种为非叶节点的关键字数=子节点数-1（来源维基百科)，虽然他们数据排列结构不一样，但其原理还是一样的Mysql 的B+树是用第一种方式实现）;<br><img src="/images/algorithm/B+Tree.jpg" alt="B+树"><br>特点:</p>
+</li>
+<li><p>B+树的层级更少：相较于B树B+每个非叶子节点存储的关键字数更多，树的层级更少所以查询数据更快</p>
+</li>
+<li><p>B+树查询速度更稳定：B+所有关键字数据地址都存在叶子节点上，所以每次查找的次数都相同所以查询速度要比B树更稳定</p>
+</li>
+<li><p>B+树天然具备排序功能：B+树所有的叶子节点数据构成了一个有序链表，在查询大小区间的数据时候更方便，数据紧密性很高，缓存的命中率也会比B树高</p>
+</li>
+<li><p>B+树全节点遍历更快：B+树遍历整棵树只需要遍历所有的叶子节点即可，，而不需要像B树一样需要对每一层进行遍历，这有利于数据库做全表扫描</p>
+</li>
+<li><p>B树相对于B+树的优点是，如果经常访问的数据离根节点很近，而B树的非叶子节点本身存有关键字其数据的地址，所以这种数据检索的时候会要比B+树快</p>
+</li>
+</ul>
+<h3 id="B-树-2"><a href="#B-树-2" class="headerlink" title="B*树"></a>B*树</h3><p>B*树是B+树的变种，相对于B+树他们的不同之处如下：</p>
+<ul>
+<li>首先是关键字个数限制问题，B+树初始化的关键字初始化个数是cei(m/2)，b <em>树的初始化个数为（cei(2/3</em> m)）</li>
+<li>B+树节点满时就会分裂，而B*树节点满时会检查兄弟节点是否满（因为每个节点都有指向兄弟的指针），如果兄弟节点未满则向兄弟节点转移关键字，如果兄弟节点已满，则从当前节点和兄弟节点各拿出1/3的数据创建一个新的节点出来</li>
+<li>在B+树的基础上因其初始化的容量变大，使得节点空间使用率更高，而又存有兄弟节点的指针，可以向兄弟节点转移关键字的特性使得B*树额分解次数变得更少；</li>
+</ul>
+<p><img src="/images/algorithm/BTree.jpg" alt="B*树"></p>
+</div><div class="tags"></div><div class="post-nav"><a class="next" href="/2023/02/18/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"></a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://example.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">知识体系-常见算法知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">知识体系-数据仓库知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/Hadoop%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7/">Hadoop数据完整性</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/Hadoop%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98/">Hadoop参数调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/Hadoop%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88HDFS%EF%BC%89/">Hadoop分布式文件系统（HDFS）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/01/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">数据管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/01/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/01/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">用户画像</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">Blogs.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
