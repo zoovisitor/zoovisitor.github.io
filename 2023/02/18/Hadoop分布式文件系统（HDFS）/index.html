@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title> | Blogs</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Blogs</h1><a id="logo" href="/.">Blogs</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-meta">2023-02-18</div><div class="post-content"><h1 id="Hadoop分布式文件系统（HDFS）"><a href="#Hadoop分布式文件系统（HDFS）" class="headerlink" title="Hadoop分布式文件系统（HDFS）"></a>Hadoop分布式文件系统（HDFS）</h1><p>HDFS有着高容错性（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high<br>throughput）来访问应用程序的数据，适合那些有着超大数据集（large data<br>set）的应用程序。HDFS放宽了（relax）POSIX的要求（requirements）这样可以实现流的形式访问（streaming<br>access）文件系统中的数据。</p>
+<h2 id="1-设计目的"><a href="#1-设计目的" class="headerlink" title="1 设计目的"></a>1 设计目的</h2><ul>
+<li>易于扩展的分布式文件系统</li>
+<li>运行在大量普通廉价机器上，提供完备的容错机制</li>
+<li>为大量用户提供性能不错的文件存取服务</li>
+</ul>
+<h2 id="2-HDFS的概念"><a href="#2-HDFS的概念" class="headerlink" title="2 HDFS的概念"></a>2 HDFS的概念</h2><h3 id="2-1-数据块"><a href="#2-1-数据块" class="headerlink" title="2.1 数据块"></a>2.1 数据块</h3><p>在磁盘中，每个磁盘都有默认的数据块大小，这是磁盘进行数据读、写的最小单位，磁盘块一般为512字节。在分布式文件系统中，数据块一般远大于磁盘块的大小，并且为磁盘块大小的整数倍，例如，HDFS<br>block size默认为128MB。</p>
+<p>分布式存储系统中选择大block<br>size的主要原因是为了最小化寻址开销，使得磁盘传输数据的时间可以明显大于定位这个块所需的时间。然而，在HDFS中block<br>size也不好设置的过大，这是因为MapReduce中的map任务通常一次处理一个块中的数据，因此如果block太大，则map数就会减少，作业运行的并行度就会受到影响，速度就会较慢。</p>
+<p>使用数据块的这种设计主要有以下优势：</p>
+<ul>
+<li>存储的文件大小可以大于集群中任意一个磁盘的容量。这很好理解，文件被划分到多个block中存储，对磁盘透明</li>
+<li>使用block抽象而非整个文件作为存储单元，可以极大简化存储子系统的设计，因为block size是统一的，因此一个节点上可以存储多少block就是可以推算的</li>
+<li>Block 非常适合用于数据备份，进而提供数据容错能力和可用性</li>
+</ul>
+<h3 id="2-2-元数据节点（NameNode）"><a href="#2-2-元数据节点（NameNode）" class="headerlink" title="2.2 元数据节点（NameNode）"></a>2.2 元数据节点（NameNode）</h3><p>NameNode管理文件系统的命名空间，维护着文件系统树及整棵树内所有的文件和目录，这些信息以命名空间镜像文件和编辑日志文件的形式永久的保留在本地磁盘上。同时，NameNode也记录着每个文件中各个块所在的数据节点信息。</p>
+<p>所有的文件访问都要通过NameNode来进行，所以NameNode至关重要，因此对NameNode实现容错非常重要，Hadoop为此提供了两种机制：</p>
+<ul>
+<li>把文件元数据写入NFS（网络文件系统），备份在另一台机器上，并保持这些写操作是实时同步，且具有原子性</li>
+<li>运行辅助的NameNode，不过这个NameNode并不提供服务，它只是把操作日志Merge到Metadata中，但是如果主NameNode失效，总是有一部分数据来不及Merge，会造成数据丢失，所以一般的做法还是把NFS中备份的数据拷贝到这个NameNode，并作为主NameNode运行</li>
+</ul>
+<h3 id="2-3-数据节点（DataNode）"><a href="#2-3-数据节点（DataNode）" class="headerlink" title="2.3 数据节点（DataNode）"></a>2.3 数据节点（DataNode）</h3><p>DataNode是文件系统的工作节点，它根据需要存储并检索数据块（受客户端或NameNode调度），并且定期向NameNode发送它们所存储的块的列表。</p>
+<p>DataNode以数据块作为容错单位，通常一个数据块会被复制到三个DataNode上去。一旦某个数据块访问失效，则去其他备份的机器上去读取。并且会把这个数据块再进行一次复制，以达到备份标准。</p>
+<p>也就是说，DataNode不是在机器级别上进行备份，而是在数据块级别上进行备份，这样就大大节省了机器数量。</p>
+<h3 id="2-4-联邦HDFS"><a href="#2-4-联邦HDFS" class="headerlink" title="2.4 联邦HDFS"></a>2.4 联邦HDFS</h3><p>NameNode在内存中保存文件系统中每个文件和每个数据块的引用关系，这意味着对于一个拥有大量文件的超大集群来说，内存将成为限制系统横向扩展的瓶颈。在Hadoop<br>2.x中引入了联邦HDFS，允许系统通过添加NameNode实现扩展。其中，每个NameNode管理文件系统命名空间中的一部分。</p>
+<p>在联邦环境下，每个NameNode维护一个命名空间卷，包括命名空间的元数据和在该命名空间下的文件的所有数据块的数据块池。命名空间卷之间相互独立，互相之间不相互通信，甚至当一个命名空间卷失效也不会影响由其他NameNode维护的命名空间卷的可用性。</p>
+<h2 id="3-HDFS的高可用性"><a href="#3-HDFS的高可用性" class="headerlink" title="3 HDFS的高可用性"></a>3 HDFS的高可用性</h2><p>由于NameNode是唯一存储元数据与文件到数据块映射的地方，虽然系统拥有NameNode的容错机制，但是NameNode依然存在单点失效（SPOF）的问题。在这种情况下，管理员需要启动一个新的NameNode，新的NameNode需要满足以下情况才可以响应服务：</p>
+<ul>
+<li>将命名空间的映像导入内存</li>
+<li>重做编辑日志</li>
+<li>接收到足够多的来自DataNode的数据块报告并退出安全模式</li>
+</ul>
+<p>但是对于一个大型的集群来说，NameNode冷启动往往需要很长的时间。针对上述问题，Hadoop<br>2.x增加了对高可用性的支持，当活动的NameNode失效时，备用NameNode就会接管它的任务，并开始响应请求服务，不会有明显的中断，，实现这个一目标需要在架构上做如下修改：</p>
+<ul>
+<li>NameNode之间需要通过高可用的共享存储实现编辑日志的共享</li>
+<li>DataNode需要同时向两个NameNode发送数据块处理报告</li>
+<li>客户端需要使用特定的机制来处理NameNode的失效问题</li>
+</ul>
+<p><strong>注：故障转移控制器（早期基于ZooKepper实现）可以监视寄主NameNode是否失效（心跳机制），并在失效时进行故障切换。</strong></p>
+<h2 id="4-文件读取"><a href="#4-文件读取" class="headerlink" title="4 文件读取"></a>4 文件读取</h2><p>客户端通过调用FileSystem对象的open()方法来打开希望读取的文件，对于HDFS而言，这个对象是分布式文件系统的实例（步骤1），DistributedFileSystem<br>通过使用 RPC<br>来调用NameNode，已确定文件起始块的位置（步骤2），包括该数据块及它的副本的DataName的地址，并根据它们和客户端的距离进行排序。</p>
+<p><img src="images/hadoop/%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%BB%E5%8F%96HDFS%E6%95%B0%E6%8D%AE.png" alt="客户端读取HDFS数据流程图"></p>
+<p>DistributedFileSystem返回一个FSDataInputStream对象给客户端，客户端利用这个输入流调用read方法（步骤3），随即<br>FSDataInputStream连接距离<br>最近的DataNode，反复调用read方法，将数据从DataNode传输给客户端（步骤4），到达数据块的末尾时，关闭数据流与DataNode之间的连接，然后寻找下一个数据块的最佳DataNode（步骤5）。</p>
+<p>客户端从流中读取数据时，FSDataInputStream会根据需要询问NameNode来检索下一批数据块的DataNode的位置，一旦客户端读取完成，就调用close方法。</p>
+<p>在读取数据时，如果DFSInputStream在与DataNode通信时遇到错误，会尝试从这个块的另一个最邻近位置读取数据，并记录故障的DataNode，防止后续不断的访问故障的DataNode中的其他数据块。DFSInputStream会通过校验和确认从DataNode读取的数据是否完整，如果发现有损坏的块，就会在DFSInputStream从其他DataNode读取其他副本之前通知NameNode。</p>
+<p>上述的设计方法的有以下几个重点：</p>
+<ul>
+<li>NameNode告知客户端每个块中最佳的DataNode，并让客户端直接连接到该DataNode检索数据</li>
+<li>由于数据流分散在集群中的所有DataNode，所以这种设计能使HDFS可扩展到大量的并发客户端</li>
+<li>NameNode只需响应块位置的请求，无需响应数据请求，避免由于客户端的增长而使NameNode成为瓶颈</li>
+</ul>
+<h2 id="5-文件写入"><a href="#5-文件写入" class="headerlink" title="5 文件写入"></a>5 文件写入</h2><p>客户端通过DistributedFileSystem对NameNode创建一个RPC调用，在命名空间中创建一个文件，对象调用create函数来创建文件（步骤1），DistributedFileSystem对NameNode创建一个RPC调用，在命名空间中创建一个还没有数据块的文件（步骤2），NameNode执行不同的检测以确定文件不存在，且客户端有新建文件的权限。如果检验通过，则会向客户端返回一个FSDataOutputStream对象，该对象封装了一个DFSOutputStream对象，负责处理NameNode与DataNode之间的通信。</p>
+<p><img src="images/hadoop/%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%88%B0HDFS.png" alt="客户端写入数据到HDFS流程图"></p>
+<p>在客户单写入数据时(步骤3)，DFSOutputStream对象将数据分为一个个的数据包，构成数据队列。DataStreamer处理数据队列，它根据DataNode的队列要求NameNode分配合适的数据块来存放复本，假设系统设置的副本数为3，DataStreamer将数据包流式的传输给第1个DataNode，该DataNode存储数据包并将它发送到管道中的第2个DataNode，同样的第2个DataNode存储数据并它发送到管道中的第3个DataNode（步骤4）。</p>
+<p>DFSOutputStream也维护一个数据包队列来等待DataNode的收到确认回执，称为“确认队列”。收到队列中所有DataNode确认信息后，该数据包才会从确认队列中删除（步骤5）。</p>
+<p>如果在数据写入期间DataNode发生故障，则执行以下操作：<br>（1）首先关闭管道，确定把队列中的数据包都添加会数据队列的最前端，以确保故障节点的下游的DataNode不会漏掉任何一个数据包；<br>（2）为存储在另一正常DataNode的当前数据块制定一个新的标识，并将该标识传给NameNode，以便故障节点DataNode在恢复后可以删除存储的部分数据块；<br>（3）从管线中删除故障数据节点并且把余下的数据块写入管线中的两个正常的DataNode；<br>（4）namenode注意到块复本量不足时，会在另一个节点上创建一个新的复本，后续的数据块继续正常接收处理。</p>
+<p>客户端完成数据的写入后，就会对数据流调用close方法（步骤6）。在向NameNode节点发送完消息之前，此方法会将余下的所有数据包包放入DataNode管线并等待确认（步骤7）。NameNode节点已经知道文件由哪些块组成（通过Data<br>streamer 询问块分配），所以它只需在返回成功前等待块进行最小量的复制即可。</p>
+<p><strong>副本如何放：</strong><br>Hadoop的默认布局策略在运行客户端的节点上放第1个复本（如果客户端运行在集群之外，就随机的选择一个节点，不过系统会避免挑选那些存储太满或太忙的节点），第2个复本放在一个与第一个不同且随机另外选择的机架的节点上。第3个复本与第2个复本放在同一个机架上，且随机选择另一个节点。</p>
+<h2 id="6-HDFS不擅长的方面"><a href="#6-HDFS不擅长的方面" class="headerlink" title="6 HDFS不擅长的方面"></a>6 HDFS不擅长的方面</h2><ul>
+<li>低延迟和高吞吐率的数据访问，比如毫秒级</li>
+<li>小文件存取，占用大量的NameNode内存，寻道时间超过读取时间</li>
+<li>并发写入，文件随机读写，一个文件只能有一个writer，且仅支持append</li>
+</ul>
+</div><div class="tags"></div><div class="post-nav"><a class="next" href="/2022/05/01/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">数据管理</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://example.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/Hadoop%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88HDFS%EF%BC%89/">Hadoop分布式文件系统（HDFS）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/01/%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">数据管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/01/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/01/%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F/">用户画像</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">Blogs.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
