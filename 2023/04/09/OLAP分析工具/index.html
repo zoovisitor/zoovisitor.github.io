@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>OLAP分析工具 | Blogs</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/latest/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/latest/grids-responsive-min.min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/latest/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/latest/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/latest/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/latest/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">OLAP分析工具</h1><a id="logo" href="/.">Blogs</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">OLAP分析工具</h1><div class="post-meta">2023-04-09</div><div class="post-content"><h1 id="数据分析类产品的发展历史"><a href="#数据分析类产品的发展历史" class="headerlink" title="数据分析类产品的发展历史"></a>数据分析类产品的发展历史</h1><ul>
+<li><p>数据库时代<br>在数据库时代，无论硬件性能还是软件扩展能力上，都是有限的，一般采用一些技巧来实现：</p>
+<ul>
+<li>构建CUBE，按照要分析的结果，预计算出结果（例如Kylin），这种方式的缺点在于维度多的时候数据会膨胀的比较厉害、需要预先把要分析的维度加入cube，不够灵活</li>
+<li>分库分表，单表查询在百万以内还能应付，超过千万级别，性能急剧下降，因此一般会根据某些列拆成多表，查询时只需要命中需要的表即可，类似于数仓中的分区概念</li>
+</ul>
+</li>
+<li><p>MapReduce时代，MapReduce算法把成千上万的小型机调动起来进行同一分析程序，解决了大数据的分析时代，sql on hadoop解决了对分析大数据的体验需求。</p>
+</li>
+<li><p>MPP时代，随着硬件的发展，硬件的性能大大加强，出现了一批新的运行框架，例如Spark、Presto，充分利用单机的内存做计算，计算结果通过网络传输给下游，而不是写在磁盘，再传给其他机器。MPP解决了对于快速分析大数据的需求。</p>
+</li>
+<li><p>ClickHouse是2016年俄罗斯开源的OLAP系统，采用了最新的技术，运行速度领先于同类的OLAP引擎。</p>
+</li>
+</ul>
+<h1 id="为什么有ClickHouse"><a href="#为什么有ClickHouse" class="headerlink" title="为什么有ClickHouse"></a>为什么有ClickHouse</h1><p>OLAP场景具备以下特点：</p>
+<ul>
+<li>绝大多数都是读请求</li>
+<li>数据以相当大的批次更新或者根本不更新，且数据一般不修改</li>
+<li>对于读取，从数据库中提取相当多的行，但只提取其中的一部分</li>
+<li>宽表，包含大量的列</li>
+<li>查询的dqc较小，且对于简单的查询啊，允许延迟大约50毫秒，处理单个查询的时需要提高吞吐量</li>
+<li>事务不是不须的，对数据一致性要求低</li>
+<li>每个查询有一个大表，除了他以外，其他都很小</li>
+<li>查询结果明显小于源数据</li>
+</ul>
+<p>OLTP：MySQL、SQL Server、Oracle(关系型数据库)</p>
+<ul>
+<li>优势：事物/金融</li>
+<li>场景：系统业务数据、用户权限、一般千万量以下</li>
+</ul>
+<p>NoSQL(Not Only SQL)：Redis、MongoDB、HBASE、OTS、Lindorm</p>
+<ul>
+<li>优势：Key-Value</li>
+<li>场景：有主键的数据结果指标，30万亿条数据/750TB</li>
+</ul>
+<p>OLAP：ADB、Hologres、Clickhouse</p>
+<ul>
+<li>优势：500TB实时查旋</li>
+<li>场景：交互分析/即席查询，1000亿条数据</li>
+</ul>
+<h1 id="ClickHouse的优点"><a href="#ClickHouse的优点" class="headerlink" title="ClickHouse的优点"></a>ClickHouse的优点</h1><h2 id="列式存储"><a href="#列式存储" class="headerlink" title="列式存储"></a>列式存储</h2><ul>
+<li>针对分析类查询，通常只需要读取一小部分列（行式存储，所有列的数据都存储在一个block中，不参与计算列的IO时也要全部读出），如果只需要读100列的5列，将帮助你最少减少20倍的IO消耗</li>
+<li>同一个列中的数据属于同一个类型，压缩效（不同列的数据具备不同的数据类型，自由的压缩算法可以选择最合适的压缩算法）果显著，更高的压缩比意味着更小的data size，从磁盘中读取IO更小，耗时更短</li>
+<li>由于IO的降低，这将帮助更多的数据被系统缓存</li>
+</ul>
+<h2 id="向量引擎"><a href="#向量引擎" class="headerlink" title="向量引擎"></a>向量引擎</h2><p>向量化主要是利用单条指令操作多条数据，指令称为SIMD指令，在运行时把满足寄存器大小的数据存在寄存器，CPU一条置顶操作寄存器上的多条数据。<br>对内存中的列式数据，一个batch调用一次SIMD指令，减少了函数调用次数，充分发挥SIMD指令的并行能力，向量执行引擎，能够带来数倍的性能提升。<br><img src="/images/clickhouse/smid.png" alt="SIMD容量速度"><br>SIMD具备以下特性：</p>
+<ul>
+<li>距离CPU越近，数据的访问数据越快</li>
+<li>向量化执行可以简单的看作一项消除程序中循环的优化</li>
+<li>向量化引擎的原理是硬件CPU寄存器层面实现数据并行操作</li>
+<li>向量化执行利用CPU的SIMD指（single instruction multiple data）令，即单指令多数据运算</li>
+</ul>
+<h1 id="ClickHouse的限制"><a href="#ClickHouse的限制" class="headerlink" title="ClickHouse的限制"></a>ClickHouse的限制</h1><ul>
+<li>不支持事务，不支持真正的删除/更新</li>
+<li>难以支持高并发业务场景，官方建议qps 100，在服务器足够好的情况下，可以通过修改配置文件增加连接数</li>
+<li>不适合单行的点查询，稀疏索引使得ClickHouse不适合通过其健检索单行的点查询，稀疏索引: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/261130303">https://zhuanlan.zhihu.com/p/261130303</a></li>
+<li>非标准SQL语法</li>
+<li>尽量做1000条以上批量的写入</li>
+<li>CPU消耗，因为采用了并行机制处理，即使一个查询，也会用服务服务器一半的CPU去执行，不支持高并发的使用场景</li>
+<li>过度依赖大宽表</li>
+<li>集群运维复杂，副本机制依赖第三方系统、扩容是需要创建新表重新倒数据、如果数据量大数据表增多，ZooKeeper就会形成性能瓶颈，甚至出现元数据不一致的情况</li>
+</ul>
+</div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2023/04/09/%E6%95%B0%E6%8D%AE%E4%BA%A7%E5%93%81%E4%B8%8E%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E7%9A%84%E6%9E%84%E5%BB%BA/">数据产品与指标体系的构建</a><a class="next" href="/2023/04/09/%E6%95%B0%E6%8D%AE%E6%B9%96/">数据湖</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://example.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/05/05/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/04/09/AB%E5%AE%9E%E9%AA%8C%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BB%BA%E8%AE%BE/">AB实验平台的数据建设</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/04/09/%E6%95%B0%E6%8D%AE%E4%BA%A7%E5%93%81%E4%B8%8E%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E7%9A%84%E6%9E%84%E5%BB%BA/">数据产品与指标体系的构建</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/04/09/OLAP%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/">OLAP分析工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/04/09/%E6%95%B0%E6%8D%AE%E6%B9%96/">数据湖</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">知识体系-常见算法知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%AB%98%E9%A2%91%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">知识体系-编程语言高频知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%A2%B3%E7%90%86/">知识体系-大数据处理常见问题梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">知识体系-数据仓库知识梳理</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/18/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">知识体系-其他常用知识梳理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2023 <a href="/." rel="nofollow">Blogs.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/latest/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js?v=1.0.0" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css?v=1.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
